@@ -5,22 +5,26 @@ force: true
 import { DataSource } from 'typeorm';
 import { ConfigService } from '@nestjs/config';
 import { config } from 'dotenv';
-// Add all entities import here
-import UserEntity from '../entity/user.entity';
+// add import entity
 
 config();
 
 const configService = new ConfigService();
 
-export default new DataSource({
+const AppDataSource = new DataSource({
   type: 'postgres',
   host: configService.get('DATABASE_HOST'),
   port: configService.get('DATABASE_PORT'),
   username: configService.get('DATABASE_USER'),
   password: configService.get('DATABASE_PASSWORD'),
   database: configService.get('DATABASE_NAME'),
+  // migration対象をここで管理する
   entities: [
-    // Add all entities here
+    // add entity after here
   ],
-  migrations: ['./src/migrations/*.ts']
+  migrationsTableName: "app_migrations",
+  migrations: ['./src/database/migrations/*.ts']
 });
+AppDataSource.initialize();
+
+export default AppDataSource;

@@ -7,7 +7,6 @@ import { ConfigModule } from '@nestjs/config';
 import {DatabaseModule} from "./database/database.module";
 import * as Joi from '@hapi/joi';
 // Add all modules import here
-import { UserModule } from './handler/user/user.module';
 
 @Module({
   imports: [
@@ -23,7 +22,6 @@ import { UserModule } from './handler/user/user.module';
     }),
     DatabaseModule,
     // Add all modules here
-    UserModule
   ],
   controllers: [],
   providers: [],

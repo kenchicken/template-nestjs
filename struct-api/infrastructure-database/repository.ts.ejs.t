@@ -1,16 +1,15 @@
 ---
-to: "<%= struct.generateEnable ? `${rootDirectory}/api/src/infrastructure/database/${struct.name.lowerSnakeName}.repository.ts` : null %>"
+to: "<%= struct.generateEnable ? `${rootDirectory}/api/src/infrastructure/database/${struct.name.lowerKebabName}.repository.ts` : null %>"
 force: true
 ---
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import UserEntity from 'src/entity/user.entity';
+import <%= struct.name.pascalName %>Entity from 'src/entity/<%= struct.name.lowerKebabName %>.entity';
 
-export class <%= struct.name.pascalName %>Repository extends Repository<<%= struct.name.pascalName %>Entity> {
+export class <%= struct.name.pascalName %>Repository implements <%= struct.name.pascalName %>RepositoryInterface {
   constructor(
     @InjectRepository(<%= struct.name.pascalName %>Entity)
     private <%= struct.name.lowerSnakeName %>Repository: Repository<<%= struct.name.pascalName %>Entity>
-  ) {
-    super(<%= struct.name.lowerSnakeName %>Repository.target, <%= struct.name.lowerSnakeName %>Repository.manager, <%= struct.name.lowerSnakeName %>Repository.queryRunner);
-  }
+  ) {}
+  
 }

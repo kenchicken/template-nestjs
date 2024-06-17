@@ -1,13 +1,13 @@
 ---
-to: "<%= struct.generateEnable ? `${rootDirectory}/api/src/entity/${struct.name.lowerSnakeName}.entity.ts` : null %>"
+to: "<%= struct.generateEnable ? `${rootDirectory}/api/src/app/entity/${struct.name.lowerKebabName}.entity.ts` : null %>"
 force: true
 ---
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity()
+@Entity('<%= ${struct.name.lowerKebabPluralName} =>')
 class <%= struct.name.pascalName %> {
 <%_ struct.fields.forEach(function (field, key) { -%>
-  <%_ if (field.name.lowerSnakeName === 'id') { -%>
+  <%_ if (field.name.lowerCamelName === 'id') { -%>
     <%_ if (field.dataType === 'string') { -%>
   @PrimaryGeneratedColumn()
   <%= field.name.lowerCamelName %>?: string
@@ -17,7 +17,7 @@ class <%= struct.name.pascalName %> {
   <%= field.name.lowerCamelName %>?: number
     <%_ } -%>
   <%_ } -%>
-  <%_ if (field.name.lowerSnakeName !== 'id') { -%>
+  <%_ if (field.name.lowerCamelName !== 'id') { -%>
     <%_ if (field.dataType === 'string') { -%>
   @Column()
   <%= field.name.lowerCamelName %>?: string

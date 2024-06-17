@@ -1,5 +1,5 @@
 ---
-to: <%= rootDirectory %>/api/src/config/typeOrm.config.ts
+to: <%= rootDirectory %>/api/src/database/database.module.ts
 force: true
 ---
 import { Module } from '@nestjs/common';
@@ -18,7 +18,9 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
         username: configService.get('DATABASE_USER'),
         password: configService.get('DATABASE_PASSWORD'),
         database: configService.get('DATABASE_NAME'),
-        entities: [],
+        entities: [
+          // add entity after here
+        ],
         autoLoadEntities: true,
       })
     }),
