@@ -2,7 +2,7 @@
 to: "<%= struct.generateEnable ? `${rootDirectory}/api/src/repository/${struct.name.lowerKebabName}.repository.interface.ts` : null %>"
 force: true
 ---
-import <%= struct.name.pascalName %Entity from "../entity/<%= struct.name.lowerKebabName %>.entity";
+import <%= struct.name.pascalName %>Entity from "../entity/<%= struct.name.lowerKebabName %>.entity";
 
 // add repository input/output parameter
 
