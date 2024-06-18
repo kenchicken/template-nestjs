@@ -4,7 +4,7 @@ force: true
 ---
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity('<%= ${struct.name.lowerKebabPluralName} =>')
+@Entity('<%= ${struct.name.lowerKebabPluralName} %>')
 class <%= struct.name.pascalName %> {
 <%_ struct.fields.forEach(function (field, key) { -%>
   <%_ if (field.name.lowerCamelName === 'id') { -%>
