@@ -35,7 +35,7 @@ export class <%= struct.name.pascalName %>RepositoryGenerated implements <%= str
     return this.<%= struct.name.lowerSnakeName %>Repository.findOneBy({id})
   }
 
-  async getAll(condition: <%= struct.name.pascalName %>SearchCondition): Promise<<%= struct.name.pascalName %>Entity[]> {
+  async getAll(condition: <%= struct.name.pascalName %>SearchCondition): Promise<<%= struct.name.pascalName %>Entity> {
     return await this.<%= struct.name.lowerSnakeName %>Repository.find({
       where: {
         email: condition.email,
@@ -49,7 +49,7 @@ export class <%= struct.name.pascalName %>RepositoryGenerated implements <%= str
     return Promise.resolve(0);
   }
 
-  getAllWithCursor(condition: <%= struct.name.pascalName %>SearchCondition): Promise<<%= struct.name.pascalName %>Entity[]> {
+  getAllWithCursor(condition: <%= struct.name.pascalName %>SearchCondition): Promise<<%= struct.name.pascalName %>Entity> {
     return Promise.resolve([]);
   }
 
