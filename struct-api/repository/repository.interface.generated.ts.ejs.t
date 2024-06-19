@@ -2,8 +2,8 @@
 to: "<%= struct.generateEnable ? `${rootDirectory}/api/src/repository/${struct.name.lowerKebabName}.repository.interface.generated.ts` : null %>"
 force: true
 ---
-import <%= struct.name.pascalName %>Entity from "../entity/<%= ${struct.name.lowerKebabName} %>.entity";
-import {<%= struct.name.pascalName %>SearchCondition} from "../module/<%= ${struct.name.lowerKebabName} %>/dto/search-<%= ${struct.name.lowerKebabName} %>.dto";
+import <%= struct.name.pascalName %>Entity from "../entity/<%= struct.name.lowerKebabName %>.entity";
+import {<%= struct.name.pascalName %>SearchCondition} from "../module/<%= struct.name.lowerKebabName %>/dto/search-<%= struct.name.lowerKebabName %>.dto";
 
 export abstract class <%= struct.name.pascalName %>RepositoryInterfaceGenerated {
   // query method
