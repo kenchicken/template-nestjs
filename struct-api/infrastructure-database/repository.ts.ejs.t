@@ -1,5 +1,5 @@
 ---
-to: "<%= struct.generateEnable ? `${rootDirectory}/api/src/infrastructure/database/${struct.name.lowerKebabName}.repository.ts` : null %>"
+to: "<%= struct.generateEnable ? `${rootDirectory}/api/src/app/infrastructure/database/${struct.name.lowerKebabName}.repository.ts` : null %>"
 force: true
 ---
 import { InjectRepository } from '@nestjs/typeorm';

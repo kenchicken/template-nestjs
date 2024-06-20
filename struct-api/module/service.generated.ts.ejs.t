@@ -1,11 +1,12 @@
 ---
-to: "<%= struct.generateEnable ? `${rootDirectory}/api/src/module/${struct.name.lowerKebabName}/service/${struct.name.lowerKebabName}.service.ts` : null %>"
+to: "<%= struct.generateEnable ? `${rootDirectory}/api/src/app/module/${struct.name.lowerKebabName}/service/${struct.name.lowerKebabName}.service.generated.ts` : null %>"
 force: true
 ---
 import {Inject, Injectable} from '@nestjs/common';
 import { Create<%= struct.name.pascalName %>Dto } from './dto/create-<%= struct.name.lowerKebabName %>.dto';
 import { Update<%= struct.name.pascalName %>Dto } from './dto/update-<%= struct.name.lowerKebabName %>.dto';
-import { <%= struct.name.pascalName %>RepositoryInterface } from 'src/repository/<%= struct.name.lowerKebabName %>.repository.interface';
+import { Search<%= struct.name.pascalName %>Dto } from './dto/search-<%= struct.name.lowerKebabName %>.dto';
+import { <%= struct.name.pascalName %>RepositoryInterfaceGenerated } from 'src/repository/<%= struct.name.lowerKebabName %>.repository.interface.generated';
 import <%= struct.name.pascalName %>Entity from "../../entity/<%= struct.name.lowerKebabName %>.entity";
 
 @Injectable()
@@ -26,19 +27,24 @@ export class <%= struct.name.pascalName %>ServiceGenerated {
     return new<%= struct.name.pascalName %>;
   }
 
-  findAll() {
-    return `This action returns all <%= struct.name.lowerCamelName %>`;
+  }
+  async findAll(condition: <%= struct.name.pascalName %>SearchCondition) {
+    return this.<%= struct.name.lowerCamelName %>Repository.getAll(condition);
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} <%= struct.name.lowerCamelName %>`;
+  async findOneById(id: number) {
+    return await this.<%= struct.name.lowerCamelName %>Repository.get(id);
   }
 
   update(id: number, update<%= struct.name.pascalName %>Dto: Update<%= struct.name.pascalName %>Dto) {
-    return `This action updates a #${id} <%= struct.name.lowerCamelName %>`;
+    return await this..<%= struct.name.lowerCamelName %>Repository.update(id, {
+      <%_ struct.fields.forEach(function (field, key) { -%>
+        <%= field.name.lowerCamelName %>?: update<%= struct.name.pascalName %>Dto.<%= field.name.lowerCamelName %>,
+      <%_ }) -%>
+    });
   }
 
   remove(id: number) {
-    return `This action removes a #${id} <%= struct.name.lowerCamelName %>`;
+    return await this..<%= struct.name.lowerCamelName %>Repository.delete(id);
   }
 }

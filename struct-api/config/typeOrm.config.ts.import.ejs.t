@@ -1,7 +1,7 @@
 ---
-to: <%= rootDirectory %>/api/src/config/typeOrm.config.ts
+to: <%= rootDirectory %>/api/src/app/config/typeOrm.config.ts
 inject: true
 skip_if: "import <%= struct.name.pascalName %>Entity from '../entity/<%= struct.name.lowerKebabName %>.entity';"
-after: "// add entity after here"
+after: "// add import entity"
 ---
 import <%= struct.name.pascalName %>Entity from '../entity/<%= struct.name.lowerKebabName %>.entity';

@@ -1,5 +1,5 @@
 ---
-to: <%= rootDirectory %>/api/src/app.module.ts
+to: <%= rootDirectory %>/api/src/app/app.module.ts
 inject: true
 skip_if: "import { <%= struct.name.pascalName %>Module }"
 after: "// Add all modules import here"

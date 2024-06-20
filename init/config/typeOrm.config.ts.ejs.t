@@ -1,5 +1,5 @@
 ---
-to: <%= rootDirectory %>/api/src/config/typeOrm.config.ts
+to: <%= rootDirectory %>/api/src/app/config/typeOrm.config.ts
 force: true
 ---
 import { DataSource } from 'typeorm';

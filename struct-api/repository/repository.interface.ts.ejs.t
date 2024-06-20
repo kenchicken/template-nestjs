@@ -1,5 +1,5 @@
 ---
-to: "<%= struct.generateEnable ? `${rootDirectory}/api/src/repository/${struct.name.lowerKebabName}.repository.interface.ts` : null %>"
+to: "<%= struct.generateEnable ? `${rootDirectory}/api/src/app/repository/${struct.name.lowerKebabName}.repository.interface.ts` : null %>"
 force: true
 ---
 import <%= struct.name.pascalName %>Entity from "../entity/<%= struct.name.lowerKebabName %>.entity";

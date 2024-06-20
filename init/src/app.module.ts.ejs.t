@@ -1,5 +1,5 @@
 ---
-to: <%= rootDirectory %>/api/src/app.module.ts
+to: <%= rootDirectory %>/api/src/app/app.module.ts
 force: true
 ---
 import { Module } from '@nestjs/common';
