@@ -19,7 +19,7 @@ export class <%= struct.name.pascalName %>ServiceGenerated {
   async create(create<%= struct.name.pascalName %>Dto: Create<%= struct.name.pascalName %>Dto): Promise<<%= struct.name.pascalName %>Entity> {
     return await this.<%= struct.name.lowerCamelName %>Repository.create({
     <%_ struct.fields.forEach(function (field, key) { -%>
-      <%= field.name.lowerCamelName %>: update<%= struct.name.pascalName %>Dto.<%= field.name.lowerCamelName %>,
+      <%= field.name.lowerCamelName %>: create<%= struct.name.pascalName %>Dto.<%= field.name.lowerCamelName %>,
     <%_ }) -%>
     });
   }

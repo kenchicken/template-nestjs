@@ -8,7 +8,7 @@ import * as Controllers from './controller';
 import * as Services from './service';
 import <%= struct.name.pascalName %>Entity from 'src/app/entity/<%= struct.name.lowerKebabName %>.entity';
 import { <%= struct.name.pascalName %>Repository } from '../../infrastructure/typeorm/<%= struct.name.lowerKebabName %>.repository';
-import { <%= struct.name.pascalName %>ControllerGenerated } from '../../infrastructure/typeorm/<%= struct.name.lowerKebabName %>.repository.generated';
+import { <%= struct.name.pascalName %>RepositoryGenerated } from '../../infrastructure/typeorm/<%= struct.name.lowerKebabName %>.repository.generated';
 
 const toArray = (obj: any) => {
   return Object.keys(obj).map((key) => obj[key]);

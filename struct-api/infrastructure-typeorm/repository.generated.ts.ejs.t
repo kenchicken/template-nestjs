@@ -8,7 +8,9 @@ import <%= struct.name.pascalName %>Entity from 'src/app/entity/<%= struct.name.
 import { <%= struct.name.pascalName %>RepositoryInterfaceGenerated } from '../../repository/user.repository.interface.generated';
 import { Search<%= struct.name.pascalName %>Dto } from '../../module/user/dto/search-user.dto';
 
-export class <%= struct.name.pascalName %>RepositoryGenerated implements <%= struct.name.pascalName %>RepositoryInterfaceGenerated {
+export class <%= struct.name.pascalName %>RepositoryGenerated
+  implements <%= struct.name.pascalName %>RepositoryInterfaceGenerated
+{
   constructor(
     @InjectRepository(<%= struct.name.pascalName %>Entity)
     private <%= struct.name.lowerSnakeName %>Repository: Repository<<%= struct.name.pascalName %>Entity>,
@@ -28,10 +30,6 @@ export class <%= struct.name.pascalName %>RepositoryGenerated implements <%= str
     return await this.<%= struct.name.lowerSnakeName %>Repository.findOneById(id);
   }
 
-  async getMulti(ids: number[]): Promise<<%= struct.name.pascalName %>Entity> {
-    return await this.<%= struct.name.lowerSnakeName %>Repository.findOneById(id);
-  }
-
   async update(id: number, item: <%= struct.name.pascalName %>Entity): Promise<<%= struct.name.pascalName %>Entity> {
     await this.<%= struct.name.lowerSnakeName %>Repository.update(id, item);
     return this.<%= struct.name.lowerSnakeName %>Repository.findOneById(id);
@@ -41,20 +39,31 @@ export class <%= struct.name.pascalName %>RepositoryGenerated implements <%= str
     return await this.<%= struct.name.lowerSnakeName %>Repository.find({
       where: {
       <%_ struct.fields.forEach(function (field, key) { -%>
-        <%= field.name.lowerCamelName %>: condition.<%= struct.name.lowerCamelName %>,
+        <%= field.name.lowerCamelName %>: condition.<%= field.name.lowerCamelName %>,
       <%_ }) -%>
-        email: condition.email,
+      },
+    });
+  }
+
+  async count(condition: Search<%= struct.name.pascalName %>Dto): Promise<number> {
+    return await this.<%= struct.name.lowerSnakeName %>Repository.count({
+      where: {
+      <%_ struct.fields.forEach(function (field, key) { -%>
+        <%= field.name.lowerCamelName %>: condition.<%= field.name.lowerCamelName %>,
+      <%_ }) -%>
+      },
+    });
+  }
+
+  getAllWithCursor(condition: Search<%= struct.name.pascalName %>Dto): Promise<<%= struct.name.pascalName %>Entity[]> {
+    return await this.<%= struct.name.lowerSnakeName %>Repository.find({
+      where: {
+      <%_ struct.fields.forEach(function (field, key) { -%>
+        <%= field.name.lowerCamelName %>: condition.<%= field.name.lowerCamelName %>,
+      <%_ }) -%>
       },
       take: condition.limit,
       skip: condition.offset,
     });
-  }
-
-  count(condition: Search<%= struct.name.pascalName %>Dto): Promise<number> {
-    return Promise.resolve(0);
-  }
-
-  getAllWithCursor(condition: Search<%= struct.name.pascalName %>Dto): Promise<<%= struct.name.pascalName %>Entity[]> {
-    return Promise.resolve([]);
   }
 }

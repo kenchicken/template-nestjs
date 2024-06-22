@@ -11,7 +11,6 @@ export abstract class <%= struct.name.pascalName %>RepositoryInterfaceGenerated 
   abstract getAllWithCursor(condition: <%= struct.name.pascalName %>SearchCondition): Promise<<%= struct.name.pascalName %>Entity[]>;
   // CRUD系メソッド
   abstract get(id: number): Promise<<%= struct.name.pascalName %>Entity>;
-  abstract getMulti(ids: number[]): Promise<<%= struct.name.pascalName %>Entity>;
   abstract create(<%= struct.name.pascalName %>: <%= struct.name.pascalName %>Entity): Promise<<%= struct.name.pascalName %>Entity>;
   abstract update(id: number, item: <%= struct.name.pascalName %>Entity): Promise<<%= struct.name.pascalName %>Entity>;
   abstract delete(id: number): Promise<void>;

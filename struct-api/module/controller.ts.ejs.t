@@ -3,10 +3,12 @@ to: "<%= struct.generateEnable ? `${rootDirectory}/api/src/app/module/${struct.n
 force: true
 ---
 import { Controller } from '@nestjs/common';
+import { <%= struct.name.pascalName %>ServiceGenerated } from '../service';
 
 @Controller('<%= struct.name.lowerKebabName %>')
 export class <%= struct.name.pascalName %>Controller {
   constructor(
+    private readonly <%= struct.name.lowerCamelName %>rServiceGenerated: <%= struct.name.pascalName %>rServiceGenerated,
     // add handler here
   ) {}
 
