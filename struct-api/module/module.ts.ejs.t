@@ -12,7 +12,7 @@ import { <%= struct.name.pascalName %>RepositoryGenerated } from '../../infrastr
 
 const toArray = (obj: any) => {
   return Object.keys(obj).map((key) => obj[key]);
-}
+};
 
 @Module({
   imports: [TypeOrmModule.forFeature([<%= struct.name.pascalName %>Entity])],

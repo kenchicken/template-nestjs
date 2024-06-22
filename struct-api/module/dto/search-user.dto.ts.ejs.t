@@ -17,4 +17,6 @@ export class Search<%= struct.name.pascalName %>Dto {
   <%= field.name.lowerCamelName %>?: boolean;
 <%_ } -%>
 <%_ }) -%>
+  limit?: number;
+  offset?: number;
 }

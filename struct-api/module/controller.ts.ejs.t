@@ -8,7 +8,7 @@ import { <%= struct.name.pascalName %>ServiceGenerated } from '../service';
 @Controller('<%= struct.name.lowerKebabName %>')
 export class <%= struct.name.pascalName %>Controller {
   constructor(
-    private readonly <%= struct.name.lowerCamelName %>rServiceGenerated: <%= struct.name.pascalName %>rServiceGenerated,
+    private readonly <%= struct.name.lowerCamelName %>ServiceGenerated: <%= struct.name.pascalName %>ServiceGenerated,
     // add handler here
   ) {}
 
