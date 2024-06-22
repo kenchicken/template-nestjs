@@ -4,9 +4,9 @@ force: true
 ---
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import <%= struct.name.pascalName %>Entity from 'src/app/entity/<%= struct.name.lowerSnakeName %>.entity';
-import { <%= struct.name.pascalName %>RepositoryInterfaceGenerated } from '../../repository/user.repository.interface.generated';
-import { Search<%= struct.name.pascalName %>Dto } from '../../module/user/dto/search-user.dto';
+import <%= struct.name.pascalName %>Entity from 'src/app/entity/<%= struct.name.lowerKebabName %>.entity';
+import { <%= struct.name.pascalName %>RepositoryInterfaceGenerated } from '../../repository/<%= struct.name.lowerKebabName %>.repository.interface.generated';
+import { Search<%= struct.name.pascalName %>Dto } from '../../module/<%= struct.name.lowerKebabName %>/dto/search-<%= struct.name.lowerKebabName %>.dto';
 
 export class <%= struct.name.pascalName %>RepositoryGenerated
   implements <%= struct.name.pascalName %>RepositoryInterfaceGenerated
