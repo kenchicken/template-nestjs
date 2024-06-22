@@ -2,7 +2,7 @@
 to: "<%= struct.generateEnable ? `${rootDirectory}/api/src/app/repository/${struct.name.lowerKebabName}.repository.interface.generated.ts` : null %>"
 force: true
 ---
-import <%= struct.name.pascalName %>Entity from "../entity/<%= struct.name.lowerKebabName %>.entity";
+import <%= struct.name.pascalName %>Entity from 'src/app/entity/<%= struct.name.lowerKebabName %>.entity';
 
 export abstract class <%= struct.name.pascalName %>RepositoryInterfaceGenerated {
   // 汎用検索系メソッド

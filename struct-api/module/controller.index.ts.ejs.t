@@ -3,4 +3,4 @@ to: "<%= struct.generateEnable ? `${rootDirectory}/api/src/app/module/${struct.n
 force: true
 ---
 export * from './<%= struct.name.lowerKebabName %>.controller.generated';
-export * from './<%= struct.name.lowerKebabName %>.controller;
+export * from './<%= struct.name.lowerKebabName %>.controller';

@@ -3,3 +3,7 @@ to: "<%= struct.generateEnable ? `${rootDirectory}/api/src/app/module/${struct.n
 force: true
 ---
 // add import handler here
+
+export class handlerManifest {
+  package: string;
+}

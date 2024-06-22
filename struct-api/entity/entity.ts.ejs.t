@@ -10,29 +10,29 @@ class <%= struct.name.pascalName %> {
   <%_ if (field.name.lowerCamelName === 'id') { -%>
     <%_ if (field.dataType === 'string') { -%>
   @PrimaryGeneratedColumn()
-  <%= field.name.lowerCamelName %>?: string
+  <%= field.name.lowerCamelName %>?: string;
     <%_ } -%>
     <%_ if (field.dataType === 'number') { -%>
   @PrimaryGeneratedColumn()
-  <%= field.name.lowerCamelName %>?: number
+  <%= field.name.lowerCamelName %>?: number;
     <%_ } -%>
   <%_ } -%>
   <%_ if (field.name.lowerCamelName !== 'id') { -%>
     <%_ if (field.dataType === 'string') { -%>
   @Column()
-  <%= field.name.lowerCamelName %>?: string
+  <%= field.name.lowerCamelName %>?: string;
     <%_ } -%>
     <%_ if (field.dataType === 'number') { -%>
   @Column()
-  <%= field.name.lowerCamelName %>?: number
+  <%= field.name.lowerCamelName %>?: number;
     <%_ } -%>
     <%_ if (field.dataType === 'time') { -%>
   @Column()
-  <%= field.name.lowerCamelName %>?: Date
+  <%= field.name.lowerCamelName %>?: Date;
     <%_ } -%>
     <%_ if (field.dataType === 'bool') { -%>
   @Column()
-  <%= field.name.lowerCamelName %>?: boolean
+  <%= field.name.lowerCamelName %>?: boolean;
     <%_ } -%>
   <%_ } -%>
 <%_ }) -%>
