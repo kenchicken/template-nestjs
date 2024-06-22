@@ -27,7 +27,7 @@ export class <%= struct.name.pascalName %>ControllerGenerated {
   }
 
   @Get()
-  findAll(@Query() conditionDto: SearchUserDto) {
+  findAll(@Query() conditionDto: Search<%= struct.name.pascalName %>Dto) {
     return this.<%= struct.name.lowerCamelName %>Service.findAll(conditionDto);
   }
 
