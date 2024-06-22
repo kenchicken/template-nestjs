@@ -36,6 +36,10 @@ class <%= struct.name.pascalName %> {
     <%_ } -%>
     <%_ if (field.dataType === 'array' && field.structName != null) { -%>
   @JoinColumn()
+  <%= field.name.lowerCamelName %>?: <%= field.structName.pascalName %>[];
+    <%_ } -%>
+    <%_ if (field.dataType !== 'array' && field.structName != null) { -%>
+  @JoinColumn()
   <%= field.name.lowerCamelName %>?: <%= field.structName.pascalName %>;
     <%_ } -%>
   <%_ } -%>
