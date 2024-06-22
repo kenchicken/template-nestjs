@@ -3,7 +3,7 @@ to: "<%= struct.generateEnable ? `${rootDirectory}/api/src/app/repository/${stru
 force: true
 ---
 import <%= struct.name.pascalName %>Entity from 'src/app/entity/<%= struct.name.lowerKebabName %>.entity';
-import { Search<%= struct.name.pascalName %>Dto } from '../dto/search-<%= struct.name.lowerKebabName %>.dto';
+import { Search<%= struct.name.pascalName %>Dto } from 'src/app/module/<%= struct.name.lowerKebabName %>/dto/search-<%= struct.name.lowerKebabName %>.dto';
 
 export abstract class <%= struct.name.pascalName %>RepositoryInterfaceGenerated {
   // 汎用検索系メソッド
