@@ -4,7 +4,7 @@ force: true
 ---
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import {DatabaseModule} from "./database/database.module";
+import { DatabaseModule } from '../database/database.module';
 import * as Joi from '@hapi/joi';
 // Add all modules import here
 
