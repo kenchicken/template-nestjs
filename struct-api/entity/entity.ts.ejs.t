@@ -2,7 +2,7 @@
 to: "<%= struct.generateEnable ? `${rootDirectory}/api/src/app/entity/${struct.name.lowerKebabName}.entity.ts` : null %>"
 force: true
 ---
-let joinColumn = false;
+<%_ let joinColumn = false; -%>
 <%_ struct.fields.forEach(function (field, key) { -%>
   <%_ if (field.dataType === 'array' && field.structName != null) { -%>
     <%_ joinColumn = true; -%>
