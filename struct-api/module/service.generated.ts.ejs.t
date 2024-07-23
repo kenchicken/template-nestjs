@@ -21,16 +21,16 @@ export class <%= struct.name.pascalName %>ServiceGenerated {
     <%_ struct.fields.forEach(function (field, key) { -%>
       <%_ if (!field.related) { -%>
       <%_ if (field.dataType === 'string') { -%>
-        <%= field.name.lowerCamelName %>: create<%= struct.name.pascalName %>Dto.<%= field.name.lowerCamelName %>,
+      <%= field.name.lowerCamelName %>: create<%= struct.name.pascalName %>Dto.<%= field.name.lowerCamelName %>,
       <%_ } -%>
       <%_ if (field.dataType === 'number') { -%>
-        <%= field.name.lowerCamelName %>: create<%= struct.name.pascalName %>Dto.<%= field.name.lowerCamelName %>,
+      <%= field.name.lowerCamelName %>: create<%= struct.name.pascalName %>Dto.<%= field.name.lowerCamelName %>,
       <%_ } -%>
       <%_ if (field.dataType === 'time') { -%>
-        <%= field.name.lowerCamelName %>: create<%= struct.name.pascalName %>Dto.<%= field.name.lowerCamelName %>,
+      <%= field.name.lowerCamelName %>: create<%= struct.name.pascalName %>Dto.<%= field.name.lowerCamelName %>,
       <%_ } -%>
       <%_ if (field.dataType === 'bool') { -%>
-        <%= field.name.lowerCamelName %>: create<%= struct.name.pascalName %>Dto.<%= field.name.lowerCamelName %>,
+      <%= field.name.lowerCamelName %>: create<%= struct.name.pascalName %>Dto.<%= field.name.lowerCamelName %>,
       <%_ } -%>
       <%_ } -%>
     <%_ }) -%>
