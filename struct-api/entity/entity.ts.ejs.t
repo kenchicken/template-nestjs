@@ -29,7 +29,7 @@ import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 @Entity('<%= struct.name.lowerKebabPluralName %>')
 class <%= struct.name.pascalName %> {
 <%_ struct.fields.forEach(function (field, key) { -%>
-  <%_ if (field.related) { -%>
+  <%_ if (!field.related) { -%>
   <%_ if (field.name.lowerCamelName === 'id') { -%>
     <%_ if (field.dataType === 'string') { -%>
   @PrimaryGeneratedColumn()
