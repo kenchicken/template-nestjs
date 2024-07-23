@@ -13,7 +13,6 @@ force: true
     <%_ joinColumn = true; -%>
   <%_ } -%>
 <%_ }) -%>
-import { Entity, Column, JoinColumn, PrimaryGeneratedColumn } from 'typeorm';
 <%_ if (hasManyToOne) { -%>
 import { ManyToOne } from 'typeorm';
 import <%= struct.name.pascalName %> from 'src/app/entity/<%= struct.name.lowerKebabPluralName %>.entity';
