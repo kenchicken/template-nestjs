@@ -4,6 +4,7 @@ force: true
 ---
 import { Controller } from '@nestjs/common';
 import { <%= struct.name.pascalName %>ServiceGenerated } from '../service';
+import {ApiTags} from "@nestjs/swagger";
 
 @Controller('<%= struct.name.lowerKebabName %>')
 @ApiTags('<%= struct.name.lowerKebabName %>')
