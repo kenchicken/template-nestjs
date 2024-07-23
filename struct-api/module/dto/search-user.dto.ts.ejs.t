@@ -4,6 +4,7 @@ force: true
 ---
 export class Search<%= struct.name.pascalName %>Dto {
 <%_ struct.fields.forEach(function (field, key) { -%>
+<%_ if (!field.related) { -%>
 <%_ if (field.dataType === 'string') { -%>
   <%= field.name.lowerCamelName %>?: string;
 <%_ } -%>
@@ -15,6 +16,7 @@ export class Search<%= struct.name.pascalName %>Dto {
 <%_ } -%>
 <%_ if (field.dataType === 'bool') { -%>
   <%= field.name.lowerCamelName %>?: boolean;
+<%_ } -%>
 <%_ } -%>
 <%_ }) -%>
   limit?: number;

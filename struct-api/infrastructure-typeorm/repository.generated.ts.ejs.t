@@ -39,6 +39,7 @@ export class <%= struct.name.pascalName %>RepositoryGenerated
     return await this.<%= struct.name.lowerSnakeName %>Repository.find({
       where: {
       <%_ struct.fields.forEach(function (field, key) { -%>
+        <%_ if (!field.related) { -%>
         <%_ if (field.dataType === 'string') { -%>
         <%= field.name.lowerCamelName %>: condition.<%= field.name.lowerCamelName %>,
         <%_ } -%>
@@ -50,6 +51,7 @@ export class <%= struct.name.pascalName %>RepositoryGenerated
         <%_ } -%>
         <%_ if (field.dataType === 'bool') { -%>
         <%= field.name.lowerCamelName %>: condition.<%= field.name.lowerCamelName %>,
+        <%_ } -%>
         <%_ } -%>
       <%_ }) -%>
       },
@@ -60,6 +62,7 @@ export class <%= struct.name.pascalName %>RepositoryGenerated
     return await this.<%= struct.name.lowerSnakeName %>Repository.count({
       where: {
       <%_ struct.fields.forEach(function (field, key) { -%>
+        <%_ if (!field.related) { -%>
         <%_ if (field.dataType === 'string') { -%>
         <%= field.name.lowerCamelName %>: condition.<%= field.name.lowerCamelName %>,
         <%_ } -%>
@@ -71,6 +74,7 @@ export class <%= struct.name.pascalName %>RepositoryGenerated
         <%_ } -%>
         <%_ if (field.dataType === 'bool') { -%>
         <%= field.name.lowerCamelName %>: condition.<%= field.name.lowerCamelName %>,
+        <%_ } -%>
         <%_ } -%>
       <%_ }) -%>
       },
@@ -81,6 +85,7 @@ export class <%= struct.name.pascalName %>RepositoryGenerated
     return await this.<%= struct.name.lowerSnakeName %>Repository.find({
       where: {
       <%_ struct.fields.forEach(function (field, key) { -%>
+        <%_ if (!field.related) { -%>
         <%_ if (field.dataType === 'string') { -%>
         <%= field.name.lowerCamelName %>: condition.<%= field.name.lowerCamelName %>,
         <%_ } -%>
@@ -92,6 +97,7 @@ export class <%= struct.name.pascalName %>RepositoryGenerated
         <%_ } -%>
         <%_ if (field.dataType === 'bool') { -%>
         <%= field.name.lowerCamelName %>: condition.<%= field.name.lowerCamelName %>,
+        <%_ } -%>
         <%_ } -%>
       <%_ }) -%>
       },
