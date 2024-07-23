@@ -19,7 +19,20 @@ export class <%= struct.name.pascalName %>ServiceGenerated {
   async create(create<%= struct.name.pascalName %>Dto: Create<%= struct.name.pascalName %>Dto): Promise<<%= struct.name.pascalName %>Entity> {
     return await this.<%= struct.name.lowerCamelName %>Repository.create({
     <%_ struct.fields.forEach(function (field, key) { -%>
-      <%= field.name.lowerCamelName %>: create<%= struct.name.pascalName %>Dto.<%= field.name.lowerCamelName %>,
+      <%_ if (!field.related) { -%>
+      <%_ if (field.dataType === 'string') { -%>
+        <%= field.name.lowerCamelName %>: create<%= struct.name.pascalName %>Dto.<%= field.name.lowerCamelName %>,
+      <%_ } -%>
+      <%_ if (field.dataType === 'number') { -%>
+        <%= field.name.lowerCamelName %>: create<%= struct.name.pascalName %>Dto.<%= field.name.lowerCamelName %>,
+      <%_ } -%>
+      <%_ if (field.dataType === 'time') { -%>
+        <%= field.name.lowerCamelName %>: create<%= struct.name.pascalName %>Dto.<%= field.name.lowerCamelName %>,
+      <%_ } -%>
+      <%_ if (field.dataType === 'bool') { -%>
+        <%= field.name.lowerCamelName %>: create<%= struct.name.pascalName %>Dto.<%= field.name.lowerCamelName %>,
+      <%_ } -%>
+      <%_ } -%>
     <%_ }) -%>
     });
   }
@@ -35,7 +48,20 @@ export class <%= struct.name.pascalName %>ServiceGenerated {
   async update(id: number, update<%= struct.name.pascalName %>Dto: Update<%= struct.name.pascalName %>Dto) {
     return await this.<%= struct.name.lowerCamelName %>Repository.update(id, {
     <%_ struct.fields.forEach(function (field, key) { -%>
+      <%_ if (!field.related) { -%>
+      <%_ if (field.dataType === 'string') { -%>
       <%= field.name.lowerCamelName %>: update<%= struct.name.pascalName %>Dto.<%= field.name.lowerCamelName %>,
+      <%_ } -%>
+      <%_ if (field.dataType === 'number') { -%>
+      <%= field.name.lowerCamelName %>: update<%= struct.name.pascalName %>Dto.<%= field.name.lowerCamelName %>,
+      <%_ } -%>
+      <%_ if (field.dataType === 'time') { -%>
+      <%= field.name.lowerCamelName %>: update<%= struct.name.pascalName %>Dto.<%= field.name.lowerCamelName %>,
+      <%_ } -%>
+      <%_ if (field.dataType === 'bool') { -%>
+      <%= field.name.lowerCamelName %>: update<%= struct.name.pascalName %>Dto.<%= field.name.lowerCamelName %>,
+      <%_ } -%>
+      <%_ } -%>
     <%_ }) -%>
     });
   }
