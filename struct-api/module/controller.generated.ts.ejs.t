@@ -18,6 +18,7 @@ import { Update<%= struct.name.pascalName %>Dto } from '../dto/update-<%= struct
 import { Search<%= struct.name.pascalName %>Dto } from '../dto/search-<%= struct.name.lowerKebabName %>.dto';
 
 @Controller('<%= struct.name.lowerKebabName %>')
+@ApiTags('<%= struct.name.lowerKebabName %>')
 export class <%= struct.name.pascalName %>ControllerGenerated {
   constructor(private readonly <%= struct.name.lowerCamelName %>Service: <%= struct.name.pascalName %>ServiceGenerated) {}
 

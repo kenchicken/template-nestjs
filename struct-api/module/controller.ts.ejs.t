@@ -6,6 +6,7 @@ import { Controller } from '@nestjs/common';
 import { <%= struct.name.pascalName %>ServiceGenerated } from '../service';
 
 @Controller('<%= struct.name.lowerKebabName %>')
+@ApiTags('<%= struct.name.lowerKebabName %>')
 export class <%= struct.name.pascalName %>Controller {
   constructor(
     private readonly <%= struct.name.lowerCamelName %>ServiceGenerated: <%= struct.name.pascalName %>ServiceGenerated,
