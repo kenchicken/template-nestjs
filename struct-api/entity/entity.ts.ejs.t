@@ -2,14 +2,26 @@
 to: "<%= struct.generateEnable ? `${rootDirectory}/api/src/app/entity/${struct.name.lowerKebabName}.entity.ts` : null %>"
 force: true
 ---
-<%_ let joinColumn = false; -%>
+<%_ let hasOneToMany = false; -%>
+<%_ let hasManyToOne = false; -%>
+<%_ let hasOneToOne = false; -%>
 <%_ struct.fields.forEach(function (field, key) { -%>
   <%_ if (field.dataType === 'array' && field.structName != null) { -%>
     <%_ joinColumn = true; -%>
   <%_ } -%>
+  <%_ if (field.dataType === 'struct' && field.structName != null) { -%>
+    <%_ joinColumn = true; -%>
+  <%_ } -%>
 <%_ }) -%>
-<%_ if (joinColumn) { -%>
-import { Entity, Column, JoinColumn, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, JoinColumn, PrimaryGeneratedColumn } from 'typeorm';
+<%_ if (hasManyToOne) { -%>
+import { ManyToOne } from 'typeorm';
+import <%= struct.name.pascalName %> from 'src/app/entity/<%= struct.name.lowerKebabPluralName %>.entity';
+<%_ } else if (hasOneToMany) { -%>
+import { OneToMany } from 'typeorm';
+import <%= struct.name.pascalName %> from 'src/app/entity/<%= struct.name.lowerKebabPluralName %>.entity';
+<%_ } else if (hasOneToOne) { -%>
+import { OneToOne } from 'typeorm';
 import <%= struct.name.pascalName %> from 'src/app/entity/<%= struct.name.lowerKebabPluralName %>.entity';
 <%_ } else { -%>
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
@@ -18,6 +30,7 @@ import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 @Entity('<%= struct.name.lowerKebabPluralName %>')
 class <%= struct.name.pascalName %> {
 <%_ struct.fields.forEach(function (field, key) { -%>
+  <%_ if (field.related === null) { -%>
   <%_ if (field.name.lowerCamelName === 'id') { -%>
     <%_ if (field.dataType === 'string') { -%>
   @PrimaryGeneratedColumn()
@@ -45,20 +58,22 @@ class <%= struct.name.pascalName %> {
   @Column()
   <%= field.name.lowerCamelName %>?: boolean;
     <%_ } -%>
+  <%_ } -%>
+  <%_ } else { -%>
     <%_ if (field.dataType === 'array' && field.structName != null) { -%>
   @OneToMany(() => <%= field.structName.pascalName %>,(<%= field.structName.lowerCamelName %>) => <%= field.structName.lowerCamelName %>.<%= struct.name.lowerCamelName %>)
   <%= field.name.lowerCamelName %>?: <%= field.structName.pascalName %>[];
     <%_ } -%>
-    <%_ if (field.dataType !== 'array' && field.structName != null) { -%>
+    <%_ if (field.dataType === 'struct' && field.structName != null) { -%>
   @ManyToOne(() => <%= field.structName.pascalName %>, (<%= field.structName.lowerCamelName %>) => <%= field.structName.lowerCamelName %>)
   <%= field.name.lowerCamelName %>?: <%= field.structName.pascalName %>;
     <%_ } -%>
-  <%_ if (field.dataType !== 'struct' && field.structName != null) { -%>
+    <%_ if (field.dataType !== 'struct' && field.dataType !== 'array' && field.structName != null) { -%>
   @OneToOne(() => <%= field.structName.pascalName %>)
   @JoinColumn({ name: "<%= field.structName.lowerSnakeName %>_id" })
   <%= field.name.lowerCamelName %>?: <%= field.structName.pascalName %>;
+    <%_ } -%>
 <%_ } -%>
-  <%_ } -%>
 <%_ }) -%>
 }
 
