@@ -23,10 +23,10 @@ force: true
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "typeorm": "ts-node ./node_modules/typeorm/cli",
-    "typeorm:run-migrations": "npm run typeorm migration:run -- -d ./src/config/typeOrm.config.ts",
-    "typeorm:generate-migration": "npm run typeorm -- -d ./src/config/typeOrm.config.ts migration:generate ./src/migrations/$npm_config_name",
-    "typeorm:create-migration": "npm run typeorm -- migration:create ./src/migrations/$npm_config_name",
-    "typeorm:revert-migration": "npm run typeorm -- -d ./src/config/typeOrm.config.ts migration:revert"
+    "typeorm:run-migrations": "npm run typeorm migration:run -- -d ./src/app/config/typeOrm.config.ts",
+    "typeorm:generate-migration": "npm run typeorm -- -d ./src/app/config/typeOrm.config.ts migration:generate ./src/database/migrations/$npm_config_name",
+    "typeorm:create-migration": "npm run typeorm -- migration:create ./src/database/migrations/$npm_config_name",
+    "typeorm:revert-migration": "npm run typeorm -- -d ./src/app/config/typeOrm.config.ts migration:revert"
   },
   "dependencies": {
     "@hapi/joi": "^17.1.1",
