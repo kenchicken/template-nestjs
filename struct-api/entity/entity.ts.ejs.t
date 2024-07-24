@@ -42,7 +42,7 @@ class <%= struct.name.pascalName %> {
   <%_ } -%>
   <%_ if (field.name.lowerCamelName !== 'id') { -%>
     <%_ if (field.dataType === 'string') { -%>
-  <%_ if (field.validateTags && field.validateTags.includes('required')) { -%>
+  <%_ if (true) { -%>
   @Column({ comment: '<%= field.screenLabel %>', nullable: true %> })
   <%_ } else { -%>
   @Column({ comment: '<%= field.screenLabel %>', nullable: false %> })
