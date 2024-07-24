@@ -22,8 +22,8 @@ const AppDataSource = new DataSource({
   entities: [
     // add entity after here
   ],
-  migrationsTableName: "app_migrations",
-  migrations: ['./src/database/migrations/*.ts']
+  migrationsTableName: 'app_migrations',
+  migrations: ['./src/database/migrations/*.ts'],
 });
 AppDataSource.initialize();
 
