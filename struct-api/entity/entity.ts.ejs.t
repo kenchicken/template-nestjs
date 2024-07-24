@@ -42,19 +42,35 @@ class <%= struct.name.pascalName %> {
   <%_ } -%>
   <%_ if (field.name.lowerCamelName !== 'id') { -%>
     <%_ if (field.dataType === 'string') { -%>
-  @Column()
+  <%_ if (field.validateTags.includes('required')) { -%>
+  @Column({ comment: '<%= field.screenLabel %>', nullable: true %> })
+  <%_ } else { -%>
+  @Column({ comment: '<%= field.screenLabel %>', nullable: false %> })
+  <%_ } -%>
   <%= field.name.lowerCamelName %>?: string;
     <%_ } -%>
     <%_ if (field.dataType === 'number') { -%>
-  @Column()
+  <%_ if (field.validateTags.includes('required')) { -%>
+    @Column({ comment: '<%= field.screenLabel %>', nullable: true %> })
+  <%_ } else { -%>
+    @Column({ comment: '<%= field.screenLabel %>', nullable: false %> })
+  <%_ } -%>
   <%= field.name.lowerCamelName %>?: number;
     <%_ } -%>
     <%_ if (field.dataType === 'time') { -%>
-  @Column()
+  <%_ if (field.validateTags.includes('required')) { -%>
+    @Column({ comment: '<%= field.screenLabel %>', nullable: true %> })
+  <%_ } else { -%>
+    @Column({ comment: '<%= field.screenLabel %>', nullable: false %> })
+  <%_ } -%>
   <%= field.name.lowerCamelName %>?: Date;
     <%_ } -%>
     <%_ if (field.dataType === 'bool') { -%>
-  @Column()
+  <%_ if (field.validateTags.includes('required')) { -%>
+    @Column({ comment: '<%= field.screenLabel %>', nullable: true %> })
+  <%_ } else { -%>
+    @Column({ comment: '<%= field.screenLabel %>', nullable: false %> })
+  <%_ } -%>
   <%= field.name.lowerCamelName %>?: boolean;
     <%_ } -%>
   <%_ } -%>
