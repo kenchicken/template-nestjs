@@ -43,33 +43,33 @@ class <%= struct.name.pascalName %> {
   <%_ if (field.name.lowerCamelName !== 'id') { -%>
     <%_ if (field.dataType === 'string') { -%>
   <%_ if (field.validateTags && field.validateTags.includes('required')) { -%>
-  @Column({ comment: '<%= field.screenLabel %>', nullable: true %> })
+  @Column({ comment: '<%= field.screenLabel %>', nullable: true })
   <%_ } else { -%>
-  @Column({ comment: '<%= field.screenLabel %>', nullable: false %> })
+  @Column({ comment: '<%= field.screenLabel %>', nullable: false })
   <%_ } -%>
   <%= field.name.lowerCamelName %>?: string;
     <%_ } -%>
     <%_ if (field.dataType === 'number') { -%>
   <%_ if (field.validateTags && field.validateTags.includes('required')) { -%>
-  @Column({ comment: '<%= field.screenLabel %>', nullable: true %> })
+  @Column({ comment: '<%= field.screenLabel %>', nullable: true })
   <%_ } else { -%>
-  @Column({ comment: '<%= field.screenLabel %>', nullable: false %> })
+  @Column({ comment: '<%= field.screenLabel %>', nullable: false })
   <%_ } -%>
   <%= field.name.lowerCamelName %>?: number;
     <%_ } -%>
     <%_ if (field.dataType === 'time') { -%>
   <%_ if (field.validateTags && field.validateTags.includes('required')) { -%>
-  @Column({ comment: '<%= field.screenLabel %>', nullable: true %> })
+  @Column({ comment: '<%= field.screenLabel %>', nullable: true })
   <%_ } else { -%>
-  @Column({ comment: '<%= field.screenLabel %>', nullable: false %> })
+  @Column({ comment: '<%= field.screenLabel %>', nullable: false })
   <%_ } -%>
   <%= field.name.lowerCamelName %>?: Date;
     <%_ } -%>
     <%_ if (field.dataType === 'bool') { -%>
   <%_ if (field.validateTags && field.validateTags.includes('required')) { -%>
-  @Column({ comment: '<%= field.screenLabel %>', nullable: true %> })
+  @Column({ comment: '<%= field.screenLabel %>', nullable: true })
   <%_ } else { -%>
-  @Column({ comment: '<%= field.screenLabel %>', nullable: false %> })
+  @Column({ comment: '<%= field.screenLabel %>', nullable: false })
   <%_ } -%>
   <%= field.name.lowerCamelName %>?: boolean;
     <%_ } -%>
