@@ -15,7 +15,7 @@ force: true
       <%_ importStructNames.push(field.structName.pascalName); -%>
     <%_ } -%>
   <%_ } -%>
-  <%_ if (field.dataType === 'struct' && field.structName != null != null && !field.belongTo) { -%>
+  <%_ if (field.dataType === 'struct' && field.structName != null != null) { -%>
     <%_ hasOneToOne = true; -%>
     <%_ if (!importStructNames.includes(field.structName.pascalName)) { -%>
       <%_ importStructs.push(field.structName); -%>
@@ -99,7 +99,7 @@ class <%= struct.name.pascalName %> {
   @ManyToOne(() => <%= field.relatedStructName.pascalName %>, (<%= field.relatedStructName.lowerCamelName %>) => <%= field.relatedStructName.lowerCamelName %>.<%= struct.name.lowerCamelName %>)
   <%= field.relatedStructName.lowerCamelName %>?: <%= field.relatedStructName.pascalName %>;
     <%_ } -%>
-    <%_ if (field.dataType === 'struct' && field.structName != null && !field.belongTo) { -%>
+    <%_ if (field.dataType === 'struct' && field.structName != null) { -%>
   @OneToOne(() => <%= field.structName.pascalName %>)
   @JoinColumn()
   <%= field.name.lowerCamelName %>?: <%= field.structName.pascalName %>;
