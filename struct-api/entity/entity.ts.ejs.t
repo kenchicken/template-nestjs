@@ -24,10 +24,8 @@ force: true
 import { ManyToOne } from 'typeorm';
 <%_ } else if (hasOneToMany) { -%>
 import { OneToMany } from 'typeorm';
-import <%= struct.name.pascalName %> from 'src/app/entity/<%= struct.name.lowerKebabName %>.entity';
 <%_ } else if (hasOneToOne) { -%>
 import { OneToOne } from 'typeorm';
-import <%= struct.name.pascalName %> from 'src/app/entity/<%= struct.name.lowerKebabName %>.entity';
 <%_ } -%>
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 <%_ importStructs.forEach(function (structName, key) { -%>
