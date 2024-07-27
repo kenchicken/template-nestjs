@@ -18,16 +18,15 @@ force: true
 <%_ }) -%>
 <%_ if (hasManyToOne) { -%>
 import { ManyToOne } from 'typeorm';
-import <%= struct.name.pascalName %> from 'src/app/entity/<%= struct.name.lowerKebabPluralName %>.entity';
+import <%= struct.relatedStructName.pascalName %> from 'src/app/entity/<%= struct.relatedStructName.lowerKebabName %>.entity';
 <%_ } else if (hasOneToMany) { -%>
 import { OneToMany } from 'typeorm';
-import <%= struct.name.pascalName %> from 'src/app/entity/<%= struct.name.lowerKebabPluralName %>.entity';
+import <%= struct.name.pascalName %> from 'src/app/entity/<%= struct.name.lowerKebabName %>.entity';
 <%_ } else if (hasOneToOne) { -%>
 import { OneToOne } from 'typeorm';
-import <%= struct.name.pascalName %> from 'src/app/entity/<%= struct.name.lowerKebabPluralName %>.entity';
-<%_ } else { -%>
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import <%= struct.name.pascalName %> from 'src/app/entity/<%= struct.name.lowerKebabName %>.entity';
 <%_ } -%>
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('<%= struct.name.lowerKebabPluralName %>')
 class <%= struct.name.pascalName %> {
