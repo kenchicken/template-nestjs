@@ -17,9 +17,9 @@ force: true
   <%_ } -%>
   <%_ if (field.relatedType === 'OneToOne') { -%>
     <%_ hasOneToOne = true; -%>
-    <%_ if (!importStructNames.includes(field.structName.pascalName)) { -%>
-      <%_ importStructs.push(field.structName); -%>
-      <%_ importStructNames.push(field.structName.pascalName); -%>
+    <%_ if (!importStructNames.includes(field.relatedStructName.pascalName)) { -%>
+      <%_ importStructs.push(field.relatedStructName); -%>
+      <%_ importStructNames.push(field.relatedStructName.pascalName); -%>
     <%_ } -%>
   <%_ } -%>
   <%_ if (field.relatedType === 'ManyToOne') { -%>
