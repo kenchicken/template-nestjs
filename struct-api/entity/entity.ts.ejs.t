@@ -10,7 +10,7 @@ force: true
 <%_ struct.fields.forEach(function (field, key) { -%>
   <%_ if (field.dataType === 'array' && field.structName != null) { -%>
     <%_ hasOneToMany = true; -%>
-    <%_ if (!importStructNames.includes(field.relatedStructName.pascalName)) { -%>
+    <%_ if (!importStructNames.includes(field.structName.pascalName)) { -%>
       <%_ importStructs.push(field.structName); -%>
       <%_ importStructNames.push(field.structName.pascalName); -%>
     <%_ } -%>
