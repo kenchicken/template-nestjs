@@ -7,10 +7,13 @@ force: true
 <%_ let hasOneToOne = false; -%>
 <%_ struct.fields.forEach(function (field, key) { -%>
   <%_ if (field.dataType === 'array' && field.structName != null) { -%>
-    <%_ joinColumn = true; -%>
+    <%_ hasOneToMany = true; -%>
   <%_ } -%>
   <%_ if (field.dataType === 'struct' && field.structName != null) { -%>
-    <%_ joinColumn = true; -%>
+    <%_ hasOneToOne = true; -%>
+  <%_ } -%>
+  <%_ if (field.relatedStructName) { -%>
+    <%_ hasManyToOne = true; -%>
   <%_ } -%>
 <%_ }) -%>
 <%_ if (hasManyToOne) { -%>
@@ -77,8 +80,8 @@ class <%= struct.name.pascalName %> {
   @OneToMany(() => <%= field.structName.pascalName %>,(<%= field.structName.lowerCamelName %>) => <%= field.structName.lowerCamelName %>.<%= struct.name.lowerCamelName %>)
   <%= field.name.lowerCamelName %>?: <%= field.structName.pascalName %>[];
     <%_ } -%>
-    <%_ if (field.dataType === 'struct' && field.structName != null) { -%>
-  @ManyToOne(() => <%= field.structName.pascalName %>, (<%= field.structName.lowerCamelName %>) => <%= field.structName.lowerCamelName %>)
+    <%_ if (field.relatedStructName) { -%>
+  @ManyToOne(() => <%= field.relatedStructName.pascalName %>, (<%= field.relatedStructName.lowerCamelName %>) => <%= field.relatedStructName.lowerCamelName %>.<%= struct.name.lowerCamelName %>)
   <%= field.name.lowerCamelName %>?: <%= field.structName.pascalName %>;
     <%_ } -%>
     <%_ if (field.dataType !== 'struct' && field.dataType !== 'array' && field.structName != null) { -%>
