@@ -5,24 +5,23 @@ force: true
 <%_ let hasOneToMany = false; -%>
 <%_ let hasOneToOne = false; -%>
 <%_ let hasManyToOne = false; -%>
-<%_ let manyToOneStructs = []; -%>
+<%_ let importStructs = []; -%>
 <%_ struct.fields.forEach(function (field, key) { -%>
   <%_ if (field.dataType === 'array' && field.structName != null) { -%>
     <%_ hasOneToMany = true; -%>
+    <%_ importStructs.push(field.structName); -%>
   <%_ } -%>
   <%_ if (field.dataType === 'struct' && field.structName != null) { -%>
     <%_ hasOneToOne = true; -%>
+    <%_ importStructs.push(field.structName); -%>
   <%_ } -%>
   <%_ if (field.relatedStructName) { -%>
     <%_ hasManyToOne = true; -%>
-    <%_ manyToOneStructs.push(field); -%>
+    <%_ importStructs.push(field.relatedStructName); -%>
   <%_ } -%>
 <%_ }) -%>
 <%_ if (hasManyToOne) { -%>
 import { ManyToOne } from 'typeorm';
-<%_manyToOneStructs.forEach(function (field, key) { -%>
-import <%= field.relatedStructName.pascalName %> from 'src/app/entity/<%= field.relatedStructName.lowerKebabName %>.entity';
-<%_ }) -%>
 <%_ } else if (hasOneToMany) { -%>
 import { OneToMany } from 'typeorm';
 import <%= struct.name.pascalName %> from 'src/app/entity/<%= struct.name.lowerKebabName %>.entity';
@@ -31,6 +30,9 @@ import { OneToOne } from 'typeorm';
 import <%= struct.name.pascalName %> from 'src/app/entity/<%= struct.name.lowerKebabName %>.entity';
 <%_ } -%>
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+<%_ importStructs.forEach(function (structName, key) { -%>
+import <%= structName.pascalName %> from 'src/app/entity/<%= structName.lowerKebabName %>.entity';
+<%_ }) -%>
 
 @Entity('<%= struct.name.lowerKebabPluralName %>')
 class <%= struct.name.pascalName %> {
