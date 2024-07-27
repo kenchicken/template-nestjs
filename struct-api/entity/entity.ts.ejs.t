@@ -22,7 +22,7 @@ force: true
       <%_ importStructNames.push(field.structName.pascalName); -%>
     <%_ } -%>
   <%_ } -%>
-  <%_ if (field.relatedStructName) { -%>
+  <%_ if (field.relatedStructName && !field.belongTo) { -%>
     <%_ hasManyToOne = true; -%>
     <%_ if (!importStructNames.includes(field.relatedStructName.pascalName)) { -%>
       <%_ importStructs.push(field.relatedStructName); -%>
@@ -37,7 +37,7 @@ import { ManyToOne } from 'typeorm';
 import { OneToMany } from 'typeorm';
 <%_ } -%>
 <%_ if (hasOneToOne) { -%>
-import { OneToOne } from 'typeorm';
+import { OneToOne, JoinColumn } from 'typeorm';
 <%_ } -%>
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 <%_ importStructs.forEach(function (structName, key) { -%>
@@ -95,7 +95,7 @@ class <%= struct.name.pascalName %> {
   @OneToMany(() => <%= field.structName.pascalName %>, (<%= field.structName.lowerCamelName %>) => <%= field.structName.lowerCamelName %>.<%= struct.name.lowerCamelName %>)
   <%= field.name.lowerCamelName %>?: <%= field.structName.pascalName %>[];
     <%_ } -%>
-    <%_ if (field.relatedStructName) { -%>
+    <%_ if (field.relatedStructName && !field.belongTo) { -%>
   @ManyToOne(() => <%= field.relatedStructName.pascalName %>, (<%= field.relatedStructName.lowerCamelName %>) => <%= field.relatedStructName.lowerCamelName %>.<%= struct.name.lowerCamelName %>)
   <%= field.relatedStructName.lowerCamelName %>?: <%= field.relatedStructName.pascalName %>;
     <%_ } -%>
