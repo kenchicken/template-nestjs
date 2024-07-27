@@ -3,8 +3,9 @@ to: "<%= struct.generateEnable ? `${rootDirectory}/api/src/app/entity/${struct.n
 force: true
 ---
 <%_ let hasOneToMany = false; -%>
-<%_ let hasManyToOne = false; -%>
 <%_ let hasOneToOne = false; -%>
+<%_ let hasManyToOne = false; -%>
+<%_ let manyToOneStructs = []; -%>
 <%_ struct.fields.forEach(function (field, key) { -%>
   <%_ if (field.dataType === 'array' && field.structName != null) { -%>
     <%_ hasOneToMany = true; -%>
@@ -18,7 +19,9 @@ force: true
 <%_ }) -%>
 <%_ if (hasManyToOne) { -%>
 import { ManyToOne } from 'typeorm';
-import <%= struct.relatedStructName.pascalName %> from 'src/app/entity/<%= struct.relatedStructName.lowerKebabName %>.entity';
+<%_manyToOneStructs.forEach(function (field, key) { -%>
+import <%= field.relatedStructName.pascalName %> from 'src/app/entity/<%= field.relatedStructName.lowerKebabName %>.entity';
+<%_ }) -%>
 <%_ } else if (hasOneToMany) { -%>
 import { OneToMany } from 'typeorm';
 import <%= struct.name.pascalName %> from 'src/app/entity/<%= struct.name.lowerKebabName %>.entity';
