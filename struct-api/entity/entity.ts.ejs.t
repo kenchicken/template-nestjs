@@ -8,21 +8,21 @@ force: true
 <%_ let importStructs = []; -%>
 <%_ let importStructNames = []; -%>
 <%_ struct.fields.forEach(function (field, key) { -%>
-  <%_ if (field.dataType === 'array' && field.structName != null) { -%>
+  <%_ if (field.relatedType === 'OneToMany') { -%>
     <%_ hasOneToMany = true; -%>
     <%_ if (!importStructNames.includes(field.structName.pascalName)) { -%>
       <%_ importStructs.push(field.structName); -%>
       <%_ importStructNames.push(field.structName.pascalName); -%>
     <%_ } -%>
   <%_ } -%>
-  <%_ if (field.dataType === 'struct' && field.structName != null != null) { -%>
+  <%_ if (field.relatedType === 'OneToOne') { -%>
     <%_ hasOneToOne = true; -%>
     <%_ if (!importStructNames.includes(field.structName.pascalName)) { -%>
       <%_ importStructs.push(field.structName); -%>
       <%_ importStructNames.push(field.structName.pascalName); -%>
     <%_ } -%>
   <%_ } -%>
-  <%_ if (field.relatedStructName && !field.belongTo) { -%>
+  <%_ if (field.relatedType === 'ManyToOne') { -%>
     <%_ hasManyToOne = true; -%>
     <%_ if (!importStructNames.includes(field.relatedStructName.pascalName)) { -%>
       <%_ importStructs.push(field.relatedStructName); -%>
