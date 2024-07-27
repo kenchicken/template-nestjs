@@ -82,7 +82,7 @@ class <%= struct.name.pascalName %> {
     <%_ } -%>
     <%_ if (field.relatedStructName) { -%>
   @ManyToOne(() => <%= field.relatedStructName.pascalName %>, (<%= field.relatedStructName.lowerCamelName %>) => <%= field.relatedStructName.lowerCamelName %>.<%= struct.name.lowerCamelName %>)
-  <%= field.name.lowerCamelName %>?: <%= field.structName.pascalName %>;
+  <%= field.relatedStructName.lowerCamelName %>?: <%= field.relatedStructName.pascalName %>;
     <%_ } -%>
     <%_ if (field.dataType !== 'struct' && field.dataType !== 'array' && field.structName != null) { -%>
   @OneToOne(() => <%= field.structName.pascalName %>)
