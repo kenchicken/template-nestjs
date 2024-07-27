@@ -22,7 +22,7 @@ force: true
       <%_ importStructNames.push(field.structName.pascalName); -%>
     <%_ } -%>
   <%_ } -%>
-  <%_ if (field.relatedStructName) { -%>
+  <%_ if (field.relatedStructName && !field.belongTo) { -%>
     <%_ hasManyToOne = true; -%>
     <%_ if (!importStructNames.includes(field.relatedStructName.pascalName)) { -%>
       <%_ importStructs.push(field.relatedStructName); -%>
@@ -95,11 +95,11 @@ class <%= struct.name.pascalName %> {
   @OneToMany(() => <%= field.structName.pascalName %>, (<%= field.structName.lowerCamelName %>) => <%= field.structName.lowerCamelName %>.<%= struct.name.lowerCamelName %>)
   <%= field.name.lowerCamelName %>?: <%= field.structName.pascalName %>[];
     <%_ } -%>
-    <%_ if (field.relatedStructName) { -%>
+    <%_ if (field.relatedStructName && !field.belongTo) { -%>
   @ManyToOne(() => <%= field.relatedStructName.pascalName %>, (<%= field.relatedStructName.lowerCamelName %>) => <%= field.relatedStructName.lowerCamelName %>.<%= struct.name.lowerCamelName %>)
   <%= field.relatedStructName.lowerCamelName %>?: <%= field.relatedStructName.pascalName %>;
     <%_ } -%>
-    <%_ if (field.dataType !== 'struct' && field.dataType !== 'array' && field.structName != null) { -%>
+    <%_ if (field.dataType === 'struct' && field.structName != null) { -%>
   @OneToOne(() => <%= field.structName.pascalName %>)
   @JoinColumn({ name: "<%= field.structName.lowerSnakeName %>_id" })
   <%= field.name.lowerCamelName %>?: <%= field.structName.pascalName %>;
