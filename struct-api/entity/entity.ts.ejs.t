@@ -32,9 +32,11 @@ force: true
 <%_ }) -%>
 <%_ if (hasManyToOne) { -%>
 import { ManyToOne } from 'typeorm';
-<%_ } else if (hasOneToMany) { -%>
+<%_ } -%>
+<%_ if (hasOneToMany) { -%>
 import { OneToMany } from 'typeorm';
-<%_ } else if (hasOneToOne) { -%>
+<%_ } -%>
+<%_ if (hasOneToOne) { -%>
 import { OneToOne } from 'typeorm';
 <%_ } -%>
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
@@ -90,7 +92,7 @@ class <%= struct.name.pascalName %> {
     <%_ } -%>
   <%_ } -%>
     <%_ if (field.dataType === 'array' && field.structName != null) { -%>
-  @OneToMany(() => <%= field.structName.pascalName %>,(<%= field.structName.lowerCamelName %>) => <%= field.structName.lowerCamelName %>.<%= struct.name.lowerCamelName %>)
+  @OneToMany(() => <%= field.structName.pascalName %>, (<%= field.structName.lowerCamelName %>) => <%= field.structName.lowerCamelName %>.<%= struct.name.lowerCamelName %>)
   <%= field.name.lowerCamelName %>?: <%= field.structName.pascalName %>[];
     <%_ } -%>
     <%_ if (field.relatedStructName) { -%>
