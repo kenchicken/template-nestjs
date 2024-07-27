@@ -101,7 +101,7 @@ class <%= struct.name.pascalName %> {
     <%_ } -%>
     <%_ if (field.dataType === 'struct' && field.structName != null && !field.belongTo) { -%>
   @OneToOne(() => <%= field.structName.pascalName %>)
-  @JoinColumn({ name: "<%= field.structName.lowerCamelName %>_id" })
+  @JoinColumn()
   <%= field.name.lowerCamelName %>?: <%= field.structName.pascalName %>;
     <%_ } -%>
 <%_ }) -%>
