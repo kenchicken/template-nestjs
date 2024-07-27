@@ -15,6 +15,7 @@ force: true
   <%_ } -%>
   <%_ if (field.relatedStructName) { -%>
     <%_ hasManyToOne = true; -%>
+    <%_ manyToOneStructs.push(field); -%>
   <%_ } -%>
 <%_ }) -%>
 <%_ if (hasManyToOne) { -%>
