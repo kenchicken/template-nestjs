@@ -91,15 +91,15 @@ class <%= struct.name.pascalName %> {
   <%= field.name.lowerCamelName %>?: boolean;
     <%_ } -%>
   <%_ } -%>
-    <%_ if (field.dataType === 'array' && field.structName != null) { -%>
+    <%_ if (field.relatedType === 'OneToMany') { -%>
   @OneToMany(() => <%= field.structName.pascalName %>, (<%= field.structName.lowerCamelName %>) => <%= field.structName.lowerCamelName %>.<%= struct.name.lowerCamelName %>)
   <%= field.name.lowerCamelName %>?: <%= field.structName.pascalName %>[];
     <%_ } -%>
-    <%_ if (field.relatedStructName && !field.belongTo) { -%>
+    <%_ if (field.relatedType === 'ManyToOne') { -%>
   @ManyToOne(() => <%= field.relatedStructName.pascalName %>, (<%= field.relatedStructName.lowerCamelName %>) => <%= field.relatedStructName.lowerCamelName %>.<%= struct.name.lowerCamelName %>)
   <%= field.relatedStructName.lowerCamelName %>?: <%= field.relatedStructName.pascalName %>;
     <%_ } -%>
-    <%_ if (field.dataType === 'struct' && field.structName != null) { -%>
+    <%_ if (field.relatedType === 'OneToOne') { -%>
   @OneToOne(() => <%= field.structName.pascalName %>)
   @JoinColumn()
   <%= field.name.lowerCamelName %>?: <%= field.structName.pascalName %>;
