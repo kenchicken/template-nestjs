@@ -29,7 +29,6 @@ import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 @Entity('<%= struct.name.lowerKebabPluralName %>')
 class <%= struct.name.pascalName %> {
 <%_ struct.fields.forEach(function (field, key) { -%>
-  <%_ if (!field.related) { -%>
   <%_ if (field.name.lowerCamelName === 'id') { -%>
     <%_ if (field.dataType === 'string') { -%>
   @PrimaryGeneratedColumn()
@@ -74,7 +73,6 @@ class <%= struct.name.pascalName %> {
   <%= field.name.lowerCamelName %>?: boolean;
     <%_ } -%>
   <%_ } -%>
-  <%_ } else { -%>
     <%_ if (field.dataType === 'array' && field.structName != null) { -%>
   @OneToMany(() => <%= field.structName.pascalName %>,(<%= field.structName.lowerCamelName %>) => <%= field.structName.lowerCamelName %>.<%= struct.name.lowerCamelName %>)
   <%= field.name.lowerCamelName %>?: <%= field.structName.pascalName %>[];
@@ -88,7 +86,6 @@ class <%= struct.name.pascalName %> {
   @JoinColumn({ name: "<%= field.structName.lowerSnakeName %>_id" })
   <%= field.name.lowerCamelName %>?: <%= field.structName.pascalName %>;
     <%_ } -%>
-<%_ } -%>
 <%_ }) -%>
 }
 
