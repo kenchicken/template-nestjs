@@ -100,9 +100,9 @@ class <%= struct.name.pascalName %> {
   <%= field.relatedStructName.lowerCamelName %>?: <%= field.relatedStructName.pascalName %>;
     <%_ } -%>
     <%_ if (field.relatedType === 'OneToOne') { -%>
-  @OneToOne(() => <%= field.structName.pascalName %>)
+  @OneToOne(() => <%= field.relatedStructName.pascalName %>)
   @JoinColumn()
-  <%= field.name.lowerCamelName %>?: <%= field.structName.pascalName %>;
+  <%= field.name.lowerCamelName %>?: <%= field.relatedStructName.pascalName %>;
     <%_ } -%>
 <%_ }) -%>
 }
