@@ -44,8 +44,18 @@ $ volta install node@22.3.0
 
 ```bash
 $ cd api
-$ yarn install
+$ npm install
 ```
+
+## Databaseの接続情報を.envに設定
+開発環境では以下のとおりとする
+```
+DATABASE_HOST=localhost
+DATABASE_PORT=5432
+DATABASE_USER=postgres
+DATABASE_PASSWORD=postgres
+DATABASE_NAME=postgres
+``
 
 ## start database
 
@@ -65,7 +75,7 @@ $ docker compose up -d
 
 ```bash
 $ cd api
-$ yarn build
+$ npm run build
 ```
 
 ## migration
@@ -84,13 +94,13 @@ $ npm run typeorm:run-migrations
 $ cd api
 
 # development
-$ yarn run start
+$ npm run start
 
 # watch mode
-$ yarn run start:dev
+$ npm run start:dev
 
 # production mode
-$ yarn run start:prod
+$ npm run start:prod
 ```
 
 ## OpenAPI (Swagger) URL
