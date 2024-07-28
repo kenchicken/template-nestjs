@@ -13,8 +13,4 @@ force: true
 /api/src/app/infrastructure/typeorm/*.repository.ts
 
 # not use api
-/api/src/app/module/attachment/
-/api/src/app/module/attachment-event/
-/api/src/app/module/attachment-recurring-event/
-/api/src/app/module/event-member-type/
-/api/src/app/module/event-user/
+
