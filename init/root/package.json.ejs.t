@@ -83,4 +83,7 @@ force: true
     "coverageDirectory": "../coverage",
     "testEnvironment": "node"
   }
+  "volta": {
+    "node": "22.3.0"
+  }
 }
