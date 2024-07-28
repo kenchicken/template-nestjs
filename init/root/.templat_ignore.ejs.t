@@ -2,6 +2,8 @@
 to: <%= rootDirectory %>/.templat_ignore
 force: true
 ---
+.templat_ignore
+
 # migration
 /api/src/database/migrations/
 
