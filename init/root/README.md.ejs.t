@@ -36,6 +36,13 @@ force: true
 $ yarn install
 ```
 
+## start database
+
+```bash
+$ docker-compose build
+$ docker-compose up -d
+```
+
 ## Running the app
 
 ```bash
@@ -48,6 +55,10 @@ $ yarn run start:dev
 # production mode
 $ yarn run start:prod
 ```
+
+## OpenAPI (Swagger) URL
+
+http://localhost:3000/swagger-ui
 
 ## Test
 
