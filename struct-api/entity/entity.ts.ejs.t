@@ -41,7 +41,7 @@ import { OneToOne, JoinColumn } from 'typeorm';
 <%_ } -%>
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 <%_ importStructs.forEach(function (structName, key) { -%>
-import <%= structName.pascalName %> from 'src/app/entity/<%= structName.lowerKebabName %>.entity';
+import <%= structName.pascalName %> from './<%= structName.lowerKebabName %>.entity';
 <%_ }) -%>
 
 @Entity('<%= struct.name.lowerKebabPluralName %>')
