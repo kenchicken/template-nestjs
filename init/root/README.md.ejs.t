@@ -74,8 +74,8 @@ before run migration, you need to build the project first
 
 ```bash
 $ cd api
-$ yarn typeorm:generate-migration -name=InitDatabase
-$ yarn typeorm:run-migrations
+$ npm run typeorm:generate-migration -name=InitDatabase
+$ npm run typeorm:run-migrations
 ```
 
 ## Running the app
