@@ -3,7 +3,7 @@ to: <%= rootDirectory %>/api/package.json
 force: true
 ---
 {
-  "name": "api",
+  "name": "<%= projectName %> API",
   "version": "0.0.1",
   "description": "",
   "author": "",

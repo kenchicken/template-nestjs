@@ -2,7 +2,6 @@
 to: <%= rootDirectory %>/api/docker-compose.yml
 force: true
 ---
-version: '1.0'
 services:
 
   postgres:
