@@ -1,5 +1,5 @@
 ---
-to: "<%= struct.generateEnable ? `${rootDirectory}/api/src/app/module/${struct.name.lowerKebabName}/dto/create-${struct.name.lowerKebabName}.dto.ts` : null %>"
+to: "<%= struct.generateEnable ? `${rootDirectory}/api/src/app/module/${struct.name.lowerKebabName}/dto/generated/create-${struct.name.lowerKebabName}.dto.ts` : null %>"
 force: true
 ---
 import { ApiProperty } from '@nestjs/swagger';

@@ -1,5 +1,5 @@
 ---
-to: "<%= struct.generateEnable ? `${rootDirectory}/api/src/app/module/${struct.name.lowerKebabName}/dto/search-${struct.name.lowerKebabName}.dto.ts` : null %>"
+to: "<%= struct.generateEnable ? `${rootDirectory}/api/src/app/module/${struct.name.lowerKebabName}/dto/generated/search-${struct.name.lowerKebabName}.dto.ts` : null %>"
 force: true
 ---
 export class Search<%= struct.name.pascalName %>Dto {

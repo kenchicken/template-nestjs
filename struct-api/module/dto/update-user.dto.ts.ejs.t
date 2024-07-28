@@ -1,5 +1,5 @@
 ---
-to: "<%= struct.generateEnable ? `${rootDirectory}/api/src/app/module/${struct.name.lowerKebabName}/dto/update-${struct.name.lowerKebabName}.dto.ts` : null %>"
+to: "<%= struct.generateEnable ? `${rootDirectory}/api/src/app/module/${struct.name.lowerKebabName}/dto/generated/update-${struct.name.lowerKebabName}.dto.ts` : null %>"
 force: true
 ---
 export class Update<%= struct.name.pascalName %>Dto {

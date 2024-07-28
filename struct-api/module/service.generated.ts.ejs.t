@@ -3,9 +3,9 @@ to: "<%= struct.generateEnable ? `${rootDirectory}/api/src/app/module/${struct.n
 force: true
 ---
 import { Inject, Injectable } from '@nestjs/common';
-import { Create<%= struct.name.pascalName %>Dto } from '../dto/create-<%= struct.name.lowerKebabName %>.dto';
-import { Update<%= struct.name.pascalName %>Dto } from '../dto/update-<%= struct.name.lowerKebabName %>.dto';
-import { Search<%= struct.name.pascalName %>Dto } from '../dto/search-<%= struct.name.lowerKebabName %>.dto';
+import { Create<%= struct.name.pascalName %>Dto } from '../dto/generated/create-<%= struct.name.lowerKebabName %>.dto';
+import { Update<%= struct.name.pascalName %>Dto } from '../dto/generated/update-<%= struct.name.lowerKebabName %>.dto';
+import { Search<%= struct.name.pascalName %>Dto } from '../dto/generated/search-<%= struct.name.lowerKebabName %>.dto';
 import { <%= struct.name.pascalName %>RepositoryInterfaceGenerated } from 'src/app/repository/<%= struct.name.lowerKebabName %>.repository.interface.generated';
 import <%= struct.name.pascalName %>Entity from 'src/app/entity/<%= struct.name.lowerKebabName %>.entity';
 

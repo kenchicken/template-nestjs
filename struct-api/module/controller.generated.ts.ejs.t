@@ -13,10 +13,10 @@ import {
   Put,
 } from '@nestjs/common';
 import { <%= struct.name.pascalName %>ServiceGenerated } from '../service';
-import { Create<%= struct.name.pascalName %>Dto } from '../dto/create-<%= struct.name.lowerKebabName %>.dto';
-import { Update<%= struct.name.pascalName %>Dto } from '../dto/update-<%= struct.name.lowerKebabName %>.dto';
-import { Search<%= struct.name.pascalName %>Dto } from '../dto/search-<%= struct.name.lowerKebabName %>.dto';
-import { ApiTags } from "@nestjs/swagger";
+import { Create<%= struct.name.pascalName %>Dto } from '../dto/generated/create-<%= struct.name.lowerKebabName %>.dto';
+import { Update<%= struct.name.pascalName %>Dto } from '../dto/generated/update-<%= struct.name.lowerKebabName %>.dto';
+import { Search<%= struct.name.pascalName %>Dto } from '../dto/generated/search-<%= struct.name.lowerKebabName %>.dto';
+import { ApiTags } from '@nestjs/swagger';
 
 @Controller('<%= struct.name.lowerKebabName %>')
 @ApiTags('<%= struct.name.lowerKebabName %>')
