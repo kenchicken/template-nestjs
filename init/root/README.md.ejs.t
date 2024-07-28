@@ -32,20 +32,57 @@ force: true
 
 ## Installation
 
+use node v22.3.0
+recommend using volta to manage node version
+
+https://docs.volta.sh/guide/getting-started
+
 ```bash
+$ curl https://get.volta.sh | bash
+$ volta install node@22.3.0
+```
+
+```bash
+$ cd api
 $ yarn install
 ```
 
 ## start database
 
 ```bash
+$ cd api
 $ docker-compose build
 $ docker-compose up -d
+```
+or use docker compose v2
+```bash
+$ cd api
+$ docker compose build
+$ docker compose up -d
+```
+
+## build
+
+```bash
+$ cd api
+$ yarn build
+```
+
+## migration
+
+before run migration, you need to build the project first
+
+```bash
+$ cd api
+$ yarn typeorm:generate-migration -name=InitDatabase
+$ yarn typeorm:run-migrations
 ```
 
 ## Running the app
 
 ```bash
+$ cd api
+
 # development
 $ yarn run start
 
@@ -63,6 +100,8 @@ http://localhost:3000/swagger-ui
 ## Test
 
 ```bash
+$ cd api
+
 # unit tests
 $ yarn run test
 
