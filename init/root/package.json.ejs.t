@@ -84,6 +84,7 @@ force: true
     "testEnvironment": "node"
   },
   "volta": {
-    "node": "22.3.0"
+    "node": "22.3.0",
+    "npm": "10.8.2"
   }
 }
