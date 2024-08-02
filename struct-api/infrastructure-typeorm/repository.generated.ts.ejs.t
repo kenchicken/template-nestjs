@@ -80,7 +80,7 @@ export class <%= struct.name.pascalName %>RepositoryGenerated
     });
   }
 
-  async getAllWithCursor(condition: Search<%= struct.name.pascalName %>Dto): Promise<<%= struct.name.pascalName %>Entity[]> {
+  async getAllWithCursor(condition:<%= struct.name.pascalName %>Entit): Promise<<%= struct.name.pascalName %>Entity[]> {
     return await this.<%= struct.name.lowerSnakeName %>Repository.find({
       where: {
       <%_ struct.fields.forEach(function (field, key) { -%>
