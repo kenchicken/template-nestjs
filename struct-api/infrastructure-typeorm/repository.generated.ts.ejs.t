@@ -6,7 +6,6 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import <%= struct.name.pascalName %>Entity from 'src/app/entity/<%= struct.name.lowerKebabName %>.entity';
 import { <%= struct.name.pascalName %>RepositoryInterfaceGenerated } from '../../repository/<%= struct.name.lowerKebabName %>.repository.interface.generated';
-import { Search<%= struct.name.pascalName %>Dto } from '../../module/<%= struct.name.lowerKebabName %>/dto/search-<%= struct.name.lowerKebabName %>.dto';
 
 export class <%= struct.name.pascalName %>RepositoryGenerated
   implements <%= struct.name.pascalName %>RepositoryInterfaceGenerated
@@ -35,7 +34,7 @@ export class <%= struct.name.pascalName %>RepositoryGenerated
     return this.<%= struct.name.lowerSnakeName %>Repository.findOneById(id);
   }
 
-  async getAll(condition: Search<%= struct.name.pascalName %>Dto): Promise<<%= struct.name.pascalName %>Entity[]> {
+  async getAll(condition: <%= struct.name.pascalName %>Entity): Promise<<%= struct.name.pascalName %>Entity[]> {
     return await this.<%= struct.name.lowerSnakeName %>Repository.find({
       where: {
       <%_ struct.fields.forEach(function (field, key) { -%>
@@ -58,7 +57,7 @@ export class <%= struct.name.pascalName %>RepositoryGenerated
     });
   }
 
-  async count(condition: Search<%= struct.name.pascalName %>Dto): Promise<number> {
+  async count(condition: <%= struct.name.pascalName %>Entity): Promise<number> {
     return await this.<%= struct.name.lowerSnakeName %>Repository.count({
       where: {
       <%_ struct.fields.forEach(function (field, key) { -%>

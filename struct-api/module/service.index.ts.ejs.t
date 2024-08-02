@@ -4,3 +4,4 @@ force: true
 ---
 export * from './<%= struct.name.lowerKebabName %>.service.generated';
 export * from './handler';
+export * from './query';
