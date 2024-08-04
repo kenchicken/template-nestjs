@@ -41,7 +41,7 @@ import { OneToOne, JoinColumn } from 'typeorm';
 <%_ } -%>
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 <%_ importStructs.forEach(function (structName, key) { -%>
-import <%= structName.pascalName %> from './<%= structName.lowerKebabName %>.entity';
+import <%= structName.pascalName %>Entity from './<%= structName.lowerKebabName %>.entity';
 <%_ }) -%>
 
 @Entity('<%= struct.name.lowerSnakePluralName %>')
@@ -97,16 +97,16 @@ class <%= struct.name.pascalName %>Entity {
     onDelete: 'CASCADE',
     onUpdate: 'CASCADE',
   })
-  <%= field.name.lowerCamelName %>?: <%= field.structName.pascalName %>[];
+  <%= field.name.lowerCamelName %>?: <%= field.structName.pascalName %>Entity[];
     <%_ } -%>
     <%_ if (field.relatedType === 'ManyToOne') { -%>
   @ManyToOne(() => <%= field.relatedStructName.pascalName %>, (<%= field.relatedStructName.lowerCamelName %>) => <%= field.relatedStructName.lowerCamelName %>.<%= struct.name.lowerCamelPluralName %>)
-  <%= field.relatedStructName.lowerCamelName %>?: <%= field.relatedStructName.pascalName %>;
+  <%= field.relatedStructName.lowerCamelName %>?: <%= field.relatedStructName.pascalName %>Entity;
     <%_ } -%>
     <%_ if (field.relatedType === 'OneToOne') { -%>
   @OneToOne(() => <%= field.relatedStructName.pascalName %>)
   @JoinColumn()
-  <%= field.relatedStructName.lowerCamelName %>?: <%= field.relatedStructName.pascalName %>;
+  <%= field.relatedStructName.lowerCamelName %>?: <%= field.relatedStructName.pascalName %>Entity;
     <%_ } -%>
 <%_ }) -%>
 }
