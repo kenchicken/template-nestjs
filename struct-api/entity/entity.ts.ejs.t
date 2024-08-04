@@ -45,7 +45,7 @@ import <%= structName.pascalName %> from './<%= structName.lowerKebabName %>.ent
 <%_ }) -%>
 
 @Entity('<%= struct.name.lowerKebabPluralName %>')
-class <%= struct.name.pascalName %> {
+class <%= struct.name.pascalName %>Entity {
 <%_ struct.fields.forEach(function (field, key) { -%>
   <%_ if (field.name.lowerCamelName === 'id') { -%>
     <%_ if (field.dataType === 'string') { -%>
@@ -111,4 +111,4 @@ class <%= struct.name.pascalName %> {
 <%_ }) -%>
 }
 
-export default <%= struct.name.pascalName %>;
+export default <%= struct.name.pascalName %>Entity;
