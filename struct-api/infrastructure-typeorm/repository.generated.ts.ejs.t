@@ -27,12 +27,12 @@ export class <%= struct.name.pascalName %>RepositoryGenerated
   }
 
   async get(id: number): Promise<<%= struct.name.pascalName %>Entity> {
-    return await this.<%= struct.name.lowerSnakeName %>Repository.findOneById(id);
+    return await this.<%= struct.name.lowerSnakeName %>Repository.findOneBy({ id });
   }
 
   async update(id: number, item: <%= struct.name.pascalName %>Entity): Promise<<%= struct.name.pascalName %>Entity> {
-    await this.<%= struct.name.lowerSnakeName %>Repository.update(id, item);
-    return this.<%= struct.name.lowerSnakeName %>Repository.findOneById(id);
+    await this.<%= struct.name.lowerSnakeName %>Repository.save(id, item);
+    return this.<%= struct.name.lowerSnakeName %>Repository.findOneBy({ id });
   }
 
   async getAll(condition: Search<%= struct.name.pascalName %>Condition): Promise<<%= struct.name.pascalName %>Entity[]> {
