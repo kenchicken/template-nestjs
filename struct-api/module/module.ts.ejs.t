@@ -9,6 +9,7 @@ import * as Services from './service';
 <%_ project.structs.forEach(function (aStruct, key) { -%>
 import <%= aStruct.name.pascalName %>Entity from 'src/app/entity/<%= aStruct.name.lowerKebabName %>.entity';
 import { <%= aStruct.name.pascalName %>Repository } from '../../infrastructure/typeorm/<%= aStruct.name.lowerKebabName %>.repository';
+import { <%= aStruct.name.pascalName %>RepositoryGenerated } from '../../infrastructure/typeorm/<%= aStruct.name.lowerKebabName %>.repository.generated';
 <%_ }) -%>
 
 const toArray = (obj: any) => {
