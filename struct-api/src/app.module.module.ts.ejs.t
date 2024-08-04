@@ -5,4 +5,3 @@ skip_if: "<%= struct.name.pascalName %>Module,"
 after: "// Add all modules here"
 ---
     <%= struct.name.pascalName %>Module,
-
