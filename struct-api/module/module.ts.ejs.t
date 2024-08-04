@@ -26,11 +26,11 @@ const toArray = (obj: any) => {
     ...toArray(Services),
 <%_ project.structs.forEach(function (aStruct, key) { -%>
     {
-      provide: '<%= aStruct.lowerCamelName %>Repository',
+      provide: '<%= aStruct.name.lowerCamelName %>Repository',
       useClass: <%= aStruct.name.pascalName %>Repository,
     },
     {
-      provide: '<%= aStruct.lowerCamelName %>RepositoryGenerated',
+      provide: '<%= aStruct.name.lowerCamelName %>RepositoryGenerated',
       useClass: <%= aStruct.name.pascalName %>RepositoryGenerated,
     },
 <%_ }) -%>
