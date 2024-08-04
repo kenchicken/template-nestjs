@@ -6,7 +6,7 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import * as Controllers from './controller';
 import * as Services from './service';
-obj<%_ project.structs.forEach(function (aStruct, key) { -%>
+<%_ project.structs.forEach(function (aStruct, key) { -%>
 import <%= aStruct.name.pascalName %>Entity from 'src/app/entity/<%= aStruct.name.lowerKebabName %>.entity';
 import { <%= aStruct.name.pascalName %>Repository } from '../../infrastructure/typeorm/<%= aStruct.name.lowerKebabName %>.repository';
 <%_ }) -%>
