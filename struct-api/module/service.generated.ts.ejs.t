@@ -12,7 +12,7 @@ import <%= struct.name.pascalName %>Entity from 'src/app/entity/<%= struct.name.
 @Injectable()
 export class <%= struct.name.pascalName %>ServiceGenerated {
   constructor(
-    @Inject('repositoryGenerated')
+    @Inject('<%= struct.name.lowerCamelName %>RepositoryGenerated')
     private readonly <%= struct.name.lowerCamelName %>Repository: <%= struct.name.pascalName %>RepositoryInterfaceGenerated,
   ) {}
 
