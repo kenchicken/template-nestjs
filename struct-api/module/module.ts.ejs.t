@@ -19,7 +19,7 @@ const toArray = (obj: any) => {
 @Module({
   imports: [TypeOrmModule.forFeature([
 <%_ project.structs.forEach(function (aStruct, key) { -%>
-    <%= aStruct.name.pascalName %>Entity,
+      <%= aStruct.name.pascalName %>Entity,
 <%_ }) -%>
   ])],
   controllers: toArray(Controllers),

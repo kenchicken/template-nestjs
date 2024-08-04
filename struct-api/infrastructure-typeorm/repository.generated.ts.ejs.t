@@ -31,7 +31,7 @@ export class <%= struct.name.pascalName %>RepositoryGenerated
   }
 
   async update(id: number, item: <%= struct.name.pascalName %>Entity): Promise<<%= struct.name.pascalName %>Entity> {
-    await this.<%= struct.name.lowerSnakeName %>Repository.save(id, item);
+    await this.<%= struct.name.lowerSnakeName %>Repository.save(item);
     return this.<%= struct.name.lowerSnakeName %>Repository.findOneBy({ id });
   }
 
