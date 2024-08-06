@@ -92,7 +92,7 @@ class <%= struct.name.pascalName %>Entity {
     <%_ } -%>
   <%_ } -%>
     <%_ if (field.relatedType === 'OneToMany') { -%>
-  @OneToMany(() => <%= field.structName.pascalName %>, (<%= field.structName.lowerCamelName %>) => <%= field.structName.lowerCamelName %>.<%= struct.name.lowerCamelName %>, {
+  @OneToMany(() => <%= field.structName.pascalName %>Entity, (<%= field.structName.lowerCamelName %>) => <%= field.structName.lowerCamelName %>.<%= struct.name.lowerCamelName %>, {
     cascade: true,
     onDelete: 'CASCADE',
     onUpdate: 'CASCADE',
@@ -100,11 +100,11 @@ class <%= struct.name.pascalName %>Entity {
   <%= field.name.lowerCamelName %>?: <%= field.structName.pascalName %>Entity[];
     <%_ } -%>
     <%_ if (field.relatedType === 'ManyToOne') { -%>
-  @ManyToOne(() => <%= field.relatedStructName.pascalName %>, (<%= field.relatedStructName.lowerCamelName %>) => <%= field.relatedStructName.lowerCamelName %>.<%= struct.name.lowerCamelPluralName %>)
+  @ManyToOne(() => <%= field.relatedStructName.pascalName %>Entity, (<%= field.relatedStructName.lowerCamelName %>) => <%= field.relatedStructName.lowerCamelName %>.<%= struct.name.lowerCamelPluralName %>)
   <%= field.relatedStructName.lowerCamelName %>?: <%= field.relatedStructName.pascalName %>Entity;
     <%_ } -%>
     <%_ if (field.relatedType === 'OneToOne') { -%>
-  @OneToOne(() => <%= field.relatedStructName.pascalName %>)
+  @OneToOne(() => <%= field.relatedStructName.pascalName %>Entity)
   @JoinColumn()
   <%= field.relatedStructName.lowerCamelName %>?: <%= field.relatedStructName.pascalName %>Entity;
     <%_ } -%>
