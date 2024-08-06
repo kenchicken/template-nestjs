@@ -1,5 +1,5 @@
 ---
-to: "<%= struct.generateEnable ? `${rootDirectory}/api/src/app/module/${struct.name.lowerKebabName}/${struct.name.lowerKebabName}.module.ts` : null %>"
+to: "<%= struct.generateEnable ? `${rootDirectory}/api/src/app/endpoint/${struct.name.lowerKebabName}/${struct.name.lowerKebabName}.module.ts` : null %>"
 force: true
 ---
 import { Module } from '@nestjs/common';

@@ -1,5 +1,5 @@
 ---
-to: "<%= struct.generateEnable ? `${rootDirectory}/api/src/app/module/${struct.name.lowerKebabName}/controller/index.ts` : null %>"
+to: "<%= struct.generateEnable ? `${rootDirectory}/api/src/app/endpoint/${struct.name.lowerKebabName}/controller/index.ts` : null %>"
 force: true
 ---
 export * from './<%= struct.name.lowerKebabName %>.controller.generated';
