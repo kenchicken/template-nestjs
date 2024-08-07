@@ -27,7 +27,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import <%= structName.pascalName %>Dto from './<%= structName.lowerKebabName %>.dto';
 <%_ }) -%>
 
-export class <%= struct.name.pascalName %>Dto {
+export default class <%= struct.name.pascalName %>Dto {
 <%_ struct.fields.forEach(function (field, key) { -%>
   <%_ if (field.name.lowerCamelName === 'id') { -%>
     <%_ if (field.dataType === 'string') { -%>
