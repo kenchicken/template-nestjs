@@ -55,7 +55,7 @@ export default class <%= struct.name.pascalName %>Dto {
   <%= field.name.lowerCamelName %>?: boolean;
     <%_ } -%>
     <%_ if (field.relatedType === 'OneToMany') { -%>
-  @ApiProperty({ type: <%= field.structName.pascalName %>Dto[] })
+  @ApiProperty({ isArray: true, type: <%= field.structName.pascalName %>Dto })
   <%= field.name.lowerCamelName %>?: <%= field.structName.pascalName %>Dto[];
     <%_ } -%>
     <%_ if (field.relatedType === 'OneToOne') { -%>
