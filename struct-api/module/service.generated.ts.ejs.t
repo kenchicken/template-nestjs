@@ -3,7 +3,7 @@ to: "<%= struct.generateEnable ? `${rootDirectory}/api/src/app/endpoint/${struct
 force: true
 ---
 import { Inject, Injectable } from '@nestjs/common';
-import { Create<%= struct.name.pascalName %>Dto } from 'src/app/dto/<%= struct.name.lowerKebabName %>.dto';
+import { <%= struct.name.pascalName %>Dto } from 'src/app/dto/<%= struct.name.lowerKebabName %>.dto';
 import { <%= struct.name.pascalName %>RepositoryInterfaceGenerated } from 'src/app/repository/<%= struct.name.lowerKebabName %>.repository.interface.generated';
 import <%= struct.name.pascalName %>Entity from 'src/app/entity/<%= struct.name.lowerKebabName %>.entity';
 

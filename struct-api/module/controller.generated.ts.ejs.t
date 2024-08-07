@@ -13,7 +13,7 @@ import {
   Put,
 } from '@nestjs/common';
 import { <%= struct.name.pascalName %>ServiceGenerated } from '../service';
-import { Create<%= struct.name.pascalName %>Dto } from 'src/app/dto/<%= struct.name.lowerKebabName %>.dto';
+import { <%= struct.name.pascalName %>Dto } from 'src/app/dto/<%= struct.name.lowerKebabName %>.dto';
 import { ApiTags } from '@nestjs/swagger';
 
 @Controller('<%= struct.name.lowerKebabName %>')
