@@ -13,9 +13,7 @@ import {
   Put,
 } from '@nestjs/common';
 import { <%= struct.name.pascalName %>ServiceGenerated } from '../service';
-import { Create<%= struct.name.pascalName %>Dto } from '../dto/generated/create-<%= struct.name.lowerKebabName %>.dto';
-import { Update<%= struct.name.pascalName %>Dto } from '../dto/generated/update-<%= struct.name.lowerKebabName %>.dto';
-import { Search<%= struct.name.pascalName %>Dto } from '../dto/generated/search-<%= struct.name.lowerKebabName %>.dto';
+import { Create<%= struct.name.pascalName %>Dto } from 'src/app/dto/<%= struct.name.lowerKebabName %>.dto';
 import { ApiTags } from '@nestjs/swagger';
 
 @Controller('<%= struct.name.lowerKebabName %>')
@@ -24,12 +22,12 @@ export class <%= struct.name.pascalName %>ControllerGenerated {
   constructor(private readonly <%= struct.name.lowerCamelName %>Service: <%= struct.name.pascalName %>ServiceGenerated) {}
 
   @Post()
-  create(@Body() create<%= struct.name.pascalName %>Dto: Create<%= struct.name.pascalName %>Dto) {
+  create(@Body() create<%= struct.name.pascalName %>Dto: <%= struct.name.pascalName %>Dto) {
     return this.<%= struct.name.lowerCamelName %>Service.create(create<%= struct.name.pascalName %>Dto);
   }
 
   @Get()
-  findAll(@Query() conditionDto: Search<%= struct.name.pascalName %>Dto) {
+  findAll(@Query() conditionDto: <%= struct.name.pascalName %>Dto) {
     return this.<%= struct.name.lowerCamelName %>Service.findAll(conditionDto);
   }
 
@@ -39,7 +37,7 @@ export class <%= struct.name.pascalName %>ControllerGenerated {
   }
 
   @Put(':id')
-  update(@Param('id') id: string, @Body() update<%= struct.name.pascalName %>Dto: Update<%= struct.name.pascalName %>Dto) {
+  update(@Param('id') id: string, @Body() update<%= struct.name.pascalName %>Dto: <%= struct.name.pascalName %>Dto) {
     return this.<%= struct.name.lowerCamelName %>Service.update(+id, update<%= struct.name.pascalName %>Dto);
   }
 

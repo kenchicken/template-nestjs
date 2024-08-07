@@ -3,9 +3,7 @@ to: "<%= struct.generateEnable ? `${rootDirectory}/api/src/app/endpoint/${struct
 force: true
 ---
 import { Inject, Injectable } from '@nestjs/common';
-import { Create<%= struct.name.pascalName %>Dto } from '../dto/generated/create-<%= struct.name.lowerKebabName %>.dto';
-import { Update<%= struct.name.pascalName %>Dto } from '../dto/generated/update-<%= struct.name.lowerKebabName %>.dto';
-import { Search<%= struct.name.pascalName %>Dto } from '../dto/generated/search-<%= struct.name.lowerKebabName %>.dto';
+import { Create<%= struct.name.pascalName %>Dto } from 'src/app/dto/<%= struct.name.lowerKebabName %>.dto';
 import { <%= struct.name.pascalName %>RepositoryInterfaceGenerated } from 'src/app/repository/<%= struct.name.lowerKebabName %>.repository.interface.generated';
 import <%= struct.name.pascalName %>Entity from 'src/app/entity/<%= struct.name.lowerKebabName %>.entity';
 
@@ -16,7 +14,7 @@ export class <%= struct.name.pascalName %>ServiceGenerated {
     private readonly <%= struct.name.lowerCamelName %>Repository: <%= struct.name.pascalName %>RepositoryInterfaceGenerated,
   ) {}
 
-  async create(create<%= struct.name.pascalName %>Dto: Create<%= struct.name.pascalName %>Dto): Promise<<%= struct.name.pascalName %>Entity> {
+  async create(create<%= struct.name.pascalName %>Dto: <%= struct.name.pascalName %>Dto): Promise<<%= struct.name.pascalName %>Entity> {
     return await this.<%= struct.name.lowerCamelName %>Repository.create({
     <%_ struct.fields.forEach(function (field, key) { -%>
       <%_ if (!field.related) { -%>
@@ -37,7 +35,7 @@ export class <%= struct.name.pascalName %>ServiceGenerated {
     });
   }
 
-  async findAll(condition: Search<%= struct.name.pascalName %>Dto) {
+  async findAll(condition: <%= struct.name.pascalName %>Dto) {
     return this.<%= struct.name.lowerCamelName %>Repository.getAll(condition);
   }
 
@@ -45,7 +43,7 @@ export class <%= struct.name.pascalName %>ServiceGenerated {
     return await this.<%= struct.name.lowerCamelName %>Repository.get(id);
   }
 
-  async update(id: number, update<%= struct.name.pascalName %>Dto: Update<%= struct.name.pascalName %>Dto) {
+  async update(id: number, update<%= struct.name.pascalName %>Dto: <%= struct.name.pascalName %>Dto) {
     return await this.<%= struct.name.lowerCamelName %>Repository.update(id, {
     <%_ struct.fields.forEach(function (field, key) { -%>
       <%_ if (!field.related) { -%>
