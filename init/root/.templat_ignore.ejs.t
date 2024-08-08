@@ -10,7 +10,7 @@ force: true
 
 # extended class
 /api/src/app/endpoint/**/controller/*.controller.ts
-/api/src/app/endpoint/**/service/handler/index.ts
+/api/src/app/endpoint/**/service/handler/index.extend.ts
 /api/src/app/endpoint/**/service/handler/*.handler.ts
 /api/src/app/endpoint/**/service/query/*.ts
 /api/src/app/endpoint/**/dto/*.ts
