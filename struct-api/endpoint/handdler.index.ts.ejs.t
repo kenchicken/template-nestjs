@@ -8,6 +8,7 @@ export * from './update-<%= struct.name.lowerKebabName %>.handler';
 export * from './delete-<%= struct.name.lowerKebabName %>.handler';
 export * from './get-<%= struct.name.lowerKebabName %>.handler';
 export * from './search-<%= struct.name.lowerKebabName %>.handler';
+export * from './index.extend';
 
 export class handlerManifest {
   package: string;

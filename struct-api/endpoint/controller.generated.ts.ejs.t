@@ -16,7 +16,7 @@ import {
   Create<%= struct.name.pascalName %>Handler,
   Update<%= struct.name.pascalName %>Handler,
   Delete<%= struct.name.pascalName %>Handler,
-  Get<%= struct.name.pascalName %>Handler,
+  Find<%= struct.name.pascalName %>Handler,
   Search<%= struct.name.pascalName %>Handler,
 } from '../service';
 import <%= struct.name.pascalName %>Dto from 'src/app/dto/<%= struct.name.lowerKebabName %>.dto';
@@ -28,7 +28,7 @@ export class <%= struct.name.pascalName %>ControllerGenerated {
   constructor(private readonly create<%= struct.name.pascalName %>Handler: Create<%= struct.name.pascalName %>Handler) {}
   constructor(private readonly update<%= struct.name.pascalName %>Handler: Update<%= struct.name.pascalName %>Handler) {}
   constructor(private readonly delete<%= struct.name.pascalName %>Handler: Delete<%= struct.name.pascalName %>Handler) {}
-  constructor(private readonly get<%= struct.name.pascalName %>Handler: Get<%= struct.name.pascalName %>Handler) {}
+  constructor(private readonly find<%= struct.name.pascalName %>Handler: Find<%= struct.name.pascalName %>Handler) {}
   constructor(private readonly search<%= struct.name.pascalName %>Handler: Search<%= struct.name.pascalName %>Handler) {}
 
   @Post()
@@ -53,7 +53,7 @@ export class <%= struct.name.pascalName %>ControllerGenerated {
     type: EventDto,
   })
   findOne(@Param('id') id: string) {
-    return this.get<%= struct.name.pascalName %>Handler.exec.findOneById(+id);
+    return this.find<%= struct.name.pascalName %>Handler.exec.findOneById(+id);
   }
 
   @Put(':id')
@@ -61,7 +61,7 @@ export class <%= struct.name.pascalName %>ControllerGenerated {
     type: EventDto,
   })
   update(@Param('id') id: string, @Body() update<%= struct.name.pascalName %>Dto: <%= struct.name.pascalName %>Dto) {
-    return this.this.update<%= struct.name.pascalName %>Handler.exec(id, update<%= struct.name.pascalName %>Dto);
+    return this.update<%= struct.name.pascalName %>Handler.exec(id, update<%= struct.name.pascalName %>Dto);
   }
 
   @Delete(':id')
