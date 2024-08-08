@@ -1,5 +1,5 @@
 ---
-to: "<%= struct.generateEnable ? `${rootDirectory}/api/src/app/endpoint/${struct.name.lowerKebabName}/service/search-${struct.name.lowerKebabName}.handler.ts` : null %>"
+to: "<%= struct.generateEnable ? `${rootDirectory}/api/src/app/endpoint/${struct.name.lowerKebabName}/service/handler/search-${struct.name.lowerKebabName}.handler.ts` : null %>"
 force: true
 ---
 import { Inject, Injectable } from '@nestjs/common';
@@ -8,13 +8,13 @@ import { <%= struct.name.pascalName %>RepositoryInterfaceGenerated } from 'src/a
 import <%= struct.name.pascalName %>Entity from 'src/app/entity/<%= struct.name.lowerKebabName %>.entity';
 
 @Injectable()
-export class <%= struct.name.pascalName %>Handler {
+export class Search<%= struct.name.pascalName %>Handler {
   constructor(
     @Inject('<%= struct.name.lowerCamelName %>RepositoryGenerated')
     private readonly <%= struct.name.lowerCamelName %>Repository: <%= struct.name.pascalName %>RepositoryInterfaceGenerated,
   ) {}
 
-  async findAll(condition: <%= struct.name.pascalName %>Dto) {
+  async exec(condition: <%= struct.name.pascalName %>Dto) {
     return this.<%= struct.name.lowerCamelName %>Repository.getAll(condition);
   }
 }
