@@ -52,20 +52,20 @@ export class <%= struct.name.pascalName %>ControllerGenerated {
   @ApiOkResponse({
     type: EventDto,
   })
-  findOne(@Param('id') id: string) {
-    return this.find<%= struct.name.pascalName %>Handler.exec.findOneById(+id);
+  findOne(@Param('id') id: number) {
+    return this.find<%= struct.name.pascalName %>Handler.exec(id);
   }
 
   @Put(':id')
   @ApiOkResponse({
     type: EventDto,
   })
-  update(@Param('id') id: string, @Body() update<%= struct.name.pascalName %>Dto: <%= struct.name.pascalName %>Dto) {
+  update(@Param('id') id: number, @Body() update<%= struct.name.pascalName %>Dto: <%= struct.name.pascalName %>Dto) {
     return this.update<%= struct.name.pascalName %>Handler.exec(id, update<%= struct.name.pascalName %>Dto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.delete<%= struct.name.pascalName %>Handler.exec(+id);
+  remove(@Param('id') id: number) {
+    return this.delete<%= struct.name.pascalName %>Handler.exec(id);
   }
 }
