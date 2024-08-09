@@ -25,11 +25,13 @@ import { ApiCreatedResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 @Controller('<%= struct.name.lowerKebabName %>')
 @ApiTags('<%= struct.name.lowerKebabName %>')
 export class <%= struct.name.pascalName %>ControllerGenerated {
-  constructor(private readonly create<%= struct.name.pascalName %>Handler: Create<%= struct.name.pascalName %>Handler) {}
-  constructor(private readonly update<%= struct.name.pascalName %>Handler: Update<%= struct.name.pascalName %>Handler) {}
-  constructor(private readonly delete<%= struct.name.pascalName %>Handler: Delete<%= struct.name.pascalName %>Handler) {}
-  constructor(private readonly find<%= struct.name.pascalName %>Handler: Find<%= struct.name.pascalName %>Handler) {}
-  constructor(private readonly search<%= struct.name.pascalName %>Handler: Search<%= struct.name.pascalName %>Handler) {}
+  constructor(
+    private readonly create<%= struct.name.pascalName %>Handler: Create<%= struct.name.pascalName %>Handler,
+    private readonly update<%= struct.name.pascalName %>Handler: Update<%= struct.name.pascalName %>Handler,
+    private readonly delete<%= struct.name.pascalName %>Handler: Delete<%= struct.name.pascalName %>Handler,
+    private readonly find<%= struct.name.pascalName %>Handler: Find<%= struct.name.pascalName %>Handler,
+    private readonly search<%= struct.name.pascalName %>Handler: Search<%= struct.name.pascalName %>Handler,
+  ) {}
 
   @Post()
   @ApiCreatedResponse({
