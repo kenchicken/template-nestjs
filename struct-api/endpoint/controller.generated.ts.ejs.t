@@ -41,7 +41,7 @@ export class <%= struct.name.pascalName %>ControllerGenerated {
 
   @Get()
   @ApiOkResponse({
-    type: EventDto,
+    type: <%= struct.name.pascalName %>Dto,
     isArray: true,
   })
   findAll(@Query() conditionDto: <%= struct.name.pascalName %>Dto) {
@@ -50,7 +50,7 @@ export class <%= struct.name.pascalName %>ControllerGenerated {
 
   @Get(':id')
   @ApiOkResponse({
-    type: EventDto,
+    type: <%= struct.name.pascalName %>Dto,
   })
   findOne(@Param('id') id: number) {
     return this.find<%= struct.name.pascalName %>Handler.exec(id);
@@ -58,7 +58,7 @@ export class <%= struct.name.pascalName %>ControllerGenerated {
 
   @Put(':id')
   @ApiOkResponse({
-    type: EventDto,
+    type: <%= struct.name.pascalName %>Dto,
   })
   update(@Param('id') id: number, @Body() update<%= struct.name.pascalName %>Dto: <%= struct.name.pascalName %>Dto) {
     return this.update<%= struct.name.pascalName %>Handler.exec(id, update<%= struct.name.pascalName %>Dto);
