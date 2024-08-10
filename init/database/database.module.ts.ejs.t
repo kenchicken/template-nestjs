@@ -23,7 +23,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
           // add entity after here
         ],
         autoLoadEntities: true,
-      })
+      }),
     }),
   ],
 })
