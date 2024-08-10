@@ -18,5 +18,4 @@ force: true
 /api/src/app/share/*.ts
 /api/src/app/infrastructure/typeorm/*.repository.ts
 
-# not use api
-
+# add or updated file
