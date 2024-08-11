@@ -15,23 +15,46 @@ export class Create<%= struct.name.pascalName %>Handler {
   ) {}
 
   async exec(create<%= struct.name.pascalName %>Dto: <%= struct.name.pascalName %>Dto): Promise<<%= struct.name.pascalName %>Entity> {
-    return await this.<%= struct.name.lowerCamelName %>Repository.create({
+    const entity = await this.<%= struct.name.lowerCamelName %>Repository.create({
     <%_ struct.fields.forEach(function (field, key) { -%>
       <%_ if (!field.related) { -%>
       <%_ if (field.dataType === 'string') { -%>
-      <%= field.name.lowerCamelName %>: create<%= struct.name.pascalName %>Dto.<%= field.name.lowerCamelName %>,
+    entity.<%= field.name.lowerCamelName %>: create<%= struct.name.pascalName %>Dto.<%= field.name.lowerCamelName %>,
       <%_ } -%>
       <%_ if (field.dataType === 'number') { -%>
-      <%= field.name.lowerCamelName %>: create<%= struct.name.pascalName %>Dto.<%= field.name.lowerCamelName %>,
+    entity.<%= field.name.lowerCamelName %>: create<%= struct.name.pascalName %>Dto.<%= field.name.lowerCamelName %>,
       <%_ } -%>
       <%_ if (field.dataType === 'time') { -%>
-      <%= field.name.lowerCamelName %>: create<%= struct.name.pascalName %>Dto.<%= field.name.lowerCamelName %>,
+    entity.<%= field.name.lowerCamelName %>: create<%= struct.name.pascalName %>Dto.<%= field.name.lowerCamelName %>,
       <%_ } -%>
       <%_ if (field.dataType === 'bool') { -%>
-      <%= field.name.lowerCamelName %>: create<%= struct.name.pascalName %>Dto.<%= field.name.lowerCamelName %>,
+    entity.<%= field.name.lowerCamelName %>: create<%= struct.name.pascalName %>Dto.<%= field.name.lowerCamelName %>,
+      <%_ } -%>
+      <%_ } -%>
+      <%_ if (field.related) { -%>
+      <%_ if (field.relatedType === 'OneToMany') { -%>
+    if (create<%= struct.name.pascalName %>Dto.<%= field.name.lowerCamelName %>) {
+      <%= struct.name.lowerCamelName %>.<%= field.name.lowerCamelName %> =
+      create<%= struct.name.pascalName %>Dto.<%= field.name.lowerCamelName %>.map(
+        (dto) => {
+          const childEntity = new UserEducationalBackgroundEntity();
+          childEntity.major = dto.major;
+          childEntity.graduationYear = dto.graduationYear;
+          childEntity.order = dto.order;
+          childEntity.<%= struct.name.lowerCamelName %> = entity;
+          return childEntity;
+        },
+      );
+    }
+      <%_ } -%>
+      <%_ if (field.relatedType === 'OneToOne') { -%>
+      <%_ } -%>
+      <%_ if (field.relatedType === 'ManyToOne') { -%>
       <%_ } -%>
       <%_ } -%>
     <%_ }) -%>
     });
+
+    return await this.<%= struct.name.lowerCamelName %>Repository.create(entity);
   }
 }
