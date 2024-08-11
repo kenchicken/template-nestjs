@@ -30,6 +30,10 @@ import <%= structName.pascalName %>Dto from './<%= structName.lowerKebabName %>.
 export default class <%= struct.name.pascalName %>Dto {
 <%_ struct.fields.forEach(function (field, key) { -%>
   <%_ if (field.name.lowerCamelName === 'id') { -%>
+  @ApiProperty({
+    required: false,
+    nullable: true,
+  })
     <%_ if (field.dataType === 'string') { -%>
   <%= field.name.lowerCamelName %>?: string;
     <%_ } -%>
@@ -39,19 +43,31 @@ export default class <%= struct.name.pascalName %>Dto {
   <%_ } -%>
   <%_ if (field.name.lowerCamelName !== 'id') { -%>
     <%_ if (field.dataType === 'string') { -%>
-  @ApiProperty()
+  @ApiProperty({
+    required: false,
+    nullable: true,
+  })
   <%= field.name.lowerCamelName %>?: string;
     <%_ } -%>
     <%_ if (field.dataType === 'number') { -%>
-  @ApiProperty()
+  @ApiProperty({
+    required: false,
+    nullable: true,
+  })
   <%= field.name.lowerCamelName %>?: number;
     <%_ } -%>
     <%_ if (field.dataType === 'time') { -%>
-  @ApiProperty()
+  @ApiProperty({
+    required: false,
+    nullable: true,
+  })
   <%= field.name.lowerCamelName %>?: Date;
     <%_ } -%>
     <%_ if (field.dataType === 'bool') { -%>
-  @ApiProperty()
+  @ApiProperty({
+    required: false,
+    nullable: true,
+  })
   <%= field.name.lowerCamelName %>?: boolean;
     <%_ } -%>
     <%_ if (field.relatedType === 'OneToMany') { -%>
