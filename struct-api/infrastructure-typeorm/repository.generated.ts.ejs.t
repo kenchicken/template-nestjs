@@ -16,14 +16,13 @@ export class <%= struct.name.pascalName %>RepositoryGenerated
     private <%= struct.name.lowerSnakeName %>Repository: Repository<<%= struct.name.pascalName %>Entity>,
   ) {}
 
-  async create(<%= struct.name.lowerSnakeName %>: <%= struct.name.pascalName %>Entity): Promise<<%= struct.name.pascalName %>Entity> {
-    const new<%= struct.name.pascalName %> = this.<%= struct.name.lowerSnakeName %>Repository.create(<%= struct.name.lowerSnakeName %>);
+  async create(<%= struct.name.pascalName %>: <%= struct.name.pascalName %>Entity): Promise<<%= struct.name.pascalName %>Entity> {
     return await this.<%= struct.name.lowerSnakeName %>Repository.save(new<%= struct.name.pascalName %>);
   }
 
   async delete(id: number): Promise<void> {
-    const <%= struct.name.lowerSnakeName %> = await this.<%= struct.name.lowerSnakeName %>Repository.findOneBy({ id });
-    await this.<%= struct.name.lowerSnakeName %>Repository.remove(<%= struct.name.lowerSnakeName %>);
+    const <%= struct.name.pascalName %> = await this.<%= struct.name.lowerSnakeName %>Repository.findOneBy({ id });
+    await this.<%= struct.name.lowerSnakeName %>Repository.remove(<%= struct.name.pascalName %>);
   }
 
   async get(id: number): Promise<<%= struct.name.pascalName %>Entity> {
