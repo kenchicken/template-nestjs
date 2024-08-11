@@ -58,7 +58,7 @@ class <%= struct.name.pascalName %>Entity {
     <%_ } -%>
   <%_ } -%>
   <%_ if (field.name.lowerCamelName !== 'id') { -%>
-    <%_ if (field.dataType === 'string') { -%>
+    <%_ if (field.dataType === 'string' && field.relatedType !== 'ManyToOne') { -%>
   <%_ if (field.validateTags && field.validateTags.includes('required')) { -%>
   @Column({ name: '<%= field.name.lowerSnakeName %>', comment: '<%= field.screenLabel %>', nullable: false })
   <%_ } else { -%>
@@ -66,7 +66,7 @@ class <%= struct.name.pascalName %>Entity {
   <%_ } -%>
   <%= field.name.lowerCamelName %>?: string;
     <%_ } -%>
-    <%_ if (field.dataType === 'number') { -%>
+    <%_ if (field.dataType === 'number' && field.relatedType !== 'ManyToOne') { -%>
   <%_ if (field.validateTags && field.validateTags.includes('required')) { -%>
   @Column({ name: '<%= field.name.lowerSnakeName %>', comment: '<%= field.screenLabel %>', nullable: false })
   <%_ } else { -%>
@@ -101,6 +101,10 @@ class <%= struct.name.pascalName %>Entity {
     <%_ } -%>
     <%_ if (field.relatedType === 'ManyToOne') { -%>
   @ManyToOne(() => <%= field.relatedStructName.pascalName %>Entity, (<%= field.relatedStructName.lowerCamelName %>) => <%= field.relatedStructName.lowerCamelName %>.<%= struct.name.lowerCamelPluralName %>)
+  @JoinColumn({
+    name: '<%= field.name.lowerSnakeName %>',
+    referencedColumnName: 'id',
+  })
   <%= field.relatedStructName.lowerCamelName %>?: <%= field.relatedStructName.pascalName %>Entity;
     <%_ } -%>
     <%_ if (field.relatedType === 'OneToOne') { -%>
