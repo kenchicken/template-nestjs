@@ -13,29 +13,29 @@ export class <%= struct.name.pascalName %>RepositoryGenerated
 {
   constructor(
     @InjectRepository(<%= struct.name.pascalName %>Entity)
-    private <%= struct.name.lowerSnakeName %>Repository: Repository<<%= struct.name.pascalName %>Entity>,
+    private <%= struct.name.lowerCamelCase %>Repository: Repository<<%= struct.name.pascalName %>Entity>,
   ) {}
 
   async create(<%= struct.name.pascalName %>: <%= struct.name.pascalName %>Entity): Promise<<%= struct.name.pascalName %>Entity> {
-    return await this.<%= struct.name.lowerSnakeName %>Repository.save(new<%= struct.name.pascalName %>);
+    return await this.<%= struct.name.lowerCamelCase %>Repository.save(new<%= struct.name.pascalName %>);
   }
 
   async delete(id: number): Promise<void> {
-    const <%= struct.name.pascalName %> = await this.<%= struct.name.lowerSnakeName %>Repository.findOneBy({ id });
-    await this.<%= struct.name.lowerSnakeName %>Repository.remove(<%= struct.name.pascalName %>);
+    const <%= struct.name.lowerCamelCase %> = await this.<%= struct.name.lowerCamelCase %>Repository.findOneBy({ id });
+    await this.<%= struct.name.lowerCamelCase %>Repository.remove(<%= struct.name.lowerCamelCase %>);
   }
 
   async get(id: number): Promise<<%= struct.name.pascalName %>Entity> {
-    return await this.<%= struct.name.lowerSnakeName %>Repository.findOneBy({ id });
+    return await this.<%= struct.name.lowerCamelCase %>Repository.findOneBy({ id });
   }
 
   async update(id: number, item: <%= struct.name.pascalName %>Entity): Promise<<%= struct.name.pascalName %>Entity> {
-    await this.<%= struct.name.lowerSnakeName %>Repository.save(item);
-    return this.<%= struct.name.lowerSnakeName %>Repository.findOneBy({ id });
+    await this.<%= struct.name.lowerCamelCase %>Repository.save(item);
+    return this.<%= struct.name.lowerCamelCase %>Repository.findOneBy({ id });
   }
 
   async getAll(condition: Search<%= struct.name.pascalName %>Condition): Promise<<%= struct.name.pascalName %>Entity[]> {
-    return await this.<%= struct.name.lowerSnakeName %>Repository.find({
+    return await this.<%= struct.name.lowerCamelCase %>Repository.find({
       where: {
       <%_ struct.fields.forEach(function (field, key) { -%>
         <%_ if (!field.related) { -%>
@@ -58,7 +58,7 @@ export class <%= struct.name.pascalName %>RepositoryGenerated
   }
 
   async count(condition: Search<%= struct.name.pascalName %>Condition): Promise<number> {
-    return await this.<%= struct.name.lowerSnakeName %>Repository.count({
+    return await this.<%= struct.name.lowerCamelCase %>Repository.count({
       where: {
       <%_ struct.fields.forEach(function (field, key) { -%>
         <%_ if (!field.related) { -%>
@@ -81,7 +81,7 @@ export class <%= struct.name.pascalName %>RepositoryGenerated
   }
 
   async getAllWithCursor(condition: Search<%= struct.name.pascalName %>Condition): Promise<<%= struct.name.pascalName %>Entity[]> {
-    return await this.<%= struct.name.lowerSnakeName %>Repository.find({
+    return await this.<%= struct.name.lowerCamelCase %>Repository.find({
       where: {
       <%_ struct.fields.forEach(function (field, key) { -%>
         <%_ if (!field.related) { -%>
