@@ -34,7 +34,7 @@ force: true
 import { ManyToOne } from 'typeorm';
 <%_ } -%>
 <%_ if (hasOneToMany) { -%>
-import { OneToMany } from 'typeorm';
+import { OneToMany, JoinColumn } from 'typeorm';
 <%_ } -%>
 <%_ if (hasOneToOne) { -%>
 import { OneToOne, JoinColumn } from 'typeorm';
