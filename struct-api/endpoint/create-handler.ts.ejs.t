@@ -15,7 +15,6 @@ import <%= field.structName.pascalName %>Entity from './<%= field.structName.low
 <%_ if (field.relatedType === 'ManyToOne') { -%>
 <%_ } -%>
 <%_ }) -%>
-<%_ } -%>
 
 @Injectable()
 export class Create<%= struct.name.pascalName %>Handler {
