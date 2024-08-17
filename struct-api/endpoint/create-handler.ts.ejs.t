@@ -8,6 +8,7 @@ import { <%= struct.name.pascalName %>RepositoryInterfaceGenerated } from 'src/a
 import <%= struct.name.pascalName %>Entity from 'src/app/entity/<%= struct.name.lowerKebabName %>.entity';
 <%_ struct.fields.forEach(function (field, key) { -%>
 <%_ if (field.relatedType === 'OneToMany') { -%>
+import ObjectUtil from 'src/app/util/object-util';
 import <%= field.structName.pascalName %>Entity from './<%= field.structName.lowerKebabName %>.entity';
 <%_ } -%>
 <%_ if (field.relatedType === 'OneToOne') { -%>
@@ -41,7 +42,7 @@ export class Create<%= struct.name.pascalName %>Handler {
       <%_ if (field.relatedType === 'OneToMany') { -%>
     if (create<%= struct.name.pascalName %>Dto.<%= field.name.lowerCamelName %>) {
       entity.<%= field.name.lowerCamelName %> = create<%= struct.name.pascalName %>Dto.<%= field.name.lowerCamelName %>.map((dto) => {
-        const childEntity = new <%= field.relatedStructName.pascalName %>Entity();
+        const childEntity = new <%= field.structName.pascalName %>Entity();
     <%_  -%>
         ObjectUtil.copyMatchingFields(dto, childEntity);
         childEntity.<%= struct.name.lowerCamelName %> = entity;
