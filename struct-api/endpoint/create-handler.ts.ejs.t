@@ -41,7 +41,7 @@ export class Create<%= struct.name.pascalName %>Handler {
       <%_ if (field.relatedType === 'OneToMany') { -%>
     if (create<%= struct.name.pascalName %>Dto.<%= field.name.lowerCamelName %>) {
       entity.<%= field.name.lowerCamelName %> = create<%= struct.name.pascalName %>Dto.<%= field.name.lowerCamelName %>.map((dto) => {
-        const childEntity = new <%= field.Name.pascalName %>Entity();
+        const childEntity = new <%= field.name.pascalName %>Entity();
         childEntity.major = dto.major;
         childEntity.graduationYear = dto.graduationYear;
         childEntity.order = dto.order;
