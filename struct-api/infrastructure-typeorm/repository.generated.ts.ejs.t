@@ -16,8 +16,8 @@ export class <%= struct.name.pascalName %>RepositoryGenerated
     private <%= struct.name.lowerCamelName %>Repository: Repository<<%= struct.name.pascalName %>Entity>,
   ) {}
 
-  async create(<%= struct.name.pascalName %>: <%= struct.name.pascalName %>Entity): Promise<<%= struct.name.pascalName %>Entity> {
-    return await this.<%= struct.name.lowerCamelName %>Repository.save(new<%= struct.name.pascalName %>);
+  async create(entity: <%= struct.name.pascalName %>Entity): Promise<<%= struct.name.pascalName %>Entity> {
+    return await this.<%= struct.name.lowerCamelName %>Repository.save(entity);
   }
 
   async delete(id: number): Promise<void> {
@@ -29,8 +29,8 @@ export class <%= struct.name.pascalName %>RepositoryGenerated
     return await this.<%= struct.name.lowerCamelName %>Repository.findOneBy({ id });
   }
 
-  async update(id: number, item: <%= struct.name.pascalName %>Entity): Promise<<%= struct.name.pascalName %>Entity> {
-    await this.<%= struct.name.lowerCamelName %>Repository.save(item);
+  async update(id: number, entity: <%= struct.name.pascalName %>Entity): Promise<<%= struct.name.pascalName %>Entity> {
+    await this.<%= struct.name.lowerCamelName %>Repository.save(entity);
     return this.<%= struct.name.lowerCamelName %>Repository.findOneBy({ id });
   }
 
