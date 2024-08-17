@@ -1,5 +1,5 @@
 ---
-to: <%= rootDirectory %>/api/src/util/object-util.ts
+to: <%= rootDirectory %>/api/src/app/util/object-util.ts
 force: true
 ---
 export default class ObjectUtil {
