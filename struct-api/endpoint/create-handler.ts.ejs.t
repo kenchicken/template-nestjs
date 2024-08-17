@@ -15,23 +15,20 @@ export class Create<%= struct.name.pascalName %>Handler {
   ) {}
 
   async exec(create<%= struct.name.pascalName %>Dto: <%= struct.name.pascalName %>Dto): Promise<<%= struct.name.pascalName %>Entity> {
-    const entity = await this.<%= struct.name.lowerCamelName %>Repository.create({
+    const entity = new <%= struct.name.pascalName %>Entity();
     <%_ struct.fields.forEach(function (field, key) { -%>
-      <%_ if (!field.related) { -%>
       <%_ if (field.dataType === 'string') { -%>
-    entity.<%= field.name.lowerCamelName %>: create<%= struct.name.pascalName %>Dto.<%= field.name.lowerCamelName %>,
+    entity.<%= field.name.lowerCamelName %> = create<%= struct.name.pascalName %>Dto.<%= field.name.lowerCamelName %>;
       <%_ } -%>
       <%_ if (field.dataType === 'number') { -%>
-    entity.<%= field.name.lowerCamelName %>: create<%= struct.name.pascalName %>Dto.<%= field.name.lowerCamelName %>,
+    entity.<%= field.name.lowerCamelName %> = create<%= struct.name.pascalName %>Dto.<%= field.name.lowerCamelName %>;
       <%_ } -%>
       <%_ if (field.dataType === 'time') { -%>
-    entity.<%= field.name.lowerCamelName %>: create<%= struct.name.pascalName %>Dto.<%= field.name.lowerCamelName %>,
+    entity.<%= field.name.lowerCamelName %> = create<%= struct.name.pascalName %>Dto.<%= field.name.lowerCamelName %>;
       <%_ } -%>
       <%_ if (field.dataType === 'bool') { -%>
-    entity.<%= field.name.lowerCamelName %>: create<%= struct.name.pascalName %>Dto.<%= field.name.lowerCamelName %>,
+    entity.<%= field.name.lowerCamelName %> = create<%= struct.name.pascalName %>Dto.<%= field.name.lowerCamelName %>;
       <%_ } -%>
-      <%_ } -%>
-      <%_ if (field.related) { -%>
       <%_ if (field.relatedType === 'OneToMany') { -%>
     if (create<%= struct.name.pascalName %>Dto.<%= field.name.lowerCamelName %>) {
       <%= struct.name.lowerCamelName %>.<%= field.name.lowerCamelName %> =
@@ -50,7 +47,6 @@ export class Create<%= struct.name.pascalName %>Handler {
       <%_ if (field.relatedType === 'OneToOne') { -%>
       <%_ } -%>
       <%_ if (field.relatedType === 'ManyToOne') { -%>
-      <%_ } -%>
       <%_ } -%>
     <%_ }) -%>
     });
