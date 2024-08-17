@@ -31,13 +31,16 @@ force: true
   <%_ } -%>
 <%_ }) -%>
 <%_ if (hasManyToOne) { -%>
-import { ManyToOne, JoinColumn } from 'typeorm';
+import { ManyToOne } from 'typeorm';
 <%_ } -%>
 <%_ if (hasOneToMany) { -%>
-import { OneToMany, JoinColumn } from 'typeorm';
+import { OneToMany } from 'typeorm';
 <%_ } -%>
 <%_ if (hasOneToOne) { -%>
-import { OneToOne, JoinColumn } from 'typeorm';
+import { OneToOne } from 'typeorm';
+<%_ } -%>
+<%_ if (hasOneToOne || hasManyToOne || hasOneToMany) { -%>
+import { JoinColumn } from 'typeorm';
 <%_ } -%>
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 <%_ importStructs.forEach(function (structName, key) { -%>
