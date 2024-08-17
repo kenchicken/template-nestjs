@@ -9,7 +9,7 @@ import <%= struct.name.pascalName %>Entity from 'src/app/entity/<%= struct.name.
 <%_ struct.fields.forEach(function (field, key) { -%>
 <%_ if (field.relatedType === 'OneToMany') { -%>
 import ObjectUtil from 'src/app/util/object-util';
-import <%= field.structName.pascalName %>Entity from './<%= field.structName.lowerKebabName %>.entity';
+import <%= field.structName.pascalName %>Entity from 'src/app/entity/<%= field.structName.lowerKebabName %>.entity';
 <%_ } -%>
 <%_ if (field.relatedType === 'OneToOne') { -%>
 <%_ } -%>
