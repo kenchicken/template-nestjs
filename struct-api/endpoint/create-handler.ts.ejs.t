@@ -6,9 +6,10 @@ import { Inject, Injectable } from '@nestjs/common';
 import <%= struct.name.pascalName %>Dto from 'src/app/dto/<%= struct.name.lowerKebabName %>.dto';
 import { <%= struct.name.pascalName %>RepositoryInterfaceGenerated } from 'src/app/repository/<%= struct.name.lowerKebabName %>.repository.interface.generated';
 import <%= struct.name.pascalName %>Entity from 'src/app/entity/<%= struct.name.lowerKebabName %>.entity';
+<%_ let hasOneToMany = false; -%>
 <%_ struct.fields.forEach(function (field, key) { -%>
 <%_ if (field.relatedType === 'OneToMany') { -%>
-import ObjectUtil from 'src/app/util/object-util';
+  <%_ hasOneToMany = true; -%>
 import <%= field.structName.pascalName %>Entity from 'src/app/entity/<%= field.structName.lowerKebabName %>.entity';
 <%_ } -%>
 <%_ if (field.relatedType === 'OneToOne') { -%>
@@ -16,6 +17,9 @@ import <%= field.structName.pascalName %>Entity from 'src/app/entity/<%= field.s
 <%_ if (field.relatedType === 'ManyToOne') { -%>
 <%_ } -%>
 <%_ }) -%>
+<%_ if (hasOneToMany) { -%>
+import ObjectUtil from 'src/app/util/object-util';
+<%_ } -%>
 
 @Injectable()
 export class Create<%= struct.name.pascalName %>Handler {

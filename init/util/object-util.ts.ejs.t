@@ -2,7 +2,7 @@
 to: <%= rootDirectory %>/api/src/util/object-util.ts
 force: true
 ---
-export class ObjectUtil {
+export default class ObjectUtil {
   static copyMatchingFields(source: any, target: any) {
     Object.keys(source).forEach((key) => {
       if (key in target) {
