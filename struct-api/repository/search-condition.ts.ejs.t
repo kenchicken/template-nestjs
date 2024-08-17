@@ -4,7 +4,7 @@ force: true
 ---
 export class Search<%= struct.name.pascalName %>Condition {
 <%_ struct.fields.forEach(function (field, key) { -%>
-<%_ if (!field.related) { -%>
+<%_ if (!field.relatedType) { -%>
 <%_ if (field.dataType === 'string') { -%>
   <%= field.name.lowerCamelName %>?: string;
 <%_ } -%>
