@@ -67,7 +67,7 @@ export class <%= struct.name.pascalName %>ControllerGenerated {
 
   <%_ if (!struct.excludeGenerateAPI.create) { -%>
   @Post()
-  <%_ if (authCodeJwtList.contains('create')) { -%>
+  <%_ if (authCodeJwtList.includes('create')) { -%>
   @UseGuards(AuthCodeJwtGuard)
   <%_ } else { -%>
   @UseGuards(AuthGuard('jwt'))
@@ -82,7 +82,7 @@ export class <%= struct.name.pascalName %>ControllerGenerated {
   <%_ } -%>
   <%_ if (!struct.excludeGenerateAPI.search) { -%>
   @Get()
-  <%_ if (authCodeJwtList.contains('search')) { -%>
+  <%_ if (authCodeJwtList.includes('search')) { -%>
   @UseGuards(AuthCodeJwtGuard)
   <%_ } else { -%>
   @UseGuards(AuthGuard('jwt'))
@@ -98,7 +98,7 @@ export class <%= struct.name.pascalName %>ControllerGenerated {
   <%_ } -%>
   <%_ if (!struct.excludeGenerateAPI.get) { -%>
   @Get(':id')
-  <%_ if (authCodeJwtList.contains('find')) { -%>
+  <%_ if (authCodeJwtList.includes('find')) { -%>
   @UseGuards(AuthCodeJwtGuard)
   <%_ } else { -%>
   @UseGuards(AuthGuard('jwt'))
@@ -113,7 +113,7 @@ export class <%= struct.name.pascalName %>ControllerGenerated {
   <%_ } -%>
   <%_ if (!struct.excludeGenerateAPI.update) { -%>
   @Put(':id')
-  <%_ if (authCodeJwtList.contains('update')) { -%>
+  <%_ if (authCodeJwtList.includes('update')) { -%>
   @UseGuards(AuthCodeJwtGuard)
   <%_ } else { -%>
   @UseGuards(AuthGuard('jwt'))
@@ -128,7 +128,7 @@ export class <%= struct.name.pascalName %>ControllerGenerated {
   <%_ } -%>
   <%_ if (!struct.excludeGenerateAPI.delete) { -%>
   @Delete(':id')
-  <%_ if (authCodeJwtList.contains('remove')) { -%>
+  <%_ if (authCodeJwtList.includes('remove')) { -%>
   @UseGuards(AuthCodeJwtGuard)
   <%_ } else { -%>
   @UseGuards(AuthGuard('jwt'))
