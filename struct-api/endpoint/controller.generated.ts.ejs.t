@@ -43,6 +43,9 @@ import {
 import <%= struct.name.pascalName %>Dto from 'src/app/dto/<%= struct.name.lowerKebabName %>.dto';
 import { ApiCreatedResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
+<%_ if (authCodeJwtList.length > 0) { -%>
+import { AuthCodeJwtGuard } from 'src/app/endpoint/auth/guard/auth-code-jwt.guard';
+<%_ } -%>
 
 @Controller('<%= struct.name.lowerKebabName %>')
 @ApiTags('<%= struct.name.lowerKebabName %>')
