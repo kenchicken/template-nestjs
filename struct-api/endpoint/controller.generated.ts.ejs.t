@@ -4,10 +4,13 @@ force: true
 ---
 <%_
 const authCodeJwtList = []
+const authNoneList = []
 if (struct.endpoints) {
     struct.endpoints.forEach((endpoint) => {
         if (endpoint.authType === 'authCodeJwt') {
             authCodeJwtList.push(endpoint.type)
+        } else if (endpoint.authType === 'none') {
+          authNoneList.push(endpoint.type)
         }
     })
 }
@@ -72,6 +75,7 @@ export class <%= struct.name.pascalName %>ControllerGenerated {
   @Post()
   <%_ if (authCodeJwtList.includes('create')) { -%>
   @UseGuards(AuthCodeJwtGuard)
+  <%_ } else if (authNoneList.includes('create')) { -%>
   <%_ } else { -%>
   @UseGuards(AuthGuard('jwt'))
   <%_ } -%>
@@ -87,6 +91,7 @@ export class <%= struct.name.pascalName %>ControllerGenerated {
   @Get()
   <%_ if (authCodeJwtList.includes('search')) { -%>
   @UseGuards(AuthCodeJwtGuard)
+  <%_ } else if (authNoneList.includes('search')) { -%>
   <%_ } else { -%>
   @UseGuards(AuthGuard('jwt'))
   <%_ } -%>
@@ -103,6 +108,7 @@ export class <%= struct.name.pascalName %>ControllerGenerated {
   @Get(':id')
   <%_ if (authCodeJwtList.includes('find')) { -%>
   @UseGuards(AuthCodeJwtGuard)
+  <%_ } else if (authNoneList.includes('find')) { -%>
   <%_ } else { -%>
   @UseGuards(AuthGuard('jwt'))
   <%_ } -%>
@@ -118,6 +124,7 @@ export class <%= struct.name.pascalName %>ControllerGenerated {
   @Put(':id')
   <%_ if (authCodeJwtList.includes('update')) { -%>
   @UseGuards(AuthCodeJwtGuard)
+  <%_ } else if (authNoneList.includes('update')) { -%>
   <%_ } else { -%>
   @UseGuards(AuthGuard('jwt'))
   <%_ } -%>
@@ -133,6 +140,7 @@ export class <%= struct.name.pascalName %>ControllerGenerated {
   @Delete(':id')
   <%_ if (authCodeJwtList.includes('remove')) { -%>
   @UseGuards(AuthCodeJwtGuard)
+  <%_ } else if (authNoneList.includes('remove')) { -%>
   <%_ } else { -%>
   @UseGuards(AuthGuard('jwt'))
   <%_ } -%>
