@@ -3,7 +3,7 @@ to: "<%= !struct.excludeGenerateAPI.get ? `${rootDirectory}/api/src/app/endpoint
 force: true
 ---
 import { Inject, Injectable } from '@nestjs/common';
-import Find<%= struct.name.pascalName %>Response from 'src/app/endpoint/${struct.name.lowerKebabName}/dto/find-<%= struct.name.lowerKebabName %>.response';
+import Find<%= struct.name.pascalName %>Response from 'src/app/endpoint/<%= struct.name.lowerKebabName %>/dto/find-<%= struct.name.lowerKebabName %>.response';
 import { <%= struct.name.pascalName %>RepositoryInterfaceGenerated } from 'src/app/repository/<%= struct.name.lowerKebabName %>.repository.interface.generated';
 
 @Injectable()
@@ -14,6 +14,9 @@ export class Find<%= struct.name.pascalName %>Handler {
   ) {}
 
   async exec(id: number): Promise<Find<%= struct.name.pascalName %>Response> {
-    return await this.<%= struct.name.lowerCamelName %>Repository.get(id);
+    const result = await this.<%= struct.name.lowerCamelName %>Repository.get(id);
+    const response = new Create<%= struct.name.lowerCamelName %>Response();
+    ObjectUtil.copyMatchingFields(result, response);
+    return response;
   }
 }
