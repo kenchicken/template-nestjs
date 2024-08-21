@@ -7,6 +7,7 @@ import Update<%= struct.name.pascalName %>Request from 'src/app/endpoint/<%= str
 import Update<%= struct.name.pascalName %>Response from 'src/app/endpoint/<%= struct.name.lowerKebabName %>/dto/update-<%= struct.name.lowerKebabName %>.response';
 import { <%= struct.name.pascalName %>RepositoryInterfaceGenerated } from 'src/app/repository/<%= struct.name.lowerKebabName %>.repository.interface.generated';
 import <%= struct.name.pascalName %>Entity from 'src/app/entity/<%= struct.name.lowerKebabName %>.entity';
+import ObjectUtil from 'src/app/util/object-util';
 
 @Injectable()
 export class Update<%= struct.name.pascalName %>Handler {
@@ -31,8 +32,8 @@ export class Update<%= struct.name.pascalName %>Handler {
     entity.<%= field.name.lowerCamelName %> = update<%= struct.name.pascalName %>Request.<%= field.name.lowerCamelName %>;
       <%_ } -%>
       <%_ if (field.relatedType === 'OneToMany') { -%>
-    if (create<%= struct.name.pascalName %>Request.<%= field.name.lowerCamelName %>) {
-      entity.<%= field.name.lowerCamelName %> = create<%= struct.name.pascalName %>Request.<%= field.name.lowerCamelName %>.map((dto) => {
+    if (update<%= struct.name.pascalName %>Request.<%= field.name.lowerCamelName %>) {
+      entity.<%= field.name.lowerCamelName %> = update<%= struct.name.pascalName %>Request.<%= field.name.lowerCamelName %>.map((dto) => {
         const childEntity = new <%= field.structName.pascalName %>Entity();
         ObjectUtil.copyMatchingFields(dto, childEntity);
         childEntity.<%= struct.name.lowerCamelName %> = entity;
@@ -45,10 +46,9 @@ export class Update<%= struct.name.pascalName %>Handler {
       <%_ if (field.relatedType === 'ManyToOne') { -%>
       <%_ } -%>
     <%_ }) -%>
-    });
 
     const result = await this.<%= struct.name.lowerCamelName %>Repository.update(id, entity);
-    const response = new Update<%= struct.name.lowerCamelName %>Response();
+    const response = new Update<%= struct.name.pascalName %>Response();
     ObjectUtil.copyMatchingFields(result, response);
     return response;
   }

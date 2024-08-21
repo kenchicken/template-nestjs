@@ -18,9 +18,7 @@ import <%= field.structName.pascalName %>Entity from 'src/app/entity/<%= field.s
 <%_ if (field.relatedType === 'ManyToOne') { -%>
 <%_ } -%>
 <%_ }) -%>
-<%_ if (hasOneToMany) { -%>
 import ObjectUtil from 'src/app/util/object-util';
-<%_ } -%>
 
 @Injectable()
 export class Create<%= struct.name.pascalName %>Handler {

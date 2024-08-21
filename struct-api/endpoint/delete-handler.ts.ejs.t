@@ -3,9 +3,7 @@ to: "<%= !struct.excludeGenerateAPI.delete ? `${rootDirectory}/api/src/app/endpo
 force: true
 ---
 import { Inject, Injectable } from '@nestjs/common';
-import <%= struct.name.pascalName %>Dto from 'src/app/dto/<%= struct.name.lowerKebabName %>.dto';
 import { <%= struct.name.pascalName %>RepositoryInterfaceGenerated } from 'src/app/repository/<%= struct.name.lowerKebabName %>.repository.interface.generated';
-import <%= struct.name.pascalName %>Entity from 'src/app/entity/<%= struct.name.lowerKebabName %>.entity';
 
 @Injectable()
 export class Delete<%= struct.name.pascalName %>Handler {
