@@ -16,7 +16,7 @@ export class Find<%= struct.name.pascalName %>Handler {
 
   async exec(id: number): Promise<Find<%= struct.name.pascalName %>Response> {
     const result = await this.<%= struct.name.lowerCamelName %>Repository.get(id);
-    const response = new Create<%= struct.name.pascalName %>Response();
+    const response = new Find<%= struct.name.pascalName %>Response();
     ObjectUtil.copyMatchingFields(result, response);
     return response;
   }

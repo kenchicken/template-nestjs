@@ -48,13 +48,13 @@ import { AuthGuard } from '@nestjs/passport';
 <%_ if (authCodeJwtList.length > 0) { -%>
 import { AuthCodeJwtGuard } from 'src/app/endpoint/auth/guard/auth-code-jwt.guard';
 <%_ } -%>
-import Create<%= struct.name.pascalName %>Request from 'src/app/endpoint/${struct.name.lowerKebabName}/dto/create-<%= struct.name.lowerKebabName %>.request';
-import Create<%= struct.name.pascalName %>Response from 'src/app/endpoint/${struct.name.lowerKebabName}/dto/create-<%= struct.name.lowerKebabName %>.response';
-import Create<%= struct.name.pascalName %>Request from 'src/app/endpoint/${struct.name.lowerKebabName}/dto/create-<%= struct.name.lowerKebabName %>.request';
-import Create<%= struct.name.pascalName %>Response from 'src/app/endpoint/${struct.name.lowerKebabName}/dto/create-<%= struct.name.lowerKebabName %>.response';
-import Find<%= struct.name.pascalName %>Response from 'src/app/endpoint/${struct.name.lowerKebabName}/dto/find-<%= struct.name.lowerKebabName %>.response';
-import Search<%= struct.name.pascalName %>Condition from '/src/app/repository/condition/generated/search-${struct.name.lowerKebabName}.condition';
-import Search<%= struct.name.pascalName %>Response from 'src/app/endpoint/${struct.name.lowerKebabName}/dto/search-<%= struct.name.lowerKebabName %>.response';
+import Create<%= struct.name.pascalName %>Request from 'src/app/endpoint/<%= struct.name.lowerKebabName %>/dto/create-<%= struct.name.lowerKebabName %>.request';
+import Create<%= struct.name.pascalName %>Response from 'src/app/endpoint/<%= struct.name.lowerKebabName %>/dto/create-<%= struct.name.lowerKebabName %>.response';
+import Create<%= struct.name.pascalName %>Request from 'src/app/endpoint/<%= struct.name.lowerKebabName %>/dto/create-<%= struct.name.lowerKebabName %>.request';
+import Create<%= struct.name.pascalName %>Response from 'src/app/endpoint/<%= struct.name.lowerKebabName %>/dto/create-<%= struct.name.lowerKebabName %>.response';
+import Find<%= struct.name.pascalName %>Response from 'src/app/endpoint/<%= struct.name.lowerKebabName %>/dto/find-<%= struct.name.lowerKebabName %>.response';
+import Search<%= struct.name.pascalName %>Condition from '/src/app/repository/condition/generated/search-<%= struct.name.lowerKebabName %>.condition';
+import Search<%= struct.name.pascalName %>Response from 'src/app/endpoint/<%= struct.name.lowerKebabName %>/dto/search-<%= struct.name.lowerKebabName %>.response';
 
 @Controller('<%= struct.name.lowerKebabName %>')
 @ApiTags('<%= struct.name.lowerKebabName %>')
@@ -86,9 +86,9 @@ export class <%= struct.name.pascalName %>ControllerGenerated {
   @UseGuards(AuthGuard('jwt'))
   <%_ } -%>
   @ApiCreatedResponse({
-    type: <%= struct.name.pascalName %>Dto,
+    type: <%= struct.name.pascalName %>Response,
   })
-  create(@Body() create<%= struct.name.pascalName %>Request: <%= struct.name.pascalName %>Request) {
+  create(@Body() create<%= struct.name.pascalName %>Request: Create<%= struct.name.pascalName %>Request) {
     return this.create<%= struct.name.pascalName %>Handler.exec(create<%= struct.name.pascalName %>Request);
   }
 
@@ -106,7 +106,7 @@ export class <%= struct.name.pascalName %>ControllerGenerated {
     isArray: true,
   })
   findAll(@Query() search<%= struct.name.pascalName %>Condition: Search<%= struct.name.pascalName %>Request) {
-    return this.search<%= struct.name.pascalName %>Handler.exec(conditionDto);
+    return this.search<%= struct.name.pascalName %>Handler.exec(search<%= struct.name.pascalName %>Condition);
   }
 
   <%_ } -%>
@@ -135,9 +135,9 @@ export class <%= struct.name.pascalName %>ControllerGenerated {
   @UseGuards(AuthGuard('jwt'))
   <%_ } -%>
   @ApiOkResponse({
-    type: <%= struct.name.pascalName %>Dto,
+    type: Update<%= struct.name.pascalName %>Response,
   })
-  update(@Param('id') id: number, @Body() update<%= struct.name.pascalName %>Request: <%= struct.name.pascalName %>Request) {
+  update(@Param('id') id: number, @Body() update<%= struct.name.pascalName %>Request: Update<%= struct.name.pascalName %>Request) {
     return this.update<%= struct.name.pascalName %>Handler.exec(id, update<%= struct.name.pascalName %>Request);
   }
 
