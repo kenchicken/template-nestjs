@@ -3,8 +3,8 @@ to: "<%=  !struct.excludeGenerateAPI.update ? `${rootDirectory}/api/src/app/endp
 force: true
 ---
 import { Inject, Injectable } from '@nestjs/common';
-import Create<%= struct.name.pascalName %>Request from 'src/app/endpoint/${struct.name.lowerKebabName}/dto/create-<%= struct.name.lowerKebabName %>.request';
-import Create<%= struct.name.pascalName %>Response from 'src/app/endpoint/${struct.name.lowerKebabName}/dto/create-<%= struct.name.lowerKebabName %>.response';
+import Update<%= struct.name.pascalName %>Request from 'src/app/endpoint/${struct.name.lowerKebabName}/dto/update-<%= struct.name.lowerKebabName %>.request';
+import Update<%= struct.name.pascalName %>Response from 'src/app/endpoint/${struct.name.lowerKebabName}/dto/update-<%= struct.name.lowerKebabName %>.response';
 import { <%= struct.name.pascalName %>RepositoryInterfaceGenerated } from 'src/app/repository/<%= struct.name.lowerKebabName %>.repository.interface.generated';
 import <%= struct.name.pascalName %>Entity from 'src/app/entity/<%= struct.name.lowerKebabName %>.entity';
 
@@ -16,23 +16,40 @@ export class Update<%= struct.name.pascalName %>Handler {
   ) {}
 
   async exec(id: number, update<%= struct.name.pascalName %>Request: Update<%= struct.name.pascalName %>Request): Promise<Update<%= struct.name.pascalName %>Response> {
-    return await this.<%= struct.name.lowerCamelName %>Repository.update(id, {
+    const entity = new <%= struct.name.pascalName %>Entity();
     <%_ struct.fields.forEach(function (field, key) { -%>
-      <%_ if (!field.related) { -%>
       <%_ if (field.dataType === 'string') { -%>
-      <%= field.name.lowerCamelName %>: update<%= struct.name.pascalName %>Dto.<%= field.name.lowerCamelName %>,
+    entity.<%= field.name.lowerCamelName %> = update<%= struct.name.pascalName %>Request.<%= field.name.lowerCamelName %>;
       <%_ } -%>
       <%_ if (field.dataType === 'number') { -%>
-      <%= field.name.lowerCamelName %>: update<%= struct.name.pascalName %>Dto.<%= field.name.lowerCamelName %>,
+    entity.<%= field.name.lowerCamelName %> = update<%= struct.name.pascalName %>Request.<%= field.name.lowerCamelName %>;
       <%_ } -%>
       <%_ if (field.dataType === 'time') { -%>
-      <%= field.name.lowerCamelName %>: update<%= struct.name.pascalName %>Dto.<%= field.name.lowerCamelName %>,
+    entity.<%= field.name.lowerCamelName %> = update<%= struct.name.pascalName %>Request.<%= field.name.lowerCamelName %>;
       <%_ } -%>
       <%_ if (field.dataType === 'bool') { -%>
-      <%= field.name.lowerCamelName %>: update<%= struct.name.pascalName %>Dto.<%= field.name.lowerCamelName %>,
+    entity.<%= field.name.lowerCamelName %> = update<%= struct.name.pascalName %>Request.<%= field.name.lowerCamelName %>;
       <%_ } -%>
+      <%_ if (field.relatedType === 'OneToMany') { -%>
+    if (create<%= struct.name.pascalName %>Request.<%= field.name.lowerCamelName %>) {
+      entity.<%= field.name.lowerCamelName %> = create<%= struct.name.pascalName %>Request.<%= field.name.lowerCamelName %>.map((dto) => {
+        const childEntity = new <%= field.structName.pascalName %>Entity();
+        ObjectUtil.copyMatchingFields(dto, childEntity);
+        childEntity.<%= struct.name.lowerCamelName %> = entity;
+        return childEntity;
+      });
+    }
+      <%_ } -%>
+      <%_ if (field.relatedType === 'OneToOne') { -%>
+      <%_ } -%>
+      <%_ if (field.relatedType === 'ManyToOne') { -%>
       <%_ } -%>
     <%_ }) -%>
     });
+
+    const result = await this.<%= struct.name.lowerCamelName %>Repository.update(id, entity);
+    const response = new Update<%= struct.name.lowerCamelName %>Response();
+    ObjectUtil.copyMatchingFields(result, response);
+    return response;
   }
 }

@@ -33,22 +33,21 @@ export class Create<%= struct.name.pascalName %>Handler {
     const entity = new <%= struct.name.pascalName %>Entity();
     <%_ struct.fields.forEach(function (field, key) { -%>
       <%_ if (field.dataType === 'string') { -%>
-    entity.<%= field.name.lowerCamelName %> = create<%= struct.name.pascalName %>Dto.<%= field.name.lowerCamelName %>;
+    entity.<%= field.name.lowerCamelName %> = create<%= struct.name.pascalName %>Request.<%= field.name.lowerCamelName %>;
       <%_ } -%>
       <%_ if (field.dataType === 'number') { -%>
-    entity.<%= field.name.lowerCamelName %> = create<%= struct.name.pascalName %>Dto.<%= field.name.lowerCamelName %>;
+    entity.<%= field.name.lowerCamelName %> = create<%= struct.name.pascalName %>Request.<%= field.name.lowerCamelName %>;
       <%_ } -%>
       <%_ if (field.dataType === 'time') { -%>
-    entity.<%= field.name.lowerCamelName %> = create<%= struct.name.pascalName %>Dto.<%= field.name.lowerCamelName %>;
+    entity.<%= field.name.lowerCamelName %> = create<%= struct.name.pascalName %>Request.<%= field.name.lowerCamelName %>;
       <%_ } -%>
       <%_ if (field.dataType === 'bool') { -%>
-    entity.<%= field.name.lowerCamelName %> = create<%= struct.name.pascalName %>Dto.<%= field.name.lowerCamelName %>;
+    entity.<%= field.name.lowerCamelName %> = create<%= struct.name.pascalName %>Request.<%= field.name.lowerCamelName %>;
       <%_ } -%>
       <%_ if (field.relatedType === 'OneToMany') { -%>
-    if (create<%= struct.name.pascalName %>Dto.<%= field.name.lowerCamelName %>) {
-      entity.<%= field.name.lowerCamelName %> = create<%= struct.name.pascalName %>Dto.<%= field.name.lowerCamelName %>.map((dto) => {
+    if (create<%= struct.name.pascalName %>Request.<%= field.name.lowerCamelName %>) {
+      entity.<%= field.name.lowerCamelName %> = create<%= struct.name.pascalName %>Request.<%= field.name.lowerCamelName %>.map((dto) => {
         const childEntity = new <%= field.structName.pascalName %>Entity();
-    <%_  -%>
         ObjectUtil.copyMatchingFields(dto, childEntity);
         childEntity.<%= struct.name.lowerCamelName %> = entity;
         return childEntity;
@@ -61,6 +60,9 @@ export class Create<%= struct.name.pascalName %>Handler {
       <%_ } -%>
     <%_ }) -%>
 
-    return await this.<%= struct.name.lowerCamelName %>Repository.create(entity);
+    const result = await this.<%= struct.name.lowerCamelName %>Repository.create(entity);
+    const response = new Create<%= struct.name.lowerCamelName %>Response();
+    ObjectUtil.copyMatchingFields(result, response);
+    return response;
   }
 }
