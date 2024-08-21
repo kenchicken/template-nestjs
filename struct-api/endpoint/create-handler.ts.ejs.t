@@ -59,7 +59,7 @@ export class Create<%= struct.name.pascalName %>Handler {
     <%_ }) -%>
 
     const result = await this.<%= struct.name.lowerCamelName %>Repository.create(entity);
-    const response = new Create<%= struct.name.lowerCamelName %>Response();
+    const response = new Create<%= struct.name.pascalName %>Response();
     ObjectUtil.copyMatchingFields(result, response);
     return response;
   }
