@@ -3,7 +3,8 @@ to: "<%=  !struct.excludeGenerateAPI.search ? `${rootDirectory}/api/src/app/endp
 force: true
 ---
 import { Inject, Injectable } from '@nestjs/common';
-import <%= struct.name.pascalName %>Dto from 'src/app/dto/<%= struct.name.lowerKebabName %>.dto';
+import Search<%= struct.name.pascalName %>Condition from '/src/app/repository/condition/generated/search-${struct.name.lowerKebabName}.condition';
+import Search<%= struct.name.pascalName %>Response from 'src/app/endpoint/${struct.name.lowerKebabName}/dto/search-<%= struct.name.lowerKebabName %>.response';
 import { <%= struct.name.pascalName %>RepositoryInterfaceGenerated } from 'src/app/repository/<%= struct.name.lowerKebabName %>.repository.interface.generated';
 import <%= struct.name.pascalName %>Entity from 'src/app/entity/<%= struct.name.lowerKebabName %>.entity';
 
@@ -14,7 +15,7 @@ export class Search<%= struct.name.pascalName %>Handler {
     private readonly <%= struct.name.lowerCamelName %>Repository: <%= struct.name.pascalName %>RepositoryInterfaceGenerated,
   ) {}
 
-  async exec(condition: <%= struct.name.pascalName %>Dto) {
+  async exec(condition: Search<%= struct.name.pascalName %>Condition): Promise<Search<%= struct.name.pascalName %>Response[]> {
     return this.<%= struct.name.lowerCamelName %>Repository.getAll(condition);
   }
 }
