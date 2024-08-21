@@ -50,10 +50,10 @@ import { AuthCodeJwtGuard } from 'src/app/endpoint/auth/guard/auth-code-jwt.guar
 <%_ } -%>
 import Create<%= struct.name.pascalName %>Request from 'src/app/endpoint/<%= struct.name.lowerKebabName %>/dto/create-<%= struct.name.lowerKebabName %>.request';
 import Create<%= struct.name.pascalName %>Response from 'src/app/endpoint/<%= struct.name.lowerKebabName %>/dto/create-<%= struct.name.lowerKebabName %>.response';
-import Create<%= struct.name.pascalName %>Request from 'src/app/endpoint/<%= struct.name.lowerKebabName %>/dto/create-<%= struct.name.lowerKebabName %>.request';
-import Create<%= struct.name.pascalName %>Response from 'src/app/endpoint/<%= struct.name.lowerKebabName %>/dto/create-<%= struct.name.lowerKebabName %>.response';
+import Update<%= struct.name.pascalName %>Request from 'src/app/endpoint/<%= struct.name.lowerKebabName %>/dto/update-<%= struct.name.lowerKebabName %>.request';
+import Update<%= struct.name.pascalName %>Response from 'src/app/endpoint/<%= struct.name.lowerKebabName %>/dto/update-<%= struct.name.lowerKebabName %>.response';
 import Find<%= struct.name.pascalName %>Response from 'src/app/endpoint/<%= struct.name.lowerKebabName %>/dto/find-<%= struct.name.lowerKebabName %>.response';
-import Search<%= struct.name.pascalName %>Condition from '/src/app/repository/condition/generated/search-<%= struct.name.lowerKebabName %>.condition';
+import { Search<%= struct.name.pascalName %>Condition } from 'src/app/repository/condition/generated/search-<%= struct.name.lowerKebabName %>.condition';
 import Search<%= struct.name.pascalName %>Response from 'src/app/endpoint/<%= struct.name.lowerKebabName %>/dto/search-<%= struct.name.lowerKebabName %>.response';
 
 @Controller('<%= struct.name.lowerKebabName %>')
@@ -86,7 +86,7 @@ export class <%= struct.name.pascalName %>ControllerGenerated {
   @UseGuards(AuthGuard('jwt'))
   <%_ } -%>
   @ApiCreatedResponse({
-    type: <%= struct.name.pascalName %>Response,
+    type: Create<%= struct.name.pascalName %>Response,
   })
   create(@Body() create<%= struct.name.pascalName %>Request: Create<%= struct.name.pascalName %>Request) {
     return this.create<%= struct.name.pascalName %>Handler.exec(create<%= struct.name.pascalName %>Request);
@@ -105,7 +105,7 @@ export class <%= struct.name.pascalName %>ControllerGenerated {
     type: Search<%= struct.name.pascalName %>Response,
     isArray: true,
   })
-  findAll(@Query() search<%= struct.name.pascalName %>Condition: Search<%= struct.name.pascalName %>Request) {
+  findAll(@Query() search<%= struct.name.pascalName %>Condition: Search<%= struct.name.pascalName %>Condition) {
     return this.search<%= struct.name.pascalName %>Handler.exec(search<%= struct.name.pascalName %>Condition);
   }
 
