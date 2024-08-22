@@ -150,8 +150,8 @@ export class <%= struct.name.pascalName %>ControllerGenerated {
   <%_ } else { -%>
   @UseGuards(AuthGuard('jwt'))
   <%_ } -%>
-  remove(@Param('id') id: number) {
-    return this.delete<%= struct.name.pascalName %>Handler.exec(id);
+  delete(@Param('id') id: number, @Body() delete<%= struct.name.pascalName %>Request: Delete<%= struct.name.pascalName %>Request) {
+    return this.delete<%= struct.name.pascalName %>Handler.exec(id, delete<%= struct.name.pascalName %>Request);
   }
   <%_ } -%>
 }
