@@ -56,8 +56,8 @@ import Find<%= struct.name.pascalName %>Response from 'src/app/endpoint/<%= stru
 import { Search<%= struct.name.pascalName %>Condition } from 'src/app/repository/condition/generated/search-<%= struct.name.lowerKebabName %>.condition';
 import Search<%= struct.name.pascalName %>Response from 'src/app/endpoint/<%= struct.name.lowerKebabName %>/dto/search-<%= struct.name.lowerKebabName %>.response';
 
-@Controller('<%= struct.name.lowerKebabName %>')
-@ApiTags('<%= struct.name.lowerKebabName %>')
+@Controller('<%= struct.name.lowerCamelName %>')
+@ApiTags('<%= struct.name.pascalName %>')
 export class <%= struct.name.pascalName %>ControllerGenerated {
   constructor(
   <%_ if (!struct.excludeGenerateAPI.create) { -%>
