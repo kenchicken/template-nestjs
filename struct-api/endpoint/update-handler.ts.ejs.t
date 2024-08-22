@@ -7,6 +7,17 @@ import Update<%= struct.name.pascalName %>Request from 'src/app/endpoint/<%= str
 import Update<%= struct.name.pascalName %>Response from 'src/app/endpoint/<%= struct.name.lowerKebabName %>/dto/update-<%= struct.name.lowerKebabName %>.response';
 import { <%= struct.name.pascalName %>RepositoryInterfaceGenerated } from 'src/app/repository/<%= struct.name.lowerKebabName %>.repository.interface.generated';
 import <%= struct.name.pascalName %>Entity from 'src/app/entity/<%= struct.name.lowerKebabName %>.entity';
+<%_ let hasOneToMany = false; -%>
+<%_ struct.fields.forEach(function (field, key) { -%>
+<%_ if (field.relatedType === 'OneToMany') { -%>
+<%_ hasOneToMany = true; -%>
+import <%= field.structName.pascalName %>Entity from 'src/app/entity/<%= field.structName.lowerKebabName %>.entity';
+<%_ } -%>
+<%_ if (field.relatedType === 'OneToOne') { -%>
+<%_ } -%>
+<%_ if (field.relatedType === 'ManyToOne') { -%>
+<%_ } -%>
+<%_ }) -%>
 import ObjectUtil from 'src/app/util/object-util';
 
 @Injectable()
