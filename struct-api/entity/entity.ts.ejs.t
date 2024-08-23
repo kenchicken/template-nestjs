@@ -61,7 +61,7 @@ class <%= struct.name.pascalName %>Entity {
     <%_ } -%>
   <%_ } -%>
   <%_ if (field.name.lowerCamelName !== 'id') { -%>
-    <%_ if (field.dataType === 'string' && field.relatedType !== 'ManyToOne') { -%>
+    <%_ if (field.dataType === 'string' && field.relatedType === '') { -%>
   <%_ if (field.validateTags && field.validateTags.includes('required')) { -%>
   @Column({ name: '<%= field.name.lowerSnakeName %>', comment: '<%= field.screenLabel %>', nullable: false })
   <%_ } else { -%>
@@ -69,7 +69,7 @@ class <%= struct.name.pascalName %>Entity {
   <%_ } -%>
   <%= field.name.lowerCamelName %>?: string;
     <%_ } -%>
-    <%_ if (field.dataType === 'number' && field.relatedType !== 'ManyToOne') { -%>
+    <%_ if (field.dataType === 'number' && field.relatedType === '') { -%>
   <%_ if (field.validateTags && field.validateTags.includes('required')) { -%>
   @Column({ name: '<%= field.name.lowerSnakeName %>', comment: '<%= field.screenLabel %>', nullable: false })
   <%_ } else { -%>
