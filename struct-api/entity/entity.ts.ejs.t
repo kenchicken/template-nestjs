@@ -112,7 +112,10 @@ class <%= struct.name.pascalName %>Entity {
     <%_ } -%>
     <%_ if (field.relatedType === 'OneToOne') { -%>
   @OneToOne(() => <%= field.relatedStructName.pascalName %>Entity)
-  @JoinColumn()
+  @JoinColumn({
+    name: '<%= field.name.lowerSnakeName %>',
+    referencedColumnName: 'id',
+  })
   <%= field.relatedStructName.lowerCamelName %>?: <%= field.relatedStructName.pascalName %>Entity;
     <%_ } -%>
 <%_ }) -%>
