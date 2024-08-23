@@ -30,10 +30,10 @@ export class Create<%= struct.name.pascalName %>Handler {
   async exec(create<%= struct.name.pascalName %>Request: Create<%= struct.name.pascalName %>Request): Promise<Create<%= struct.name.pascalName %>Response> {
     const entity = new <%= struct.name.pascalName %>Entity();
     <%_ struct.fields.forEach(function (field, key) { -%>
-      <%_ if (field.dataType === 'string' && field.relatedType === '') { -%>
+      <%_ if (field.dataType === 'string' && (field.relatedType !== 'ManyToOne' || field.relatedType !== 'OneToOne')) { -%>
     entity.<%= field.name.lowerCamelName %> = create<%= struct.name.pascalName %>Request.<%= field.name.lowerCamelName %>;
       <%_ } -%>
-      <%_ if (field.dataType === 'number' && field.relatedType === '') { -%>
+      <%_ if (field.dataType === 'number' && (field.relatedType !== 'ManyToOne' || field.relatedType !== 'OneToOne')) { -%>
     entity.<%= field.name.lowerCamelName %> = create<%= struct.name.pascalName %>Request.<%= field.name.lowerCamelName %>;
       <%_ } -%>
       <%_ if (field.dataType === 'time') { -%>
