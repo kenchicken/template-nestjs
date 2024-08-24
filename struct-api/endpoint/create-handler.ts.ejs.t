@@ -47,7 +47,7 @@ export class Create<%= struct.name.pascalName %>Handler {
       <%_ } -%>
       <%_ if (field.relatedType === 'ManyToOne') { -%>
     const <%= field.name.lowerCamelName %> = await this.<%= field.name.lowerCamelName %>Repository.get(
-      create<%= struct.name.pascalName %>Request.field.name.<%= lowerCamelName %>ID,
+      create<%= struct.name.pascalName %>Request.<%= field.name.lowerCamelName %>ID,
     );
     if (!<%= field.name.lowerCamelName %>) {
       throw new Error('<%= field.name.lowerCamelName %> not found');
