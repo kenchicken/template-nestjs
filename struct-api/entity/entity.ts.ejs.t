@@ -95,15 +95,25 @@ class <%= struct.name.pascalName %>Entity {
     <%_ } -%>
   <%_ } -%>
     <%_ if (field.relatedType === 'OneToMany') { -%>
-  @OneToMany(() => <%= field.structName.pascalName %>Entity, (<%= field.structName.lowerCamelName %>) => <%= field.structName.lowerCamelName %>.<%= struct.name.lowerCamelName %>, {
-    cascade: true,
-    onDelete: 'CASCADE',
-    onUpdate: 'CASCADE',
-  })
+  @OneToMany(
+    () => <%= field.structName.pascalName %>Entity,
+    (<%= field.structName.lowerCamelName %>) => <%= field.structName.lowerCamelName %>.<%= struct.name.lowerCamelName %>,
+    {
+      cascade: true,
+      orphanedRowAction: 'delete',
+    },
+  )
   <%= field.name.lowerCamelName %>?: <%= field.structName.pascalName %>Entity[];
     <%_ } -%>
     <%_ if (field.relatedType === 'ManyToOne') { -%>
-  @ManyToOne(() => <%= field.relatedStructName.pascalName %>Entity, (<%= field.relatedStructName.lowerCamelName %>) => <%= field.relatedStructName.lowerCamelName %>.<%= struct.name.lowerCamelPluralName %>)
+  @ManyToOne(
+    () => <%= field.relatedStructName.pascalName %>Entity,
+    (<%= field.relatedStructName.lowerCamelName %>) => <%= field.relatedStructName.lowerCamelName %>.<%= struct.name.lowerCamelPluralName %>,
+    {
+      orphanedRowAction: 'delete',
+      createForeignKeyConstraints: false,
+    },
+  )
   @JoinColumn({
     name: '<%= field.name.lowerSnakeName %>',
     referencedColumnName: 'id',
@@ -111,7 +121,13 @@ class <%= struct.name.pascalName %>Entity {
   <%= field.relatedStructName.lowerCamelName %>?: <%= field.relatedStructName.pascalName %>Entity;
     <%_ } -%>
     <%_ if (field.relatedType === 'OneToOne') { -%>
-  @OneToOne(() => <%= field.relatedStructName.pascalName %>Entity)
+  @OneToOne(
+    () => <%= field.relatedStructName.pascalName %>Entity,
+    {
+      cascade: true,
+      orphanedRowAction: 'delete',
+    },
+  )
   @JoinColumn({
     name: '<%= field.name.lowerSnakeName %>',
     referencedColumnName: 'id',
