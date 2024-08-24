@@ -100,7 +100,7 @@ class <%= struct.name.pascalName %>Entity {
     (<%= field.structName.lowerCamelName %>) => <%= field.structName.lowerCamelName %>.<%= struct.name.lowerCamelName %>,
     {
       cascade: true,
-      orphanedRowAction: 'delete',
+      createForeignKeyConstraints: false,
     },
   )
   <%= field.name.lowerCamelName %>?: <%= field.structName.pascalName %>Entity[];
