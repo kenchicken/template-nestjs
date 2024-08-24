@@ -33,21 +33,21 @@ export class Create<%= struct.name.pascalName %>Handler {
     <%_ struct.fields.forEach(function (field, key) { -%>
       <%_ if (field.relatedType === 'OneToMany') { -%>
     entity.<%= field.name.lowerCamelName %> = [];
-    if (update<%= struct.name.pascalName %>Request.<%= field.name.lowerCamelName %>) {
-      for (const dto of update<%= struct.name.pascalName %>Request.<%= field.name.lowerCamelName %>) {
+    if (create<%= struct.name.pascalName %>Request.<%= field.name.lowerCamelName %>) {
+      for (const dto of create<%= struct.name.pascalName %>Request.<%= field.name.lowerCamelName %>) {
         const childEntity = new <%= field.structName.pascalName %>Entity();
         ObjectUtil.copyMatchingFields(dto, childEntity);
         childEntity.<%= struct.name.lowerCamelName %> = entity;
         // TODO 更にリレーションがある場合にはここに追記する
-        entity.eventUsers.push(childEntity);
-      });
+        entity.<%= field.name.lowerCamelName %>.push(childEntity);
+      };
     }
       <%_ } -%>
       <%_ if (field.relatedType === 'OneToOne') { -%>
       <%_ } -%>
       <%_ if (field.relatedType === 'ManyToOne') { -%>
     const <%= field.name.lowerCamelName %> = await this.<%= field.name.lowerCamelName %>Repository.get(
-      create<%= struct.name.pascalName %>Request.field.name.lowerCamelName %>ID,
+      create<%= struct.name.pascalName %>Request.field.name.<%= lowerCamelName %>ID,
     );
     if (!<%= field.name.lowerCamelName %>) {
       throw new Error('<%= field.name.lowerCamelName %> not found');
