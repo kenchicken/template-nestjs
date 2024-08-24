@@ -40,7 +40,7 @@ export class Update<%= struct.name.pascalName %>Handler {
         childEntity.<%= struct.name.lowerCamelName %> = entity;
         // TODO 更にリレーションがある場合にはここに追記する
         entity.eventUsers.push(childEntity);
-      };
+      }
     }
       <%_ } -%>
       <%_ if (field.relatedType === 'OneToOne') { -%>
