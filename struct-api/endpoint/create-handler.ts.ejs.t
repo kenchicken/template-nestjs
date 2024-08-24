@@ -29,32 +29,30 @@ export class Create<%= struct.name.pascalName %>Handler {
 
   async exec(create<%= struct.name.pascalName %>Request: Create<%= struct.name.pascalName %>Request): Promise<Create<%= struct.name.pascalName %>Response> {
     const entity = new <%= struct.name.pascalName %>Entity();
+    ObjectUtil.copyMatchingFields(create<%= struct.name.pascalName %>Request, entity);
     <%_ struct.fields.forEach(function (field, key) { -%>
-      <%_ if (field.dataType === 'string' && (field.relatedType !== 'ManyToOne' || field.relatedType !== 'OneToOne')) { -%>
-    entity.<%= field.name.lowerCamelName %> = create<%= struct.name.pascalName %>Request.<%= field.name.lowerCamelName %>;
-      <%_ } -%>
-      <%_ if (field.dataType === 'number' && (field.relatedType !== 'ManyToOne' || field.relatedType !== 'OneToOne')) { -%>
-    entity.<%= field.name.lowerCamelName %> = create<%= struct.name.pascalName %>Request.<%= field.name.lowerCamelName %>;
-      <%_ } -%>
-      <%_ if (field.dataType === 'time') { -%>
-    entity.<%= field.name.lowerCamelName %> = create<%= struct.name.pascalName %>Request.<%= field.name.lowerCamelName %>;
-      <%_ } -%>
-      <%_ if (field.dataType === 'bool') { -%>
-    entity.<%= field.name.lowerCamelName %> = create<%= struct.name.pascalName %>Request.<%= field.name.lowerCamelName %>;
-      <%_ } -%>
       <%_ if (field.relatedType === 'OneToMany') { -%>
-    if (create<%= struct.name.pascalName %>Request.<%= field.name.lowerCamelName %>) {
-      entity.<%= field.name.lowerCamelName %> = create<%= struct.name.pascalName %>Request.<%= field.name.lowerCamelName %>.map((dto) => {
+    entity.<%= field.name.lowerCamelName %> = [];
+    if (update<%= struct.name.pascalName %>Request.<%= field.name.lowerCamelName %>) {
+      for (const dto of update<%= struct.name.pascalName %>Request.<%= field.name.lowerCamelName %>) {
         const childEntity = new <%= field.structName.pascalName %>Entity();
         ObjectUtil.copyMatchingFields(dto, childEntity);
         childEntity.<%= struct.name.lowerCamelName %> = entity;
-        return childEntity;
+        // TODO 更にリレーションがある場合にはここに追記する
+        entity.eventUsers.push(childEntity);
       });
     }
       <%_ } -%>
       <%_ if (field.relatedType === 'OneToOne') { -%>
       <%_ } -%>
       <%_ if (field.relatedType === 'ManyToOne') { -%>
+    const <%= field.name.lowerCamelName %> = await this.<%= field.name.lowerCamelName %>Repository.get(
+      create<%= struct.name.pascalName %>Request.field.name.lowerCamelName %>ID,
+    );
+    if (!<%= field.name.lowerCamelName %>) {
+      throw new Error('<%= field.name.lowerCamelName %> not found');
+    }
+    entity.<%= field.name.lowerCamelName %> = <%= field.name.lowerCamelName %>;
       <%_ } -%>
     <%_ }) -%>
 
