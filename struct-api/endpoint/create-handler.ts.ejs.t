@@ -54,7 +54,7 @@ export class Create<%= struct.name.pascalName %>Handler {
   }
 
   private async convertRequestToEntity(
-    request: CreateEventRequest,
+    request: Create<%= struct.name.pascalName %>Request,
   ): Promise<<%= struct.name.pascalName %>Entity> {
     const entity = new <%= struct.name.pascalName %>Entity();
     ObjectUtil.copyMatchingFields(request, entity);
