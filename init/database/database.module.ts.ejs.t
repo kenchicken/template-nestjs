@@ -5,6 +5,8 @@ force: true
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { DataSource } from 'typeorm';
+import { addTransactionalDataSource } from 'typeorm-transactional';
 // add import after here
 
 @Module({
@@ -25,6 +27,12 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
         ],
         autoLoadEntities: true,
       }),
+      async dataSourceFactory(options) {
+        if (!options) {
+          throw new Error('Invalid options passed');
+        }
+        return addTransactionalDataSource(new DataSource(options));
+      },
     }),
   ],
 })
