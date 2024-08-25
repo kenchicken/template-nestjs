@@ -35,6 +35,7 @@ import { <%= structName.pascalName %>RepositoryInterfaceGenerated } from 'src/ap
 import <%= structName.pascalName %>Dto from 'src/app/dto/<%= structName.lowerKebabName %>.dto';
 <%_ }) -%>
 import ObjectUtil from 'src/app/util/object-util';
+import { Transactional } from 'typeorm-transactional';
 
 @Injectable()
 export class Update<%= struct.name.pascalName %>Handler {
@@ -47,6 +48,7 @@ export class Update<%= struct.name.pascalName %>Handler {
 <%_ }) -%>
   ) {}
 
+  @Transactional()
   async exec(id: number, request: Update<%= struct.name.pascalName %>Request): Promise<Update<%= struct.name.pascalName %>Response> {
     const entity = await this.convertRequestToEntity(request);
     const result = await this.<%= struct.name.lowerCamelName %>Repository.create(entity);
