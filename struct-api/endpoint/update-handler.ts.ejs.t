@@ -27,19 +27,19 @@ export class Update<%= struct.name.pascalName %>Handler {
     private readonly <%= struct.name.lowerCamelName %>Repository: <%= struct.name.pascalName %>RepositoryInterfaceGenerated,
   ) {}
 
-  async exec(id: number, update<%= struct.name.pascalName %>Request: Update<%= struct.name.pascalName %>Request): Promise<Update<%= struct.name.pascalName %>Response> {
+  async exec(id: number, request: Update<%= struct.name.pascalName %>Request): Promise<Update<%= struct.name.pascalName %>Response> {
     const entity = new <%= struct.name.pascalName %>Entity();
-    ObjectUtil.copyMatchingFields(create<%= struct.name.pascalName %>Request, entity);
+    ObjectUtil.copyMatchingFields(request, entity);
     <%_ struct.fields.forEach(function (field, key) { -%>
       <%_ if (field.relatedType === 'OneToMany') { -%>
     entity.<%= field.name.lowerCamelName %> = [];
-    if (update<%= struct.name.pascalName %>Request.<%= field.name.lowerCamelName %>) {
-      for (const dto of update<%= struct.name.pascalName %>Request.<%= field.name.lowerCamelName %>) {
+    if (request.<%= field.name.lowerCamelName %>) {
+      for (const dto of request.<%= field.name.lowerCamelName %>) {
         const childEntity = new <%= field.structName.pascalName %>Entity();
         ObjectUtil.copyMatchingFields(dto, childEntity);
         childEntity.<%= struct.name.lowerCamelName %> = entity;
         // TODO 更にリレーションがある場合にはここに追記する
-        entity.eventUsers.push(childEntity);
+        entity.<%= field.name.lowerCamelName %>.push(childEntity);
       }
     }
       <%_ } -%>
@@ -47,10 +47,10 @@ export class Update<%= struct.name.pascalName %>Handler {
       <%_ } -%>
       <%_ if (field.relatedType === 'ManyToOne') { -%>
     const <%= field.relatedStructName.lowerCamelName %> = await this.<%= field.relatedStructName.lowerCamelName %>Repository.get(
-    create<%= struct.name.pascalName %>Request.<%= field.name.lowerCamelName %>,
+    request.<%= field.name.lowerCamelName %>,
     );
     if (!<%= field.relatedStructName.lowerCamelName %>) {
-    throw new Error('<%= field.name.lowerCamelName %> not found');
+      throw new Error('<%= field.name.lowerCamelName %> not found');
     }
     entity.<%= field.relatedStructName.lowerCamelName %> = <%= field.relatedStructName.lowerCamelName %>;
       <%_ } -%>
