@@ -44,7 +44,7 @@ import {
   Search<%= struct.name.pascalName %>Handler,
 <%_ } -%>
 } from '../service';
-import { ApiCreatedResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
+import { ApiCreatedResponse, ApiOkResponse, ApiTags, ApiBearerAuth } from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
 <%_ if (authCodeJwtList.length > 0) { -%>
 import { AuthCodeJwtGuard } from 'src/app/endpoint/auth/guard/auth-code-jwt.guard';
