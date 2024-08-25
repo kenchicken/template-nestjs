@@ -8,15 +8,30 @@ import Update<%= struct.name.pascalName %>Response from 'src/app/endpoint/<%= st
 import { <%= struct.name.pascalName %>RepositoryInterfaceGenerated } from 'src/app/repository/<%= struct.name.lowerKebabName %>.repository.interface.generated';
 import <%= struct.name.pascalName %>Entity from 'src/app/entity/<%= struct.name.lowerKebabName %>.entity';
 <%_ let hasOneToMany = false; -%>
+<%_ let hasManyToOne = false; -%>
+<%_ let importStructs = []; -%>
+<%_ let importStructNames = []; -%>
 <%_ struct.fields.forEach(function (field, key) { -%>
 <%_ if (field.relatedType === 'OneToMany') { -%>
-<%_ hasOneToMany = true; -%>
-import <%= field.structName.pascalName %>Entity from 'src/app/entity/<%= field.structName.lowerKebabName %>.entity';
+  <%_ hasOneToMany = true; -%>
+  <%_ if (!importStructNames.includes(field.structName.pascalName)) { -%>
+    <%_ importStructs.push(field.structName); -%>
+    <%_ importStructNames.push(field.structName.pascalName); -%>
+  <%_ } -%>
 <%_ } -%>
 <%_ if (field.relatedType === 'OneToOne') { -%>
 <%_ } -%>
 <%_ if (field.relatedType === 'ManyToOne') { -%>
+  <%_ hasManyToOne = true; -%>
+  <%_ if (!importStructNames.includes(field.relatedStructName.pascalName)) { -%>
+    <%_ importStructs.push(field.relatedStructName); -%>
+    <%_ importStructNames.push(field.relatedStructName.pascalName); -%>
+  <%_ } -%>
 <%_ } -%>
+<%_ }) -%>
+<%_ importStructs.forEach(function (structName, key) { -%>
+import <%= structName.pascalName %>Entity from 'src/app/entity/<%= structName.lowerKebabName %>.entity';
+import { <%= structName.pascalName %>RepositoryInterfaceGenerated } from 'src/app/repository/<%= structName.lowerKebabName %>.repository.interface.generated';
 <%_ }) -%>
 import ObjectUtil from 'src/app/util/object-util';
 
