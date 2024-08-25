@@ -5,7 +5,20 @@ force: true
 export default class ObjectUtil {
   static copyMatchingFields(source: any, target: any) {
     Object.getOwnPropertyNames(source).forEach((key) => {
-      target[key] = source[key];
+      const value = source[key];
+      if (
+        value === null ||
+        [
+          'string',
+          'number',
+          'boolean',
+          'symbol',
+          'bigint',
+          'undefined',
+        ].includes(typeof value)
+      ) {
+        target[key] = value;
+      }
     });
   }
 }
