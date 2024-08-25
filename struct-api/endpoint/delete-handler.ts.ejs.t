@@ -4,7 +4,7 @@ force: true
 ---
 import { Inject, Injectable } from '@nestjs/common';
 import { <%= struct.name.pascalName %>RepositoryInterfaceGenerated } from 'src/app/repository/<%= struct.name.lowerKebabName %>.repository.interface.generated';
-import Delete<%= struct.name.pascalName %>Request from 'src/app/endpoint/<%= struct.name.lowerKebabName %>/dto/delete-<%= struct.name.lowerKebabName %>.request';
+import Delete<%= struct.name.pascalName %>Request from 'src/app/endpoint/<%= struct.name.lowerKebabName %>/dto/delete-<%= struct.name.lowerKebabName %>.request.generated';
 
 @Injectable()
 export class Delete<%= struct.name.pascalName %>Handler {
