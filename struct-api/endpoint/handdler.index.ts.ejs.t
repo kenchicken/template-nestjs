@@ -13,7 +13,7 @@ export * from './update-<%= struct.name.lowerKebabName %>.handler.generated';
 export * from './delete-<%= struct.name.lowerKebabName %>.handler.generated';
 <%_ } -%>
 <%_ if (!struct.excludeGenerateAPI.get) { -%>
-export * from './get-<%= struct.name.lowerKebabName %>.handler.generated';
+export * from './find-<%= struct.name.lowerKebabName %>.handler.generated';
 <%_ } -%>
 <%_ if (!struct.excludeGenerateAPI.search) { -%>
 export * from './search-<%= struct.name.lowerKebabName %>.handler.generated';

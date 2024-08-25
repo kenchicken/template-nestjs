@@ -3,5 +3,5 @@ to: "<%= struct.generateEnable ? `${rootDirectory}/api/src/app/endpoint/${struct
 force: true
 ---
 export default class Delete<%= struct.name.pascalName %>Request {
-  loginUserID: number;
+  loginUserID?: number;
 }

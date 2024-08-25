@@ -23,6 +23,7 @@ import {
   Param,
   Delete,
   Query,
+  Request,
   Put,
   UseGuards,
 } from '@nestjs/common';
@@ -89,9 +90,9 @@ export class <%= struct.name.pascalName %>ControllerGenerated {
   @ApiCreatedResponse({
     type: Create<%= struct.name.pascalName %>Response,
   })
-  create(@Body() create<%= struct.name.pascalName %>Request: Create<%= struct.name.pascalName %>Request, @Request() req) {
+  create(@Body() request: Create<%= struct.name.pascalName %>Request, @Request() req) {
     request.loginUserID = req.user.userID;
-    return this.create<%= struct.name.pascalName %>Handler.exec(create<%= struct.name.pascalName %>Request);
+    return this.create<%= struct.name.pascalName %>Handler.exec(request);
   }
 
   <%_ } -%>
@@ -107,9 +108,9 @@ export class <%= struct.name.pascalName %>ControllerGenerated {
     type: Search<%= struct.name.pascalName %>Response,
     isArray: true,
   })
-  findAll(@Query() search<%= struct.name.pascalName %>Condition: Search<%= struct.name.pascalName %>Condition, @Request() req) {
+  findAll(@Query() request: Search<%= struct.name.pascalName %>Condition, @Request() req) {
     request.loginUserID = req.user.userID;
-    return this.search<%= struct.name.pascalName %>Handler.exec(search<%= struct.name.pascalName %>Condition);
+    return this.search<%= struct.name.pascalName %>Handler.exec(request);
   }
 
   <%_ } -%>
@@ -140,9 +141,9 @@ export class <%= struct.name.pascalName %>ControllerGenerated {
   @ApiOkResponse({
     type: Update<%= struct.name.pascalName %>Response,
   })
-  update(@Param('id') id: number, @Body() update<%= struct.name.pascalName %>Request: Update<%= struct.name.pascalName %>Request, @Request() req) {
+  update(@Param('id') id: number, @Body() request: Update<%= struct.name.pascalName %>Request, @Request() req) {
     request.loginUserID = req.user.userID;
-    return this.update<%= struct.name.pascalName %>Handler.exec(id, update<%= struct.name.pascalName %>Request);
+    return this.update<%= struct.name.pascalName %>Handler.exec(id, request);
   }
 
   <%_ } -%>
@@ -154,9 +155,9 @@ export class <%= struct.name.pascalName %>ControllerGenerated {
   <%_ } else { -%>
   @UseGuards(AuthGuard('jwt'))
   <%_ } -%>
-  delete(@Param('id') id: number, @Body() delete<%= struct.name.pascalName %>Request: Delete<%= struct.name.pascalName %>Request, @Request() req) {
+  delete(@Param('id') id: number, @Body() request: Delete<%= struct.name.pascalName %>Request, @Request() req) {
     request.loginUserID = req.user.userID;
-    return this.delete<%= struct.name.pascalName %>Handler.exec(id, delete<%= struct.name.pascalName %>Request);
+    return this.delete<%= struct.name.pascalName %>Handler.exec(id, request);
   }
   <%_ } -%>
 }
