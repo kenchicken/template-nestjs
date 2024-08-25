@@ -95,7 +95,7 @@ export class Create<%= struct.name.pascalName %>Handler {
     response.<%= field.name.lowerCamelName %> = [];
     if (entity.<%= field.name.lowerCamelName %>) {
       for (const childEntity of entity.<%= field.name.lowerCamelName %>) {
-        const childDto = new <%= field.relatedStructName.pascalName %>Dto();
+        const childDto = new <%= field.structName.pascalName %>Dto();
         ObjectUtil.copyMatchingFields(childEntity, childDto);
         response.<%= field.name.lowerCamelName %>.push(childDto);
       }
