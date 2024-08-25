@@ -65,7 +65,7 @@ export class Create<%= struct.name.pascalName %>Handler {
       <%_ if (field.relatedType === 'OneToOne') { -%>
       <%_ } -%>
       <%_ if (field.relatedType === 'ManyToOne') { -%>
-    const <%= field.relatedStructName.lowerCamelName %> = await this.<%= field.relatedStructName.lowerCamelName %>Repository.get(
+    const <%= field.relatedStructName.lowerCamelName %>: <%= field.relatedStructName.pascalName %>Entity = await this.<%= field.relatedStructName.lowerCamelName %>Repository.get(
       request.<%= field.name.lowerCamelName %>,
     );
     if (!<%= field.relatedStructName.lowerCamelName %>) {

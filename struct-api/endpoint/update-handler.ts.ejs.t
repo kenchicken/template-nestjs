@@ -40,6 +40,10 @@ export class Update<%= struct.name.pascalName %>Handler {
   constructor(
     @Inject('<%= struct.name.lowerCamelName %>RepositoryGenerated')
     private readonly <%= struct.name.lowerCamelName %>Repository: <%= struct.name.pascalName %>RepositoryInterfaceGenerated,
+<%_ importStructs.forEach(function (structName, key) { -%>
+    @Inject('<%= structName.lowerCamelName %>RepositoryGenerated')
+    private readonly <%= structName.lowerCamelName %>Repository: <%= structName.pascalName %>RepositoryInterfaceGenerated,
+<%_ }) -%>
   ) {}
 
   async exec(id: number, request: Update<%= struct.name.pascalName %>Request): Promise<Update<%= struct.name.pascalName %>Response> {
@@ -61,8 +65,8 @@ export class Update<%= struct.name.pascalName %>Handler {
       <%_ if (field.relatedType === 'OneToOne') { -%>
       <%_ } -%>
       <%_ if (field.relatedType === 'ManyToOne') { -%>
-    const <%= field.relatedStructName.lowerCamelName %> = await this.<%= field.relatedStructName.lowerCamelName %>Repository.get(
-    request.<%= field.name.lowerCamelName %>,
+    const <%= field.relatedStructName.lowerCamelName %>: <%= field.relatedStructName.pascalName %>Entity = await this.<%= field.relatedStructName.lowerCamelName %>Repository.get(
+      request.<%= field.name.lowerCamelName %>,
     );
     if (!<%= field.relatedStructName.lowerCamelName %>) {
       throw new Error('<%= field.name.lowerCamelName %> not found');
