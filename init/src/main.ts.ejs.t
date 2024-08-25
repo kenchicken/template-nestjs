@@ -13,6 +13,7 @@ async function bootstrap() {
     .setTitle('')
     .setDescription('')
     .setVersion('1.0')
+    .addBearerAuth()
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('swagger-ui', app, document);

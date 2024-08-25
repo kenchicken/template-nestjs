@@ -83,9 +83,11 @@ export class <%= struct.name.pascalName %>ControllerGenerated {
   @Post()
   <%_ if (authCodeJwtList.includes('create')) { -%>
   @UseGuards(AuthCodeJwtGuard)
+  @ApiBearerAuth()
   <%_ } else if (authNoneList.includes('create')) { -%>
   <%_ } else { -%>
   @UseGuards(AuthGuard('jwt'))
+  @ApiBearerAuth()
   <%_ } -%>
   @ApiCreatedResponse({
     type: Create<%= struct.name.pascalName %>Response,
@@ -100,9 +102,11 @@ export class <%= struct.name.pascalName %>ControllerGenerated {
   @Get()
   <%_ if (authCodeJwtList.includes('search')) { -%>
   @UseGuards(AuthCodeJwtGuard)
+  @ApiBearerAuth()
   <%_ } else if (authNoneList.includes('search')) { -%>
   <%_ } else { -%>
   @UseGuards(AuthGuard('jwt'))
+  @ApiBearerAuth()
   <%_ } -%>
   @ApiOkResponse({
     type: Search<%= struct.name.pascalName %>Response,
@@ -118,9 +122,11 @@ export class <%= struct.name.pascalName %>ControllerGenerated {
   @Get(':id')
   <%_ if (authCodeJwtList.includes('find')) { -%>
   @UseGuards(AuthCodeJwtGuard)
+  @ApiBearerAuth()
   <%_ } else if (authNoneList.includes('find')) { -%>
   <%_ } else { -%>
   @UseGuards(AuthGuard('jwt'))
+  @ApiBearerAuth()
   <%_ } -%>
   @ApiOkResponse({
     type: Find<%= struct.name.pascalName %>Response,
@@ -134,9 +140,11 @@ export class <%= struct.name.pascalName %>ControllerGenerated {
   @Put(':id')
   <%_ if (authCodeJwtList.includes('update')) { -%>
   @UseGuards(AuthCodeJwtGuard)
+  @ApiBearerAuth()
   <%_ } else if (authNoneList.includes('update')) { -%>
   <%_ } else { -%>
   @UseGuards(AuthGuard('jwt'))
+  @ApiBearerAuth()
   <%_ } -%>
   @ApiOkResponse({
     type: Update<%= struct.name.pascalName %>Response,
@@ -151,9 +159,11 @@ export class <%= struct.name.pascalName %>ControllerGenerated {
   @Delete(':id')
   <%_ if (authCodeJwtList.includes('remove')) { -%>
   @UseGuards(AuthCodeJwtGuard)
+  @ApiBearerAuth()
   <%_ } else if (authNoneList.includes('remove')) { -%>
   <%_ } else { -%>
   @UseGuards(AuthGuard('jwt'))
+  @ApiBearerAuth()
   <%_ } -%>
   delete(@Param('id') id: number, @Body() request: Delete<%= struct.name.pascalName %>Request, @Request() req) {
     request.loginUserID = req.user.userID;
