@@ -46,13 +46,13 @@ export class Update<%= struct.name.pascalName %>Handler {
       <%_ if (field.relatedType === 'OneToOne') { -%>
       <%_ } -%>
       <%_ if (field.relatedType === 'ManyToOne') { -%>
-    const <%= field.structName.lowerCamelName %> = await this.<%= field.structName.lowerCamelName %>Repository.get(
-      create<%= struct.name.pascalName %>Request.<%= field.name.lowerCamelName %>,
+    const <%= field.relatedStructName.lowerCamelName %> = await this.<%= field.relatedStructName.lowerCamelName %>Repository.get(
+    create<%= struct.name.pascalName %>Request.<%= field.name.lowerCamelName %>,
     );
-    if (!<%= field.structName.lowerCamelName %>) {
-      throw new Error('<%= field.name.lowerCamelName %> not found');
+    if (!<%= field.relatedStructName.lowerCamelName %>) {
+    throw new Error('<%= field.name.lowerCamelName %> not found');
     }
-    entity.<%= field.structName.lowerCamelName %> = <%= field.structName.lowerCamelName %>;
+    entity.<%= field.relatedStructName.lowerCamelName %> = <%= field.relatedStructName.lowerCamelName %>;
       <%_ } -%>
     <%_ }) -%>
 
