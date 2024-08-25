@@ -12,16 +12,16 @@ import <%= struct.name.pascalName %>Entity from 'src/app/entity/<%= struct.name.
 <%_ let importStructs = []; -%>
 <%_ let importStructNames = []; -%>
 <%_ struct.fields.forEach(function (field, key) { -%>
-<%_ if (field.relatedType === 'OneToMany') { -%>
+<%_ if (field.relatedType === 'OneToMany' && field.dbTags.indexOf('->;') === -1) { -%>
   <%_ hasOneToMany = true; -%>
   <%_ if (!importStructNames.includes(field.structName.pascalName)) { -%>
     <%_ importStructs.push(field.structName); -%>
     <%_ importStructNames.push(field.structName.pascalName); -%>
   <%_ } -%>
 <%_ } -%>
-<%_ if (field.relatedType === 'OneToOne') { -%>
+<%_ if (field.relatedType === 'OneToOne' && field.dbTags.indexOf('->;') === -1) { -%>
 <%_ } -%>
-<%_ if (field.relatedType === 'ManyToOne') { -%>
+<%_ if (field.relatedType === 'ManyToOne' && field.dbTags.indexOf('->;') === -1) { -%>
   <%_ hasManyToOne = true; -%>
   <%_ if (!importStructNames.includes(field.relatedStructName.pascalName)) { -%>
     <%_ importStructs.push(field.relatedStructName); -%>
