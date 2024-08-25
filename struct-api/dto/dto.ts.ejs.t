@@ -21,6 +21,13 @@ force: true
       <%_ importStructNames.push(field.relatedStructName.pascalName); -%>
     <%_ } -%>
   <%_ } -%>
+  <%_ if (field.relatedType === 'ManyToOne') { -%>
+    <%_ hasOneToOne = true; -%>
+    <%_ if (!importStructNames.includes(field.relatedStructName.pascalName)) { -%>
+      <%_ importStructs.push(field.relatedStructName); -%>
+      <%_ importStructNames.push(field.relatedStructName.pascalName); -%>
+    <%_ } -%>
+  <%_ } -%>
 <%_ }) -%>
 import { ApiProperty } from '@nestjs/swagger';
 <%_ importStructs.forEach(function (structName, key) { -%>
@@ -42,14 +49,14 @@ export default class <%= struct.name.pascalName %>Dto {
     <%_ } -%>
   <%_ } -%>
   <%_ if (field.name.lowerCamelName !== 'id') { -%>
-    <%_ if (field.dataType === 'string') { -%>
+    <%_ if (field.dataType === 'string' && field.relatedType !== 'ManyToOne' && field.relatedType !== 'OneToOne') { -%>
   @ApiProperty({
     required: false,
     nullable: true,
   })
   <%= field.name.lowerCamelName %>?: string;
     <%_ } -%>
-    <%_ if (field.dataType === 'number') { -%>
+    <%_ if (field.dataType === 'number' && field.relatedType !== 'ManyToOne' && field.relatedType !== 'OneToOne') { -%>
   @ApiProperty({
     required: false,
     nullable: true,
@@ -75,6 +82,10 @@ export default class <%= struct.name.pascalName %>Dto {
   <%= field.name.lowerCamelName %>?: <%= field.structName.pascalName %>Dto[];
     <%_ } -%>
     <%_ if (field.relatedType === 'OneToOne') { -%>
+  @ApiProperty({ type: <%= field.relatedStructName.pascalName %>Dto })
+  <%= field.relatedStructName.lowerCamelName %>?: <%= field.relatedStructName.pascalName %>Dto;
+    <%_ } -%>
+    <%_ if (field.relatedType === 'ManyToOne') { -%>
   @ApiProperty({ type: <%= field.relatedStructName.pascalName %>Dto })
   <%= field.relatedStructName.lowerCamelName %>?: <%= field.relatedStructName.pascalName %>Dto;
     <%_ } -%>
