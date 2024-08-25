@@ -83,17 +83,17 @@ export default class <%= struct.name.pascalName %>Dto {
   <%= field.name.lowerCamelName %>?: boolean;
 
     <%_ } -%>
-    <%_ if (field.relatedType === 'OneToMany' && !field.dbTags.includes('->;')) { -%>
+    <%_ if (field.relatedType === 'OneToMany' && field.dbTags.indexOf('->;') === -1) { -%>
   @ApiProperty({ isArray: true, type: <%= field.structName.pascalName %>Dto })
   <%= field.name.lowerCamelName %>?: <%= field.structName.pascalName %>Dto[];
 
     <%_ } -%>
-    <%_ if (field.relatedType === 'OneToOne' && !field.dbTags.includes('->;')) { -%>
+    <%_ if (field.relatedType === 'OneToOne' && field.dbTags.indexOf('->;') === -1) { -%>
   @ApiProperty({ type: <%= field.relatedStructName.pascalName %>Dto })
   <%= field.relatedStructName.lowerCamelName %>?: <%= field.relatedStructName.pascalName %>Dto;
 
     <%_ } -%>
-    <%_ if (field.relatedType === 'ManyToOne' && !field.dbTags.includes('->;')) { -%>
+    <%_ if (field.relatedType === 'ManyToOne' && field.dbTags.indexOf('->;') === -1) { -%>
   @ApiProperty({ type: <%= field.relatedStructName.pascalName %>Dto })
   <%= field.relatedStructName.lowerCamelName %>?: <%= field.relatedStructName.pascalName %>Dto;
 

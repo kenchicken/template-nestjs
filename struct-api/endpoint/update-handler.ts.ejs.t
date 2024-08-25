@@ -50,7 +50,7 @@ export class Update<%= struct.name.pascalName %>Handler {
     const entity = new <%= struct.name.pascalName %>Entity();
     ObjectUtil.copyMatchingFields(request, entity);
     <%_ struct.fields.forEach(function (field, key) { -%>
-      <%_ if (field.relatedType === 'OneToMany' && !field.dbTags.includes('->;')) { -%>
+      <%_ if (field.relatedType === 'OneToMany' && field.dbTags.indexOf('->;') === -1) { -%>
     entity.<%= field.name.lowerCamelName %> = [];
     if (request.<%= field.name.lowerCamelName %>) {
       for (const dto of request.<%= field.name.lowerCamelName %>) {
@@ -62,9 +62,9 @@ export class Update<%= struct.name.pascalName %>Handler {
       }
     }
       <%_ } -%>
-      <%_ if (field.relatedType === 'OneToOne' && !field.dbTags.includes('->;')) { -%>
+      <%_ if (field.relatedType === 'OneToOne' && field.dbTags.indexOf('->;') === -1) { -%>
       <%_ } -%>
-      <%_ if (field.relatedType === 'ManyToOne' && !field.dbTags.includes('->;')) { -%>
+      <%_ if (field.relatedType === 'ManyToOne' && field.dbTags.indexOf('->;') === -1) { -%>
     const <%= field.relatedStructName.lowerCamelName %>: <%= field.relatedStructName.pascalName %>Entity = await this.<%= field.relatedStructName.lowerCamelName %>Repository.get(
       request.<%= field.name.lowerCamelName %>,
     );
