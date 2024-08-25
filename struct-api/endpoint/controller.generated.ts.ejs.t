@@ -49,14 +49,14 @@ import { AuthGuard } from '@nestjs/passport';
 <%_ if (authCodeJwtList.length > 0) { -%>
 import { AuthCodeJwtGuard } from 'src/app/endpoint/auth/guard/auth-code-jwt.guard';
 <%_ } -%>
-import Create<%= struct.name.pascalName %>Request from 'src/app/endpoint/<%= struct.name.lowerKebabName %>/dto/create-<%= struct.name.lowerKebabName %>.request.generated';
-import Create<%= struct.name.pascalName %>Response from 'src/app/endpoint/<%= struct.name.lowerKebabName %>/dto/create-<%= struct.name.lowerKebabName %>.response.generated';
-import Update<%= struct.name.pascalName %>Request from 'src/app/endpoint/<%= struct.name.lowerKebabName %>/dto/update-<%= struct.name.lowerKebabName %>.request.generated';
-import Update<%= struct.name.pascalName %>Response from 'src/app/endpoint/<%= struct.name.lowerKebabName %>/dto/update-<%= struct.name.lowerKebabName %>.response.generated';
-import Find<%= struct.name.pascalName %>Response from 'src/app/endpoint/<%= struct.name.lowerKebabName %>/dto/find-<%= struct.name.lowerKebabName %>.response.generated';
+import Create<%= struct.name.pascalName %>Request from 'src/app/endpoint/<%= struct.name.lowerKebabName %>/dto/generated/create-<%= struct.name.lowerKebabName %>.request';
+import Create<%= struct.name.pascalName %>Response from 'src/app/endpoint/<%= struct.name.lowerKebabName %>/dto/generated/create-<%= struct.name.lowerKebabName %>.response';
+import Update<%= struct.name.pascalName %>Request from 'src/app/endpoint/<%= struct.name.lowerKebabName %>/dto/generated/update-<%= struct.name.lowerKebabName %>.request';
+import Update<%= struct.name.pascalName %>Response from 'src/app/endpoint/<%= struct.name.lowerKebabName %>/dto/generated/update-<%= struct.name.lowerKebabName %>.response';
+import Find<%= struct.name.pascalName %>Response from 'src/app/endpoint/<%= struct.name.lowerKebabName %>/dto/generated/find-<%= struct.name.lowerKebabName %>.response';
 import { Search<%= struct.name.pascalName %>Condition } from 'src/app/repository/condition/generated/search-<%= struct.name.lowerKebabName %>.condition';
-import Search<%= struct.name.pascalName %>Response from 'src/app/endpoint/<%= struct.name.lowerKebabName %>/dto/search-<%= struct.name.lowerKebabName %>.response.generated';
-import Delete<%= struct.name.pascalName %>Request from 'src/app/endpoint/<%= struct.name.lowerKebabName %>/dto/delete-<%= struct.name.lowerKebabName %>.request.generated';
+import Search<%= struct.name.pascalName %>Response from 'src/app/endpoint/<%= struct.name.lowerKebabName %>/dto/generated/search-<%= struct.name.lowerKebabName %>.response';
+import Delete<%= struct.name.pascalName %>Request from 'src/app/endpoint/<%= struct.name.lowerKebabName %>/dto/generated/delete-<%= struct.name.lowerKebabName %>.request';
 
 @Controller('<%= struct.name.lowerCamelName %>')
 @ApiTags('<%= struct.name.pascalName %>')
