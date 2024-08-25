@@ -88,12 +88,12 @@ export default class <%= struct.name.pascalName %>Dto {
   <%= field.name.lowerCamelName %>?: <%= field.structName.pascalName %>Dto[];
 
     <%_ } -%>
-    <%_ if (field.relatedType === 'OneToOne') { -%>
+    <%_ if (field.relatedType === 'OneToOne' && !field.dbTags.includes('->;')) { -%>
   @ApiProperty({ type: <%= field.relatedStructName.pascalName %>Dto })
   <%= field.relatedStructName.lowerCamelName %>?: <%= field.relatedStructName.pascalName %>Dto;
 
     <%_ } -%>
-    <%_ if (field.relatedType === 'ManyToOne') { -%>
+    <%_ if (field.relatedType === 'ManyToOne' && !field.dbTags.includes('->;')) { -%>
   @ApiProperty({ type: <%= field.relatedStructName.pascalName %>Dto })
   <%= field.relatedStructName.lowerCamelName %>?: <%= field.relatedStructName.pascalName %>Dto;
 
