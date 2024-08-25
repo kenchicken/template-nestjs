@@ -43,9 +43,11 @@ export default class <%= struct.name.pascalName %>Dto {
   })
     <%_ if (field.dataType === 'string') { -%>
   <%= field.name.lowerCamelName %>?: string;
+
     <%_ } -%>
     <%_ if (field.dataType === 'number') { -%>
   <%= field.name.lowerCamelName %>?: number;
+
     <%_ } -%>
   <%_ } -%>
   <%_ if (field.name.lowerCamelName !== 'id') { -%>
@@ -55,6 +57,7 @@ export default class <%= struct.name.pascalName %>Dto {
     nullable: true,
   })
   <%= field.name.lowerCamelName %>?: string;
+
     <%_ } -%>
     <%_ if (field.dataType === 'number' && field.relatedType !== 'ManyToOne' && field.relatedType !== 'OneToOne') { -%>
   @ApiProperty({
@@ -62,6 +65,7 @@ export default class <%= struct.name.pascalName %>Dto {
     nullable: true,
   })
   <%= field.name.lowerCamelName %>?: number;
+
     <%_ } -%>
     <%_ if (field.dataType === 'time') { -%>
   @ApiProperty({
@@ -69,6 +73,7 @@ export default class <%= struct.name.pascalName %>Dto {
     nullable: true,
   })
   <%= field.name.lowerCamelName %>?: Date;
+
     <%_ } -%>
     <%_ if (field.dataType === 'bool') { -%>
   @ApiProperty({
@@ -76,18 +81,22 @@ export default class <%= struct.name.pascalName %>Dto {
     nullable: true,
   })
   <%= field.name.lowerCamelName %>?: boolean;
+
     <%_ } -%>
     <%_ if (field.relatedType === 'OneToMany') { -%>
   @ApiProperty({ isArray: true, type: <%= field.structName.pascalName %>Dto })
   <%= field.name.lowerCamelName %>?: <%= field.structName.pascalName %>Dto[];
+
     <%_ } -%>
     <%_ if (field.relatedType === 'OneToOne') { -%>
   @ApiProperty({ type: <%= field.relatedStructName.pascalName %>Dto })
   <%= field.relatedStructName.lowerCamelName %>?: <%= field.relatedStructName.pascalName %>Dto;
+
     <%_ } -%>
     <%_ if (field.relatedType === 'ManyToOne') { -%>
   @ApiProperty({ type: <%= field.relatedStructName.pascalName %>Dto })
   <%= field.relatedStructName.lowerCamelName %>?: <%= field.relatedStructName.pascalName %>Dto;
+
     <%_ } -%>
   <%_ } -%>
 <%_ }) -%>
