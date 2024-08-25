@@ -47,6 +47,14 @@ export class Create<%= struct.name.pascalName %>Handler {
   ) {}
 
   async exec(request: Create<%= struct.name.pascalName %>Request): Promise<Create<%= struct.name.pascalName %>Response> {
+    const entity = await this.convertRequestToEntity(request);
+    const result = await this.<%= struct.name.lowerCamelName %>Repository.create(entity);
+    return await this.convertEntityToResponse(result);
+  }
+
+  private async convertRequestToEntity(
+    request: CreateEventRequest,
+  ): Promise<<%= struct.name.pascalName %>Entity> {
     const entity = new <%= struct.name.pascalName %>Entity();
     ObjectUtil.copyMatchingFields(request, entity);
     <%_ struct.fields.forEach(function (field, key) { -%>
@@ -74,10 +82,33 @@ export class Create<%= struct.name.pascalName %>Handler {
     entity.<%= field.relatedStructName.lowerCamelName %> = <%= field.relatedStructName.lowerCamelName %>;
       <%_ } -%>
     <%_ }) -%>
+    return entity;
+  }
 
-    const result = await this.<%= struct.name.lowerCamelName %>Repository.create(entity);
+  private async convertEntityToResponse(
+    entity: <%= struct.name.pascalName %>Entity,
+  ): Promise<Create<%= struct.name.pascalName %>Response> {
     const response = new Create<%= struct.name.pascalName %>Response();
-    ObjectUtil.copyMatchingFields(result, response);
+    ObjectUtil.copyMatchingFields(entity, response);
+    <%_ struct.fields.forEach(function (field, key) { -%>
+      <%_ if (field.relatedType === 'OneToMany' && field.dbTags.indexOf('->;') === -1) { -%>
+    response.<%= field.name.lowerCamelName %> = [];
+    if (entity.<%= field.name.lowerCamelName %>) {
+      for (const childEntity of entity.<%= field.name.lowerCamelName %>) {
+        const childDto = new <%= field.relatedStructName.pascalName %>Dto();
+        ObjectUtil.copyMatchingFields(childEntity, childDto);
+        response.<%= field.name.lowerCamelName %>.push(childDto);
+      }
+    }
+    <%_ } -%>
+    <%_ if (field.relatedType === 'OneToOne' && field.dbTags.indexOf('->;') === -1) { -%>
+    <%_ } -%>
+    <%_ if (field.relatedType === 'ManyToOne' && field.dbTags.indexOf('->;') === -1) { -%>
+    const <%= field.relatedStructName.lowerCamelName %>Dto = new <%= field.relatedStructName.pascalName %>Dto();
+    ObjectUtil.copyMatchingFields(entity.<%= field.relatedStructName.lowerCamelName %>, <%= field.relatedStructName.lowerCamelName %>Dto);
+    response.<%= field.relatedStructName.lowerCamelName %> = <%= field.relatedStructName.lowerCamelName %>Dto;
+      <%_ } -%>
+    <%_ }) -%>
     return response;
   }
 }
