@@ -51,7 +51,7 @@ export default class <%= struct.name.pascalName %>Dto {
     <%_ } -%>
   <%_ } -%>
   <%_ if (field.name.lowerCamelName !== 'id') { -%>
-    <%_ if (field.dataType === 'string' && field.relatedType !== 'ManyToOne' && field.relatedType !== 'OneToOne') { -%>
+    <%_ if (field.dataType === 'string') { -%>
   @ApiProperty({
     required: false,
     nullable: true,
@@ -59,7 +59,7 @@ export default class <%= struct.name.pascalName %>Dto {
   <%= field.name.lowerCamelName %>?: string;
 
     <%_ } -%>
-    <%_ if (field.dataType === 'number' && field.relatedType !== 'ManyToOne' && field.relatedType !== 'OneToOne') { -%>
+    <%_ if (field.dataType === 'number') { -%>
   @ApiProperty({
     required: false,
     nullable: true,
