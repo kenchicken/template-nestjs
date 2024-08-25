@@ -32,6 +32,7 @@ import <%= struct.name.pascalName %>Entity from 'src/app/entity/<%= struct.name.
 <%_ importStructs.forEach(function (structName, key) { -%>
 import <%= structName.pascalName %>Entity from 'src/app/entity/<%= structName.lowerKebabName %>.entity';
 import { <%= structName.pascalName %>RepositoryInterfaceGenerated } from 'src/app/repository/<%= structName.lowerKebabName %>.repository.interface.generated';
+import <%= structName.pascalName %>Dto from 'src/app/dto/<%= structName.lowerKebabName %>.dto';
 <%_ }) -%>
 import ObjectUtil from 'src/app/util/object-util';
 
