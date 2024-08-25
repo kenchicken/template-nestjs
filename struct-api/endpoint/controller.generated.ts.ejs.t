@@ -89,7 +89,8 @@ export class <%= struct.name.pascalName %>ControllerGenerated {
   @ApiCreatedResponse({
     type: Create<%= struct.name.pascalName %>Response,
   })
-  create(@Body() create<%= struct.name.pascalName %>Request: Create<%= struct.name.pascalName %>Request) {
+  create(@Body() create<%= struct.name.pascalName %>Request: Create<%= struct.name.pascalName %>Request, @Request() req) {
+    request.loginUserID = req.user.userID;
     return this.create<%= struct.name.pascalName %>Handler.exec(create<%= struct.name.pascalName %>Request);
   }
 
@@ -106,7 +107,8 @@ export class <%= struct.name.pascalName %>ControllerGenerated {
     type: Search<%= struct.name.pascalName %>Response,
     isArray: true,
   })
-  findAll(@Query() search<%= struct.name.pascalName %>Condition: Search<%= struct.name.pascalName %>Condition) {
+  findAll(@Query() search<%= struct.name.pascalName %>Condition: Search<%= struct.name.pascalName %>Condition, @Request() req) {
+    request.loginUserID = req.user.userID;
     return this.search<%= struct.name.pascalName %>Handler.exec(search<%= struct.name.pascalName %>Condition);
   }
 
@@ -122,8 +124,8 @@ export class <%= struct.name.pascalName %>ControllerGenerated {
   @ApiOkResponse({
     type: Find<%= struct.name.pascalName %>Response,
   })
-  findOne(@Param('id') id: number) {
-    return this.find<%= struct.name.pascalName %>Handler.exec(id);
+  findOne(@Param('id') id: number, @Request() req) {
+    return this.find<%= struct.name.pascalName %>Handler.exec(id, req.user.userID);
   }
 
   <%_ } -%>
@@ -138,7 +140,8 @@ export class <%= struct.name.pascalName %>ControllerGenerated {
   @ApiOkResponse({
     type: Update<%= struct.name.pascalName %>Response,
   })
-  update(@Param('id') id: number, @Body() update<%= struct.name.pascalName %>Request: Update<%= struct.name.pascalName %>Request) {
+  update(@Param('id') id: number, @Body() update<%= struct.name.pascalName %>Request: Update<%= struct.name.pascalName %>Request, @Request() req) {
+    request.loginUserID = req.user.userID;
     return this.update<%= struct.name.pascalName %>Handler.exec(id, update<%= struct.name.pascalName %>Request);
   }
 
@@ -151,7 +154,8 @@ export class <%= struct.name.pascalName %>ControllerGenerated {
   <%_ } else { -%>
   @UseGuards(AuthGuard('jwt'))
   <%_ } -%>
-  delete(@Param('id') id: number, @Body() delete<%= struct.name.pascalName %>Request: Delete<%= struct.name.pascalName %>Request) {
+  delete(@Param('id') id: number, @Body() delete<%= struct.name.pascalName %>Request: Delete<%= struct.name.pascalName %>Request, @Request() req) {
+    request.loginUserID = req.user.userID;
     return this.delete<%= struct.name.pascalName %>Handler.exec(id, delete<%= struct.name.pascalName %>Request);
   }
   <%_ } -%>

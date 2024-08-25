@@ -1,5 +1,5 @@
 ---
-to: "<%= !struct.excludeGenerateAPI.get ? `${rootDirectory}/api/src/app/endpoint/${struct.name.lowerKebabName}/service/handler/get-${struct.name.lowerKebabName}.handler.generated.ts` : null %>"
+to: "<%= !struct.excludeGenerateAPI.get ? `${rootDirectory}/api/src/app/endpoint/${struct.name.lowerKebabName}/service/handler/find-${struct.name.lowerKebabName}.handler.generated.ts` : null %>"
 force: true
 ---
 import { Inject, Injectable } from '@nestjs/common';
@@ -14,7 +14,7 @@ export class Find<%= struct.name.pascalName %>Handler {
     private readonly <%= struct.name.lowerCamelName %>Repository: <%= struct.name.pascalName %>RepositoryInterfaceGenerated,
   ) {}
 
-  async exec(id: number): Promise<Find<%= struct.name.pascalName %>Response> {
+  async exec(id: number, loginUserID: number): Promise<Find<%= struct.name.pascalName %>Response> {
     const result = await this.<%= struct.name.lowerCamelName %>Repository.get(id);
     const response = new Find<%= struct.name.pascalName %>Response();
     ObjectUtil.copyMatchingFields(result, response);
