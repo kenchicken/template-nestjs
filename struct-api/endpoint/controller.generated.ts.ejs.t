@@ -58,7 +58,7 @@ import { Search<%= struct.name.pascalName %>Condition } from 'src/app/repository
 import Search<%= struct.name.pascalName %>Response from 'src/app/endpoint/<%= struct.name.lowerKebabName %>/dto/generated/search-<%= struct.name.lowerKebabName %>.response';
 import Delete<%= struct.name.pascalName %>Request from 'src/app/endpoint/<%= struct.name.lowerKebabName %>/dto/generated/delete-<%= struct.name.lowerKebabName %>.request';
 
-@Controller('<%= struct.name.lowerCamelName %>')
+@Controller('api/v1/<%= struct.name.lowerCamelName %>')
 @ApiTags('<%= struct.name.pascalName %>')
 export class <%= struct.name.pascalName %>ControllerGenerated {
   constructor(
