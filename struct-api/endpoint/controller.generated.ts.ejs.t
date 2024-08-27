@@ -93,7 +93,7 @@ export class <%= struct.name.pascalName %>ControllerGenerated {
     type: Create<%= struct.name.pascalName %>Response,
   })
   create(@Body() request: Create<%= struct.name.pascalName %>Request, @Request() req) {
-    request.loginUserID = req.user.userID;
+    request.loginUserID = req.user?.userID;
     return this.create<%= struct.name.pascalName %>Handler.exec(request);
   }
 
@@ -113,7 +113,7 @@ export class <%= struct.name.pascalName %>ControllerGenerated {
     isArray: true,
   })
   findAll(@Query() request: Search<%= struct.name.pascalName %>Condition, @Request() req) {
-    request.loginUserID = req.user.userID;
+    request.loginUserID = req.user?.userID;
     return this.search<%= struct.name.pascalName %>Handler.exec(request);
   }
 
@@ -132,7 +132,7 @@ export class <%= struct.name.pascalName %>ControllerGenerated {
     type: Find<%= struct.name.pascalName %>Response,
   })
   findOne(@Param('id') id: number, @Request() req) {
-    return this.find<%= struct.name.pascalName %>Handler.exec(id, req.user.userID);
+    return this.find<%= struct.name.pascalName %>Handler.exec(id, req.user?.userID);
   }
 
   <%_ } -%>
@@ -150,7 +150,7 @@ export class <%= struct.name.pascalName %>ControllerGenerated {
     type: Update<%= struct.name.pascalName %>Response,
   })
   update(@Param('id') id: number, @Body() request: Update<%= struct.name.pascalName %>Request, @Request() req) {
-    request.loginUserID = req.user.userID;
+    request.loginUserID = req.user?.userID;
     return this.update<%= struct.name.pascalName %>Handler.exec(id, request);
   }
 
@@ -166,7 +166,7 @@ export class <%= struct.name.pascalName %>ControllerGenerated {
   @ApiBearerAuth()
   <%_ } -%>
   delete(@Param('id') id: number, @Body() request: Delete<%= struct.name.pascalName %>Request, @Request() req) {
-    request.loginUserID = req.user.userID;
+    request.loginUserID = req.user?.userID;
     return this.delete<%= struct.name.pascalName %>Handler.exec(id, request);
   }
   <%_ } -%>
