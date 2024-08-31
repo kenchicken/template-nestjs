@@ -25,6 +25,7 @@ import {
   Query,
   Request,
   Put,
+  Patch,
   UseGuards,
 } from '@nestjs/common';
 import {
