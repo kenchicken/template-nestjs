@@ -3,6 +3,7 @@ to: "<%= struct.generateEnable ? `${rootDirectory}/api/src/app/infrastructure/ty
 force: true
 ---
 <%_ let hasRelation = false; -%>
+<%_ let getOptionStr = ''; -%>
 <%_ struct.fields.forEach(function (field, key) { -%>
   <%_ if (field.relatedType === 'OneToMany') { -%>
     <%_ hasRelation = true; -%>
@@ -14,6 +15,7 @@ force: true
     <%_ hasRelation = true; -%>
   <%_ } -%>
 <%_ }) -%>
+<%_ -%>
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import <%= struct.name.pascalName %>Entity from 'src/app/entity/<%= struct.name.lowerKebabName %>.entity';
@@ -38,7 +40,11 @@ export class <%= struct.name.pascalName %>RepositoryGenerated
     await this.<%= struct.name.lowerCamelName %>Repository.remove(<%= struct.name.lowerCamelName %>);
   }
 
-  async get(id: number<%= hasRelation ? `, option?: %{struct.name.pascalName}RelationOptions` : '' %>): Promise<<%= struct.name.pascalName %>Entity> {
+  <%_ if (hasRelation) { -%>
+  async get(id: number, options?: <%= struct.name.pascalName %>RelationOptions): Promise<<%= struct.name.pascalName %>Entity> {
+  <%_ } else { -%>
+  async get(id: number): Promise<<%= struct.name.pascalName %>Entity> {
+  <%_ } -%>
     <%_ if (hasRelation) { -%>
     let relations = {};
     if (options) {
