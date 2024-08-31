@@ -51,15 +51,15 @@ export class Patch<%= struct.name.pascalName %>Handler {
   @Transactional()
   async exec(id: number, request: Update<%= struct.name.pascalName %>Request): Promise<Update<%= struct.name.pascalName %>Response> {
     const orgEntity = await this.<%= struct.name.lowerCamelName %>Repository.get(id);
-    const entity = await this.mergeRequestToEntity(request);
+    const entity = await this.mergeRequestToEntity(request, orgEntity);
     const result = await this.<%= struct.name.lowerCamelName %>Repository.create(entity);
     return await this.convertEntityToResponse(result);
   }
 
   private async mergeRequestToEntity(
     request: Update<%= struct.name.pascalName %>Request,
+    entity: <%= struct.name.pascalName %>Entity,
   ): Promise<<%= struct.name.pascalName %>Entity> {
-    const entity = new <%= struct.name.pascalName %>Entity();
     ObjectUtil.patchMatchingFields(request, entity);
     <%_ struct.fields.forEach(function (field, key) { -%>
       <%_ if (field.relatedType === 'OneToMany' && field.dbTags.indexOf('->;') === -1) { -%>
