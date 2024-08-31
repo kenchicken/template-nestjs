@@ -21,5 +21,6 @@ export class Search<%= struct.name.pascalName %>Condition {
 <%_ }) -%>
   limit?: number;
   offset?: number;
+  orderBy?: string;
   loginUserID?: number;
 }

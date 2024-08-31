@@ -7,6 +7,7 @@ import { Repository } from 'typeorm';
 import <%= struct.name.pascalName %>Entity from 'src/app/entity/<%= struct.name.lowerKebabName %>.entity';
 import { <%= struct.name.pascalName %>RepositoryInterfaceGenerated } from '../../repository/<%= struct.name.lowerKebabName %>.repository.interface.generated';
 import { Search<%= struct.name.pascalName %>Condition } from 'src/app/repository/condition/generated/search-<%= struct.name.lowerKebabName %>.condition';
+import ObjectUtil from '../../util/object-util';
 
 export class <%= struct.name.pascalName %>RepositoryGenerated
   implements <%= struct.name.pascalName %>RepositoryInterfaceGenerated
@@ -35,6 +36,7 @@ export class <%= struct.name.pascalName %>RepositoryGenerated
   }
 
   async getAll(condition: Search<%= struct.name.pascalName %>Condition): Promise<<%= struct.name.pascalName %>Entity[]> {
+    const order = ObjectUtil.convertOrdersToMap(condition);
     return await this.<%= struct.name.lowerCamelName %>Repository.find({
       where: {
       <%_ struct.fields.forEach(function (field, key) { -%>
@@ -54,6 +56,9 @@ export class <%= struct.name.pascalName %>RepositoryGenerated
         <%_ } -%>
       <%_ }) -%>
       },
+      take: condition.limit,
+      skip: condition.offset,
+      order: order,
     });
   }
 
@@ -77,31 +82,6 @@ export class <%= struct.name.pascalName %>RepositoryGenerated
         <%_ } -%>
       <%_ }) -%>
       },
-    });
-  }
-
-  async getAllWithCursor(condition: Search<%= struct.name.pascalName %>Condition): Promise<<%= struct.name.pascalName %>Entity[]> {
-    return await this.<%= struct.name.lowerCamelName %>Repository.find({
-      where: {
-      <%_ struct.fields.forEach(function (field, key) { -%>
-        <%_ if (!field.relatedType) { -%>
-        <%_ if (field.dataType === 'string') { -%>
-        <%= field.name.lowerCamelName %>: condition.<%= field.name.lowerCamelName %>,
-        <%_ } -%>
-        <%_ if (field.dataType === 'number') { -%>
-        <%= field.name.lowerCamelName %>: condition.<%= field.name.lowerCamelName %>,
-        <%_ } -%>
-        <%_ if (field.dataType === 'time') { -%>
-        <%= field.name.lowerCamelName %>: condition.<%= field.name.lowerCamelName %>,
-        <%_ } -%>
-        <%_ if (field.dataType === 'bool') { -%>
-        <%= field.name.lowerCamelName %>: condition.<%= field.name.lowerCamelName %>,
-        <%_ } -%>
-        <%_ } -%>
-      <%_ }) -%>
-      },
-      take: condition.limit,
-      skip: condition.offset,
     });
   }
 }
