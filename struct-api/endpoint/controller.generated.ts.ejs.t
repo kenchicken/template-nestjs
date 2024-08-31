@@ -34,6 +34,9 @@ import {
 <%_ if (!struct.excludeGenerateAPI.update) { -%>
   Update<%= struct.name.pascalName %>Handler,
 <%_ } -%>
+<%_ if (!struct.excludeGenerateAPI.patch) { -%>
+  Patch<%= struct.name.pascalName %>Handler,
+<%_ } -%>
 <%_ if (!struct.excludeGenerateAPI.delete) { -%>
   Delete<%= struct.name.pascalName %>Handler,
 <%_ } -%>
