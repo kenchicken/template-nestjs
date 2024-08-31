@@ -162,24 +162,24 @@ export class <%= struct.name.pascalName %>ControllerGenerated {
     return this.update<%= struct.name.pascalName %>Handler.exec(id, request);
   }
 
-<%_ } -%>
-<%_ if (!struct.excludeGenerateAPI.patch) { -%>
-@Put(':id')
-<%_ if (authCodeJwtList.includes('patch')) { -%>
-@UseGuards(AuthCodeJwtGuard)
-@ApiBearerAuth()
-<%_ } else if (authNoneList.includes('patch')) { -%>
-<%_ } else { -%>
-@UseGuards(AuthGuard('jwt'))
-@ApiBearerAuth()
-<%_ } -%>
-@ApiOkResponse({
-type: Patch<%= struct.name.pascalName %>Response,
-})
-patch(@Param('id') id: number, @Body() request: Patch<%= struct.name.pascalName %>Request, @Request() req) {
-request.loginUserID = req.user?.userID;
-return this.patch<%= struct.name.pascalName %>Handler.exec(id, request);
-}
+  <%_ } -%>
+  <%_ if (!struct.excludeGenerateAPI.patch) { -%>
+  @Patch(':id')
+  <%_ if (authCodeJwtList.includes('patch')) { -%>
+  @UseGuards(AuthCodeJwtGuard)
+  @ApiBearerAuth()
+  <%_ } else if (authNoneList.includes('patch')) { -%>
+  <%_ } else { -%>
+  @UseGuards(AuthGuard('jwt'))
+  @ApiBearerAuth()
+  <%_ } -%>
+  @ApiOkResponse({
+    type: Patch<%= struct.name.pascalName %>Response,
+  })
+  patch(@Param('id') id: number, @Body() request: Patch<%= struct.name.pascalName %>Request, @Request() req) {
+    request.loginUserID = req.user?.userID;
+    return this.patch<%= struct.name.pascalName %>Handler.exec(id, request);
+  }
 
 <%_ } -%>
   <%_ if (!struct.excludeGenerateAPI.delete) { -%>
