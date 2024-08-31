@@ -10,7 +10,7 @@ export abstract class <%= struct.name.pascalName %>RepositoryInterfaceGenerated 
   abstract getAll(condition: Search<%= struct.name.pascalName %>Condition): Promise<<%= struct.name.pascalName %>Entity[]>;
   abstract count(condition: Search<%= struct.name.pascalName %>Condition): Promise<number>;
   // CRUD系メソッド
-  abstract get(id: number, option?: UserProfileRelationOptions): Promise<<%= struct.name.pascalName %>Entity>;
+  abstract get(id: number, option?: <%= struct.name.pascalName %>RelationOptions): Promise<<%= struct.name.pascalName %>Entity>;
   abstract create(<%= struct.name.pascalName %>: <%= struct.name.pascalName %>Entity): Promise<<%= struct.name.pascalName %>Entity>;
   abstract update(id: number, item: <%= struct.name.pascalName %>Entity): Promise<<%= struct.name.pascalName %>Entity>;
   abstract delete(id: number): Promise<void>;
