@@ -21,8 +21,8 @@ export class Find<%= struct.name.pascalName %>Handler {
 
   private async convertEntityToResponse(
     entity: <%= struct.name.pascalName %>Entity,
-  ): Promise<Create<%= struct.name.pascalName %>Response> {
-    const response = new Create<%= struct.name.pascalName %>Response();
+  ): Promise<Find<%= struct.name.pascalName %>Response> {
+    const response = new Find<%= struct.name.pascalName %>Response();
     ObjectUtil.copyMatchingFields(entity, response);
     <%_ struct.fields.forEach(function (field, key) { -%>
       <%_ if (field.relatedType === 'OneToMany' && field.dbTags.indexOf('->;') === -1) { -%>
