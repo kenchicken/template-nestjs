@@ -8,6 +8,7 @@ import <%= struct.name.pascalName %>Entity from 'src/app/entity/<%= struct.name.
 import { <%= struct.name.pascalName %>RepositoryInterfaceGenerated } from '../../repository/<%= struct.name.lowerKebabName %>.repository.interface.generated';
 import { Search<%= struct.name.pascalName %>Condition } from 'src/app/repository/condition/generated/search-<%= struct.name.lowerKebabName %>.condition';
 import ObjectUtil from '../../util/object-util';
+import { UserProfileRelationOptions } from '../eorm/user-profile.repository.generated';
 
 export class <%= struct.name.pascalName %>RepositoryGenerated
   implements <%= struct.name.pascalName %>RepositoryInterfaceGenerated
@@ -26,8 +27,36 @@ export class <%= struct.name.pascalName %>RepositoryGenerated
     await this.<%= struct.name.lowerCamelName %>Repository.remove(<%= struct.name.lowerCamelName %>);
   }
 
-  async get(id: number): Promise<<%= struct.name.pascalName %>Entity> {
-    return await this.<%= struct.name.lowerCamelName %>Repository.findOneBy({ id });
+  async get(id: number, option?: UserProfileRelationOptions): Promise<<%= struct.name.pascalName %>Entity> {
+    let relations = {};
+    if (options) {
+      if (options.all) {
+        relations = {
+        <%_ struct.fields.forEach(function (field, key) { -%>
+          <%_ if (field.relatedType === 'OneToMany' && field.dbTags.indexOf('->;') === -1) { -%>
+          <%= field.name.lowerCamelName %>: true;
+          <%_ } -%>
+          <%_ if (field.relatedType === 'ManyToOne' && field.dbTags.indexOf('->;') === -1) { -%>
+          <%= field.name.lowerCamelName %>: true;
+          <%_ } -%>
+        <%_ }) -%>
+      } else {
+        relations = {
+        <%_ struct.fields.forEach(function (field, key) { -%>
+          <%_ if (field.relatedType === 'OneToMany' && field.dbTags.indexOf('->;') === -1) { -%>
+          <%= field.name.lowerCamelName %>: options.<%= field.name.lowerCamelName %>;
+          <%_ } -%>
+          <%_ if (field.relatedType === 'ManyToOne' && field.dbTags.indexOf('->;') === -1) { -%>
+          <%= field.name.lowerCamelName %>: options.<%= field.name.lowerCamelName %>;
+          <%_ } -%>
+        <%_ }) -%>
+        };
+      }
+    }
+    return await this.<%= struct.name.lowerCamelName %>Repository.findOne({
+      where: { id },
+      relations: relations,
+    });
   }
 
   async update(id: number, entity: <%= struct.name.pascalName %>Entity): Promise<<%= struct.name.pascalName %>Entity> {

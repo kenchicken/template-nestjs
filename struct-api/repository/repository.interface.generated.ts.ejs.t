@@ -4,7 +4,6 @@ force: true
 ---
 import <%= struct.name.pascalName %>Entity from 'src/app/entity/<%= struct.name.lowerKebabName %>.entity';
 import { Search<%= struct.name.pascalName %>Condition } from 'src/app/repository/condition/generated/search-<%= struct.name.lowerKebabName %>.condition';
-import { UserProfileRelationOptions } from '../infrastructure/typeorm/user-profile.repository.generated';
 
 export abstract class <%= struct.name.pascalName %>RepositoryInterfaceGenerated {
   // 汎用検索系メソッド
