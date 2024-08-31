@@ -53,6 +53,8 @@ import Create<%= struct.name.pascalName %>Request from 'src/app/endpoint/<%= str
 import Create<%= struct.name.pascalName %>Response from 'src/app/endpoint/<%= struct.name.lowerKebabName %>/dto/generated/create-<%= struct.name.lowerKebabName %>.response';
 import Update<%= struct.name.pascalName %>Request from 'src/app/endpoint/<%= struct.name.lowerKebabName %>/dto/generated/update-<%= struct.name.lowerKebabName %>.request';
 import Update<%= struct.name.pascalName %>Response from 'src/app/endpoint/<%= struct.name.lowerKebabName %>/dto/generated/update-<%= struct.name.lowerKebabName %>.response';
+import Patch<%= struct.name.pascalName %>Request from 'src/app/endpoint/<%= struct.name.lowerKebabName %>/dto/generated/patch-<%= struct.name.lowerKebabName %>.request';
+import Patch<%= struct.name.pascalName %>Response from 'src/app/endpoint/<%= struct.name.lowerKebabName %>/dto/generated/patch-<%= struct.name.lowerKebabName %>.response';
 import Find<%= struct.name.pascalName %>Response from 'src/app/endpoint/<%= struct.name.lowerKebabName %>/dto/generated/find-<%= struct.name.lowerKebabName %>.response';
 import { Search<%= struct.name.pascalName %>Condition } from 'src/app/repository/condition/generated/search-<%= struct.name.lowerKebabName %>.condition';
 import Search<%= struct.name.pascalName %>Response from 'src/app/endpoint/<%= struct.name.lowerKebabName %>/dto/generated/search-<%= struct.name.lowerKebabName %>.response';
@@ -67,6 +69,9 @@ export class <%= struct.name.pascalName %>ControllerGenerated {
   <%_ } -%>
   <%_ if (!struct.excludeGenerateAPI.update) { -%>
     private readonly update<%= struct.name.pascalName %>Handler: Update<%= struct.name.pascalName %>Handler,
+  <%_ } -%>
+  <%_ if (!struct.excludeGenerateAPI.patch) { -%>
+    private readonly patch<%= struct.name.pascalName %>Handler: Patch<%= struct.name.pascalName %>Handler,
   <%_ } -%>
   <%_ if (!struct.excludeGenerateAPI.delete) { -%>
     private readonly delete<%= struct.name.pascalName %>Handler: Delete<%= struct.name.pascalName %>Handler,
@@ -154,7 +159,26 @@ export class <%= struct.name.pascalName %>ControllerGenerated {
     return this.update<%= struct.name.pascalName %>Handler.exec(id, request);
   }
 
-  <%_ } -%>
+<%_ } -%>
+<%_ if (!struct.excludeGenerateAPI.patch) { -%>
+@Put(':id')
+<%_ if (authCodeJwtList.includes('patch')) { -%>
+@UseGuards(AuthCodeJwtGuard)
+@ApiBearerAuth()
+<%_ } else if (authNoneList.includes('patch')) { -%>
+<%_ } else { -%>
+@UseGuards(AuthGuard('jwt'))
+@ApiBearerAuth()
+<%_ } -%>
+@ApiOkResponse({
+type: Patch<%= struct.name.pascalName %>Response,
+})
+patch(@Param('id') id: number, @Body() request: Patch<%= struct.name.pascalName %>Request, @Request() req) {
+request.loginUserID = req.user?.userID;
+return this.patch<%= struct.name.pascalName %>Handler.exec(id, request);
+}
+
+<%_ } -%>
   <%_ if (!struct.excludeGenerateAPI.delete) { -%>
   @Delete(':id')
   <%_ if (authCodeJwtList.includes('remove')) { -%>
