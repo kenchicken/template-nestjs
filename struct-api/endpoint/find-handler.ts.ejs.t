@@ -11,16 +11,16 @@ import <%= struct.name.pascalName %>Entity from 'src/app/entity/<%= struct.name.
 <%_ let importStructs = []; -%>
 <%_ let importStructNames = []; -%>
 <%_ struct.fields.forEach(function (field, key) { -%>
-<%_ if (field.relatedType === 'OneToMany') { -%>
+<%_ if (field.relatedType === 'OneToMany' && field.dbTags.indexOf('->;') === -1) { -%>
   <%_ hasOneToMany = true; -%>
   <%_ if (!importStructNames.includes(field.structName.pascalName)) { -%>
     <%_ importStructs.push(field.structName); -%>
     <%_ importStructNames.push(field.structName.pascalName); -%>
   <%_ } -%>
 <%_ } -%>
-<%_ if (field.relatedType === 'OneToOne') { -%>
+<%_ if (field.relatedType === 'OneToOne' && field.dbTags.indexOf('->;') === -1) { -%>
 <%_ } -%>
-<%_ if (field.relatedType === 'ManyToOne') { -%>
+<%_ if (field.relatedType === 'ManyToOne' && field.dbTags.indexOf('->;') === -1) { -%>
   <%_ hasManyToOne = true; -%>
   <%_ if (!importStructNames.includes(field.relatedStructName.pascalName)) { -%>
     <%_ importStructs.push(field.relatedStructName); -%>
@@ -54,7 +54,7 @@ export class Find<%= struct.name.pascalName %>Handler {
     const response = new Find<%= struct.name.pascalName %>Response();
     ObjectUtil.copyMatchingFields(entity, response);
     <%_ struct.fields.forEach(function (field, key) { -%>
-      <%_ if (field.relatedType === 'OneToMany') { -%>
+      <%_ if (field.relatedType === 'OneToMany' && field.dbTags.indexOf('->;') === -1) { -%>
     response.<%= field.name.lowerCamelName %> = [];
     if (entity.<%= field.name.lowerCamelName %>) {
       for (const childEntity of entity.<%= field.name.lowerCamelName %>) {
@@ -64,9 +64,9 @@ export class Find<%= struct.name.pascalName %>Handler {
       }
     }
     <%_ } -%>
-    <%_ if (field.relatedType === 'OneToOne') { -%>
+    <%_ if (field.relatedType === 'OneToOne' && field.dbTags.indexOf('->;') === -1) { -%>
     <%_ } -%>
-    <%_ if (field.relatedType === 'ManyToOne') { -%>
+    <%_ if (field.relatedType === 'ManyToOne' && field.dbTags.indexOf('->;') === -1) { -%>
     const <%= field.relatedStructName.lowerCamelName %>Dto = new <%= field.relatedStructName.pascalName %>Dto();
     ObjectUtil.copyMatchingFields(entity.<%= field.relatedStructName.lowerCamelName %>, <%= field.relatedStructName.lowerCamelName %>Dto);
     response.<%= field.relatedStructName.lowerCamelName %> = <%= field.relatedStructName.lowerCamelName %>Dto;
