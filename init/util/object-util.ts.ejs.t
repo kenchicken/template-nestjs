@@ -6,7 +6,7 @@ force: true
  * Copy matching fields from source to target.
  * @param source
  * @param target
-*/
+ */
 export default class ObjectUtil {
   static copyMatchingFields(source: any, target: any) {
     Object.getOwnPropertyNames(source).forEach((key) => {
@@ -31,7 +31,7 @@ export default class ObjectUtil {
    * Patch matching fields from source to target.
    * @param source
    * @param target
-  */
+   */
   static patchMatchingFields(source: any, target: any) {
     Object.getOwnPropertyNames(source).forEach((key) => {
       const value = source[key];
@@ -51,7 +51,7 @@ export default class ObjectUtil {
    * orderBy = 'id,-email'
    * return { id: 'ASC', email: 'DESC' }
    */
-  static convertOrdersToMap(condition: BaseSearchCondition) {
+  static convertOrdersToMap(condition: any) {
     if (!condition.orderBy) {
       return {};
     }

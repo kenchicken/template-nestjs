@@ -1,5 +1,5 @@
 ---
-to: "<%=  !struct.excludeGenerateAPI.update ? `${rootDirectory}/api/src/app/endpoint/${struct.name.lowerKebabName}/service/handler/update-${struct.name.lowerKebabName}.handler.generated.ts` : null %>"
+to: "<%=  !struct.excludeGenerateAPI.update ? `${rootDirectory}/api/src/app/endpoint/${struct.name.lowerKebabName}/service/handler/patch-${struct.name.lowerKebabName}.handler.generated.ts` : null %>"
 force: true
 ---
 import { Inject, Injectable } from '@nestjs/common';
@@ -38,7 +38,7 @@ import ObjectUtil from 'src/app/util/object-util';
 import { Transactional } from 'typeorm-transactional';
 
 @Injectable()
-export class Update<%= struct.name.pascalName %>Handler {
+export class Patch<%= struct.name.pascalName %>Handler {
   constructor(
     @Inject('<%= struct.name.lowerCamelName %>RepositoryGenerated')
     private readonly <%= struct.name.lowerCamelName %>Repository: <%= struct.name.pascalName %>RepositoryInterfaceGenerated,
