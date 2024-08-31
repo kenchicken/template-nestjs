@@ -56,7 +56,7 @@ export class <%= struct.name.pascalName %>RepositoryGenerated
       } else {
         relations = {
         <%_ struct.fields.forEach(function (field, key) { -%>
-          <%_ if (field.relatedType === 'OneToMany) { -%>
+          <%_ if (field.relatedType === 'OneToMany') { -%>
           <%= field.name.lowerCamelName %>: options.<%= field.name.lowerCamelName %>;
           <%_ } -%>
           <%_ if (field.relatedType === 'ManyToOne') { -%>
