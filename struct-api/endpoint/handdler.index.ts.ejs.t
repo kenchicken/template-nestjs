@@ -9,6 +9,9 @@ export * from './create-<%= struct.name.lowerKebabName %>.handler.generated';
 <%_ if (!struct.excludeGenerateAPI.update) { -%>
 export * from './update-<%= struct.name.lowerKebabName %>.handler.generated';
 <%_ } -%>
+<%_ if (!struct.excludeGenerateAPI.patch) { -%>
+export * from './patch-<%= struct.name.lowerKebabName %>.handler.generated';
+<%_ } -%>
 <%_ if (!struct.excludeGenerateAPI.delete) { -%>
 export * from './delete-<%= struct.name.lowerKebabName %>.handler.generated';
 <%_ } -%>
