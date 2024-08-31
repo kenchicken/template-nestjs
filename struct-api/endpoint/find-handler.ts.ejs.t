@@ -29,9 +29,7 @@ import <%= struct.name.pascalName %>Entity from 'src/app/entity/<%= struct.name.
 <%_ } -%>
 <%_ }) -%>
 <%_ importStructs.forEach(function (structName, key) { -%>
-  import <%= structName.pascalName %>Entity from 'src/app/entity/<%= structName.lowerKebabName %>.entity';
-  import { <%= structName.pascalName %>RepositoryInterfaceGenerated } from 'src/app/repository/<%= structName.lowerKebabName %>.repository.interface.generated';
-  import <%= structName.pascalName %>Dto from 'src/app/dto/<%= structName.lowerKebabName %>.dto';
+import <%= structName.pascalName %>Dto from 'src/app/dto/<%= structName.lowerKebabName %>.dto';
 <%_ }) -%>
 
 import ObjectUtil from 'src/app/util/object-util';
@@ -44,7 +42,7 @@ export class Find<%= struct.name.pascalName %>Handler {
   ) {}
 
   async exec(id: number, loginUserID: number): Promise<Find<%= struct.name.pascalName %>Response> {
-    const result = await this.<%= struct.name.lowerCamelName %>Repository.get(id);
+    const result = await this.<%= struct.name.lowerCamelName %>Repository.get(id, { all: true });
     return await this.convertEntityToResponse(result);
   }
 
