@@ -63,8 +63,8 @@ export class Patch<%= struct.name.pascalName %>Handler {
     ObjectUtil.patchMatchingFields(request, entity);
     <%_ struct.fields.forEach(function (field, key) { -%>
       <%_ if (field.relatedType === 'OneToMany' && field.dbTags.indexOf('->;') === -1) { -%>
-    entity.<%= field.name.lowerCamelName %> = [];
     if (request.<%= field.name.lowerCamelName %>) {
+      entity.<%= field.name.lowerCamelName %> = [];
       for (const dto of request.<%= field.name.lowerCamelName %>) {
         const childEntity = new <%= field.structName.pascalName %>Entity();
         ObjectUtil.patchMatchingFields(dto, childEntity);
