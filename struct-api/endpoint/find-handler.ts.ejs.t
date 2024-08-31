@@ -5,6 +5,35 @@ force: true
 import { Inject, Injectable } from '@nestjs/common';
 import Find<%= struct.name.pascalName %>Response from 'src/app/endpoint/<%= struct.name.lowerKebabName %>/dto/generated/find-<%= struct.name.lowerKebabName %>.response';
 import { <%= struct.name.pascalName %>RepositoryInterfaceGenerated } from 'src/app/repository/<%= struct.name.lowerKebabName %>.repository.interface.generated';
+import <%= struct.name.pascalName %>Entity from 'src/app/entity/<%= struct.name.lowerKebabName %>.entity';
+<%_ let hasOneToMany = false; -%>
+<%_ let hasManyToOne = false; -%>
+<%_ let importStructs = []; -%>
+<%_ let importStructNames = []; -%>
+<%_ struct.fields.forEach(function (field, key) { -%>
+<%_ if (field.relatedType === 'OneToMany') { -%>
+  <%_ hasOneToMany = true; -%>
+  <%_ if (!importStructNames.includes(field.structName.pascalName)) { -%>
+    <%_ importStructs.push(field.structName); -%>
+    <%_ importStructNames.push(field.structName.pascalName); -%>
+  <%_ } -%>
+<%_ } -%>
+<%_ if (field.relatedType === 'OneToOne') { -%>
+<%_ } -%>
+<%_ if (field.relatedType === 'ManyToOne') { -%>
+  <%_ hasManyToOne = true; -%>
+  <%_ if (!importStructNames.includes(field.relatedStructName.pascalName)) { -%>
+    <%_ importStructs.push(field.relatedStructName); -%>
+    <%_ importStructNames.push(field.relatedStructName.pascalName); -%>
+  <%_ } -%>
+<%_ } -%>
+<%_ }) -%>
+<%_ importStructs.forEach(function (structName, key) { -%>
+  import <%= structName.pascalName %>Entity from 'src/app/entity/<%= structName.lowerKebabName %>.entity';
+  import { <%= structName.pascalName %>RepositoryInterfaceGenerated } from 'src/app/repository/<%= structName.lowerKebabName %>.repository.interface.generated';
+  import <%= structName.pascalName %>Dto from 'src/app/dto/<%= structName.lowerKebabName %>.dto';
+<%_ }) -%>
+
 import ObjectUtil from 'src/app/util/object-util';
 
 @Injectable()
@@ -25,7 +54,7 @@ export class Find<%= struct.name.pascalName %>Handler {
     const response = new Find<%= struct.name.pascalName %>Response();
     ObjectUtil.copyMatchingFields(entity, response);
     <%_ struct.fields.forEach(function (field, key) { -%>
-      <%_ if (field.relatedType === 'OneToMany' && field.dbTags.indexOf('->;') === -1) { -%>
+      <%_ if (field.relatedType === 'OneToMany') { -%>
     response.<%= field.name.lowerCamelName %> = [];
     if (entity.<%= field.name.lowerCamelName %>) {
       for (const childEntity of entity.<%= field.name.lowerCamelName %>) {
@@ -35,9 +64,9 @@ export class Find<%= struct.name.pascalName %>Handler {
       }
     }
     <%_ } -%>
-    <%_ if (field.relatedType === 'OneToOne' && field.dbTags.indexOf('->;') === -1) { -%>
+    <%_ if (field.relatedType === 'OneToOne') { -%>
     <%_ } -%>
-    <%_ if (field.relatedType === 'ManyToOne' && field.dbTags.indexOf('->;') === -1) { -%>
+    <%_ if (field.relatedType === 'ManyToOne') { -%>
     const <%= field.relatedStructName.lowerCamelName %>Dto = new <%= field.relatedStructName.pascalName %>Dto();
     ObjectUtil.copyMatchingFields(entity.<%= field.relatedStructName.lowerCamelName %>, <%= field.relatedStructName.lowerCamelName %>Dto);
     response.<%= field.relatedStructName.lowerCamelName %> = <%= field.relatedStructName.lowerCamelName %>Dto;
