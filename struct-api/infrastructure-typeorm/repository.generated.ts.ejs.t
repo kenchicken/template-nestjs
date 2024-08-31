@@ -2,13 +2,24 @@
 to: "<%= struct.generateEnable ? `${rootDirectory}/api/src/app/infrastructure/typeorm/${struct.name.lowerKebabName}.repository.generated.ts` : null %>"
 force: true
 ---
+<%_ let hasRelation = false; -%>
+<%_ struct.fields.forEach(function (field, key) { -%>
+  <%_ if (field.relatedType === 'OneToMany') { -%>
+    <%_ hasRelation = true; -%>
+  <%_ } -%>
+  <%_ if (field.relatedType === 'OneToOne') { -%>
+    <%_ hasRelation = true; -%>
+  <%_ } -%>
+  <%_ if (field.relatedType === 'ManyToOne') { -%>
+    <%_ hasRelation = true; -%>
+  <%_ } -%>
+<%_ }) -%>
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import <%= struct.name.pascalName %>Entity from 'src/app/entity/<%= struct.name.lowerKebabName %>.entity';
-import { <%= struct.name.pascalName %>RepositoryInterfaceGenerated } from '../../repository/<%= struct.name.lowerKebabName %>.repository.interface.generated';
+import { <%= struct.name.pascalName %>RepositoryInterfaceGenerated, <%= struct.name.pascalName %>RelationOptions } from 'src/app/repository/<%= struct.name.lowerKebabName %>.repository.interface.generated';
 import { Search<%= struct.name.pascalName %>Condition } from 'src/app/repository/condition/generated/search-<%= struct.name.lowerKebabName %>.condition';
 import ObjectUtil from '../../util/object-util';
-import { UserProfileRelationOptions } from '../eorm/user-profile.repository.generated';
 
 export class <%= struct.name.pascalName %>RepositoryGenerated
   implements <%= struct.name.pascalName %>RepositoryInterfaceGenerated
@@ -27,7 +38,8 @@ export class <%= struct.name.pascalName %>RepositoryGenerated
     await this.<%= struct.name.lowerCamelName %>Repository.remove(<%= struct.name.lowerCamelName %>);
   }
 
-  async get(id: number, option?: UserProfileRelationOptions): Promise<<%= struct.name.pascalName %>Entity> {
+  async get(id: number<%= hasRelation ? `, option?: %{struct.name.pascalName}RelationOptions` : '' %>): Promise<<%= struct.name.pascalName %>Entity> {
+    <%_ if (hasRelation) { -%>
     let relations = {};
     if (options) {
       if (options.all) {
@@ -40,6 +52,7 @@ export class <%= struct.name.pascalName %>RepositoryGenerated
           <%= field.name.lowerCamelName %>: true;
           <%_ } -%>
         <%_ }) -%>
+        }
       } else {
         relations = {
         <%_ struct.fields.forEach(function (field, key) { -%>
@@ -53,9 +66,12 @@ export class <%= struct.name.pascalName %>RepositoryGenerated
         };
       }
     }
+    <%_ } -%>
     return await this.<%= struct.name.lowerCamelName %>Repository.findOne({
       where: { id },
+    <%_ if (hasRelation) { -%>
       relations: relations,
+    <%_ } -%>
     });
   }
 
