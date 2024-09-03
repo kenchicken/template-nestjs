@@ -4,7 +4,6 @@ force: true
 ---
 import { Inject, Injectable } from '@nestjs/common';
 import { <%= struct.name.pascalName %>RepositoryInterfaceGenerated } from 'src/app/repository/<%= struct.name.lowerKebabName %>.repository.interface.generated';
-import Delete<%= struct.name.pascalName %>Request from 'src/app/endpoint/<%= struct.name.lowerKebabName %>/dto/generated/delete-<%= struct.name.lowerKebabName %>.request';
 import { Transactional } from 'typeorm-transactional';
 
 @Injectable()
