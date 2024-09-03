@@ -21,10 +21,10 @@ export class Search<%= struct.name.pascalName %>Handler {
     const count = await this.<%= struct.name.lowerCamelName %>Repository.count(condition);
     const entities = await this.<%= struct.name.lowerCamelName %>Repository.getAll(condition);
     const response = new Model<%= struct.name.pascalPluralName %>();
-    response.attachments = [];
+    response.<%= struct.name.lowerCamelPluralName %> = [];
     response.count = count;
     for (const entity of entities) {
-      response.attachments.push(await this.convertEntityToResponse(entity));
+      response.<%= struct.name.lowerCamelPluralName %>.push(await this.convertEntityToResponse(entity));
     }
     return response;
   }
