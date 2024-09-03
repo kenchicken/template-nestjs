@@ -212,7 +212,6 @@ export class <%= struct.name.pascalName %>ControllerGenerated {
   @ApiBearerAuth()
   <%_ } -%>
   delete<%= struct.name.pascalName %>(@Param('id') id: number, @Request() req) {
-    request.loginUserID = req.user?.userID;
     return this.delete<%= struct.name.pascalName %>Handler.exec(id, req.user?.userID);
   }
   <%_ } -%>
