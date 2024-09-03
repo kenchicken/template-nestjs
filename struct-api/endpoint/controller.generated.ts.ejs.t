@@ -48,21 +48,20 @@ import {
   Search<%= struct.name.pascalName %>Handler,
 <%_ } -%>
 } from '../service';
-import { ApiCreatedResponse, ApiOkResponse, ApiTags, ApiBearerAuth } from '@nestjs/swagger';
+import {
+  ApiCreatedResponse,
+  ApiOkResponse,
+  ApiTags,
+  ApiBearerAuth,
+  ApiQuery
+} from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
 <%_ if (authCodeJwtList.length > 0) { -%>
 import { AuthCodeJwtGuard } from 'src/app/endpoint/auth/guard/auth-code-jwt.guard';
 <%_ } -%>
-import Create<%= struct.name.pascalName %>Request from 'src/app/endpoint/<%= struct.name.lowerKebabName %>/dto/generated/create-<%= struct.name.lowerKebabName %>.request';
-import Create<%= struct.name.pascalName %>Response from 'src/app/endpoint/<%= struct.name.lowerKebabName %>/dto/generated/create-<%= struct.name.lowerKebabName %>.response';
-import Update<%= struct.name.pascalName %>Request from 'src/app/endpoint/<%= struct.name.lowerKebabName %>/dto/generated/update-<%= struct.name.lowerKebabName %>.request';
-import Update<%= struct.name.pascalName %>Response from 'src/app/endpoint/<%= struct.name.lowerKebabName %>/dto/generated/update-<%= struct.name.lowerKebabName %>.response';
-import Patch<%= struct.name.pascalName %>Request from 'src/app/endpoint/<%= struct.name.lowerKebabName %>/dto/generated/patch-<%= struct.name.lowerKebabName %>.request';
-import Patch<%= struct.name.pascalName %>Response from 'src/app/endpoint/<%= struct.name.lowerKebabName %>/dto/generated/patch-<%= struct.name.lowerKebabName %>.response';
-import Find<%= struct.name.pascalName %>Response from 'src/app/endpoint/<%= struct.name.lowerKebabName %>/dto/generated/find-<%= struct.name.lowerKebabName %>.response';
+import Model<%= struct.name.pascalName %> from 'src/app/endpoint/<%= struct.name.lowerKebabName %>/dto/generated/model-<%= struct.name.lowerKebabName %>';
 import { Search<%= struct.name.pascalName %>Condition } from 'src/app/repository/condition/generated/search-<%= struct.name.lowerKebabName %>.condition';
-import Search<%= struct.name.pascalName %>Response from 'src/app/endpoint/<%= struct.name.lowerKebabName %>/dto/generated/search-<%= struct.name.lowerKebabName %>.response';
-import Delete<%= struct.name.pascalName %>Request from 'src/app/endpoint/<%= struct.name.lowerKebabName %>/dto/generated/delete-<%= struct.name.lowerKebabName %>.request';
+import Model<%= struct.name.pascalPluralName %> from 'src/app/endpoint/<%= struct.name.lowerKebabName %>/dto/generated/search-<%= struct.name.lowerKebabName %>.response';
 
 @Controller('api/v1/<%= struct.name.lowerCamelName %>')
 @ApiTags('<%= struct.name.pascalName %>')
@@ -99,9 +98,9 @@ export class <%= struct.name.pascalName %>ControllerGenerated {
   @ApiBearerAuth()
   <%_ } -%>
   @ApiCreatedResponse({
-    type: Create<%= struct.name.pascalName %>Response,
+    type: Model<%= struct.name.pascalName %>,
   })
-  create(@Body() request: Create<%= struct.name.pascalName %>Request, @Request() req) {
+  create<%= struct.name.pascalName %>(@Body() request: Model<%= struct.name.pascalName %>, @Request() req) {
     request.loginUserID = req.user?.userID;
     return this.create<%= struct.name.pascalName %>Handler.exec(request);
   }
@@ -118,10 +117,29 @@ export class <%= struct.name.pascalName %>ControllerGenerated {
   @ApiBearerAuth()
   <%_ } -%>
   @ApiOkResponse({
-    type: Search<%= struct.name.pascalName %>Response,
+    type: Model<%= struct.name.pascalPluralName %>,
     isArray: true,
   })
-  findAll(@Query() request: Search<%= struct.name.pascalName %>Condition, @Request() req) {
+  <%_ struct.fields.forEach(function (field, key) { -%>
+  <%_ if (!field.relatedType) { -%>
+  <%_ if (field.dataType === 'string') { -%>
+  @ApiQuery({ name: '<%= field.name.lowerCamelName %>', required: false, type: String })
+  <%_ } -%>
+  <%_ if (field.dataType === 'number') { -%>
+  @ApiQuery({ name: '<%= field.name.lowerCamelName %>', required: false, type: Number })
+  <%_ } -%>
+  <%_ if (field.dataType === 'time') { -%>
+  @ApiQuery({ name: '<%= field.name.lowerCamelName %>', required: false, type: String })
+  <%_ } -%>
+  <%_ if (field.dataType === 'bool') { -%>
+  @ApiQuery({ name: '<%= field.name.lowerCamelName %>', required: false, type: Boolean })
+  <%_ } -%>
+  <%_ } -%>
+  <%_ }) -%>
+  @ApiQuery({ name: 'limit', required: false, type: Number })
+  @ApiQuery({ name: 'offset', required: false, type: Number })
+  @ApiQuery({ name: 'orderBy', required: false, type: String })
+  search<%= struct.name.pascalName %>(@Query() request: Search<%= struct.name.pascalName %>Condition, @Request() req) {
     request.loginUserID = req.user?.userID;
     return this.search<%= struct.name.pascalName %>Handler.exec(request);
   }
@@ -138,9 +156,9 @@ export class <%= struct.name.pascalName %>ControllerGenerated {
   @ApiBearerAuth()
   <%_ } -%>
   @ApiOkResponse({
-    type: Find<%= struct.name.pascalName %>Response,
+    type: Model<%= struct.name.pascalName %>,
   })
-  findOne(@Param('id') id: number, @Request() req) {
+  get<%= struct.name.pascalName %>(@Param('id') id: number, @Request() req) {
     return this.find<%= struct.name.pascalName %>Handler.exec(id, req.user?.userID);
   }
 
@@ -156,9 +174,9 @@ export class <%= struct.name.pascalName %>ControllerGenerated {
   @ApiBearerAuth()
   <%_ } -%>
   @ApiOkResponse({
-    type: Update<%= struct.name.pascalName %>Response,
+    type: Model<%= struct.name.pascalName %>,
   })
-  update(@Param('id') id: number, @Body() request: Update<%= struct.name.pascalName %>Request, @Request() req) {
+  update<%= struct.name.pascalName %>(@Param('id') id: number, @Body() request: Model<%= struct.name.pascalName %>, @Request() req) {
     request.loginUserID = req.user?.userID;
     return this.update<%= struct.name.pascalName %>Handler.exec(id, request);
   }
@@ -175,9 +193,9 @@ export class <%= struct.name.pascalName %>ControllerGenerated {
   @ApiBearerAuth()
   <%_ } -%>
   @ApiOkResponse({
-    type: Patch<%= struct.name.pascalName %>Response,
+    type: Model<%= struct.name.pascalName %>,
   })
-  patch(@Param('id') id: number, @Body() request: Patch<%= struct.name.pascalName %>Request, @Request() req) {
+  patch<%= struct.name.pascalName %>(@Param('id') id: number, @Body() request: Model<%= struct.name.pascalName %>, @Request() req) {
     request.loginUserID = req.user?.userID;
     return this.patch<%= struct.name.pascalName %>Handler.exec(id, request);
   }
@@ -193,9 +211,9 @@ export class <%= struct.name.pascalName %>ControllerGenerated {
   @UseGuards(AuthGuard('jwt'))
   @ApiBearerAuth()
   <%_ } -%>
-  delete(@Param('id') id: number, @Body() request: Delete<%= struct.name.pascalName %>Request, @Request() req) {
+  delete<%= struct.name.pascalName %>(@Param('id') id: number, @Request() req) {
     request.loginUserID = req.user?.userID;
-    return this.delete<%= struct.name.pascalName %>Handler.exec(id, request);
+    return this.delete<%= struct.name.pascalName %>Handler.exec(id, req.user?.userID);
   }
   <%_ } -%>
 }
