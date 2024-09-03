@@ -15,7 +15,7 @@ export class Delete<%= struct.name.pascalName %>Handler {
   ) {}
 
   @Transactional()
-  async exec(id: number, delete<%= struct.name.pascalName %>Request: Delete<%= struct.name.pascalName %>Request): Promise<void> {
+  async exec(id: number, loginUserID?: number): Promise<void> {
     return await this.<%= struct.name.lowerCamelName %>Repository.delete(id);
   }
 }
