@@ -4,7 +4,7 @@ force: true
 ---
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app/app.module';
-import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
+import { SwaggerModule, DocumentBuilder, SwaggerDocumentOptions } from '@nestjs/swagger';
 import { initializeTransactionalContext, StorageDriver } from 'typeorm-transactional';
 import * as fs from 'node:fs';
 import { dump } from 'js-yaml';
