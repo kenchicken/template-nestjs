@@ -3,8 +3,7 @@ to: "<%=  !struct.excludeGenerateAPI.update ? `${rootDirectory}/api/src/app/endp
 force: true
 ---
 import { Inject, Injectable } from '@nestjs/common';
-import Update<%= struct.name.pascalName %>Request from 'src/app/endpoint/<%= struct.name.lowerKebabName %>/dto/generated/update-<%= struct.name.lowerKebabName %>.request';
-import Update<%= struct.name.pascalName %>Response from 'src/app/endpoint/<%= struct.name.lowerKebabName %>/dto/generated/update-<%= struct.name.lowerKebabName %>.response';
+import Model<%= struct.name.pascalName %> from 'src/app/endpoint/<%= struct.name.lowerKebabName %>/dto/generated/model-<%= struct.name.lowerKebabName %>';
 import { <%= struct.name.pascalName %>RepositoryInterfaceGenerated } from 'src/app/repository/<%= struct.name.lowerKebabName %>.repository.interface.generated';
 import <%= struct.name.pascalName %>Entity from 'src/app/entity/<%= struct.name.lowerKebabName %>.entity';
 <%_ let hasOneToMany = false; -%>
@@ -49,14 +48,14 @@ export class Update<%= struct.name.pascalName %>Handler {
   ) {}
 
   @Transactional()
-  async exec(id: number, request: Update<%= struct.name.pascalName %>Request): Promise<Update<%= struct.name.pascalName %>Response> {
+  async exec(id: number, request: Model<%= struct.name.pascalName %>): Promise<Model<%= struct.name.pascalName %>> {
     const entity = await this.convertRequestToEntity(request);
     const result = await this.<%= struct.name.lowerCamelName %>Repository.create(entity);
     return await this.convertEntityToResponse(result);
   }
 
   private async convertRequestToEntity(
-    request: Update<%= struct.name.pascalName %>Request,
+    request: Model<%= struct.name.pascalName %>,
   ): Promise<<%= struct.name.pascalName %>Entity> {
     const entity = new <%= struct.name.pascalName %>Entity();
     ObjectUtil.copyMatchingFields(request, entity);
@@ -90,8 +89,8 @@ export class Update<%= struct.name.pascalName %>Handler {
 
   private async convertEntityToResponse(
     entity: <%= struct.name.pascalName %>Entity,
-  ): Promise<Update<%= struct.name.pascalName %>Response> {
-    const response = new Update<%= struct.name.pascalName %>Response();
+  ): Promise<Model<%= struct.name.pascalName %>> {
+    const response = new Model<%= struct.name.pascalName %>();
     ObjectUtil.copyMatchingFields(entity, response);
     <%_ struct.fields.forEach(function (field, key) { -%>
       <%_ if (field.relatedType === 'OneToMany' && field.dbTags.indexOf('->;') === -1) { -%>
