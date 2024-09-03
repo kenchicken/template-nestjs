@@ -61,7 +61,7 @@ import { AuthCodeJwtGuard } from 'src/app/endpoint/auth/guard/auth-code-jwt.guar
 <%_ } -%>
 import Model<%= struct.name.pascalName %> from 'src/app/endpoint/<%= struct.name.lowerKebabName %>/dto/generated/model-<%= struct.name.lowerKebabName %>';
 import { Search<%= struct.name.pascalName %>Condition } from 'src/app/repository/condition/generated/search-<%= struct.name.lowerKebabName %>.condition';
-import Model<%= struct.name.pascalPluralName %> from 'src/app/endpoint/<%= struct.name.lowerKebabName %>/dto/generated/search-<%= struct.name.lowerKebabName %>.response';
+import Model<%= struct.name.pascalPluralName %> from 'src/app/endpoint/<%= struct.name.lowerKebabName %>/dto/generated/model-<%= struct.name.lowerKebabName %>';
 
 @Controller('api/v1/<%= struct.name.lowerCamelName %>')
 @ApiTags('<%= struct.name.pascalName %>')
