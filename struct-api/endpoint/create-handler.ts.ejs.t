@@ -3,7 +3,7 @@ to: "<%= !struct.excludeGenerateAPI.create ? `${rootDirectory}/api/src/app/endpo
 force: true
 ---
 import { Inject, Injectable } from '@nestjs/common';
-import Model<%= struct.name.pascalName %>Request from 'src/app/endpoint/<%= struct.name.lowerKebabName %>/dto/generated/model-<%= struct.name.lowerKebabName %>';
+import Model<%= struct.name.pascalName %> from 'src/app/endpoint/<%= struct.name.lowerKebabName %>/dto/generated/model-<%= struct.name.lowerKebabName %>';
 import { <%= struct.name.pascalName %>RepositoryInterfaceGenerated } from 'src/app/repository/<%= struct.name.lowerKebabName %>.repository.interface.generated';
 import <%= struct.name.pascalName %>Entity from 'src/app/entity/<%= struct.name.lowerKebabName %>.entity';
 <%_ let hasOneToMany = false; -%>
