@@ -4,4 +4,7 @@ force: true
 ---
 import <%= struct.name.pascalName %>Dto from 'src/app/dto/<%= struct.name.lowerKebabName %>.dto';
 
-export default class Search<%= struct.name.pascalName %>Response extends <%= struct.name.pascalName %>Dto {}
+export default class Model<%= struct.name.pascalPluralName %> {
+  <%= struct.name.lowerCamelPluralName %>: <%= struct.name.pascalName %>Dto[];
+  count: number;
+}

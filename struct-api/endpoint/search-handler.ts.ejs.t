@@ -14,7 +14,23 @@ export class Search<%= struct.name.pascalName %>Handler {
     private readonly <%= struct.name.lowerCamelName %>Repository: <%= struct.name.pascalName %>RepositoryInterfaceGenerated,
   ) {}
 
-  async exec(condition: Search<%= struct.name.pascalName %>Condition): Promise<Search<%= struct.name.pascalName %>Response[]> {
-    return this.<%= struct.name.lowerCamelName %>Repository.getAll(condition);
+  async exec(condition: Search<%= struct.name.pascalName %>Condition): Promise<Model<%= struct.name.pascalPluralName %>> {
+    const count = await this.<%= struct.name.lowerCamelName %>Repository.count(condition);
+    const entities = await this.<%= struct.name.lowerCamelName %>Repository.getAll(condition);
+    const response = new Model<%= struct.name.pascalPluralName %>();
+    response.attachments = [];
+    response.count = count;
+    for (const entity of entities) {
+      response.attachments.push(await this.convertEntityToResponse(entity));
+    }
+    return response;
+  }
+
+  private async convertEntityToResponse(
+    entity: AttachmentEntity,
+  ): Promise<FindAttachmentResponse> {
+    const response = new Find<%= struct.name.pascalName %>Response();
+    ObjectUtil.copyMatchingFields(entity, response);
+    return response;
   }
 }
