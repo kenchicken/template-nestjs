@@ -38,6 +38,7 @@ force: true
     "@nestjs/swagger": "^7.3.1",
     "@nestjs/typeorm": "^10.0.2",
     "@types/hapi__joi": "^17.1.14",
+    "js-yaml": "^4.1.0",
     "pg": "^8.11.5",
     "reflect-metadata": "^0.2.2",
     "rxjs": "^7.8.1",
