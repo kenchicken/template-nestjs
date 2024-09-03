@@ -4,8 +4,10 @@ force: true
 ---
 import { Inject, Injectable } from '@nestjs/common';
 import { Search<%= struct.name.pascalName %>Condition } from 'src/app/repository/condition/generated/search-<%= struct.name.lowerKebabName %>.condition';
-import Search<%= struct.name.pascalName %>Response from 'src/app/endpoint/<%= struct.name.lowerKebabName %>/dto/generated/search-<%= struct.name.lowerKebabName %>.response';
+import Model<%= struct.name.pascalPluralName %> from 'src/app/endpoint/<%= struct.name.lowerKebabName %>/dto/generated/model-<%= struct.name.lowerCamelPluralName %>';
 import { <%= struct.name.pascalName %>RepositoryInterfaceGenerated } from 'src/app/repository/<%= struct.name.lowerKebabName %>.repository.interface.generated';
+import <%= struct.name.pascalName %>Entity from 'src/app/entity/<%= struct.name.lowerKebabName %>.entity';
+import ObjectUtil from 'src/app/util/object-util';
 
 @Injectable()
 export class Search<%= struct.name.pascalName %>Handler {
@@ -27,9 +29,9 @@ export class Search<%= struct.name.pascalName %>Handler {
   }
 
   private async convertEntityToResponse(
-    entity: AttachmentEntity,
-  ): Promise<FindAttachmentResponse> {
-    const response = new Find<%= struct.name.pascalName %>Response();
+    entity: <%= struct.name.pascalName %>Entity,
+  ): Promise<Model<%= struct.name.pascalName %>> {
+    const response = new Model<%= struct.name.pascalName %>();
     ObjectUtil.copyMatchingFields(entity, response);
     return response;
   }
