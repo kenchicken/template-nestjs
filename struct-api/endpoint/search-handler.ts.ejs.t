@@ -7,7 +7,7 @@ import { Search<%= struct.name.pascalName %>Condition } from 'src/app/repository
 import Model<%= struct.name.pascalPluralName %> from 'src/app/endpoint/<%= struct.name.lowerKebabName %>/dto/generated/model-<%= struct.name.lowerCamelPluralName %>';
 import { <%= struct.name.pascalName %>RepositoryInterfaceGenerated } from 'src/app/repository/<%= struct.name.lowerKebabName %>.repository.interface.generated';
 import <%= struct.name.pascalName %>Entity from 'src/app/entity/<%= struct.name.lowerKebabName %>.entity';
-import <%= structName.pascalName %>Dto from 'src/app/dto/<%= structName.lowerKebabName %>.dto';
+import <%= struct.name.pascalName %>Dto from 'src/app/dto/<%= struct.name.lowerKebabName %>.dto';
 import ObjectUtil from 'src/app/util/object-util';
 
 @Injectable()
