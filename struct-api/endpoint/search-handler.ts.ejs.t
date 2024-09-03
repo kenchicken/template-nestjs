@@ -31,8 +31,8 @@ export class Search<%= struct.name.pascalName %>Handler {
 
   private async convertEntityToResponse(
     entity: <%= struct.name.pascalName %>Entity,
-  ): Promise<<%= struct.name.pascalPluralName %>Dto> {
-    const response = new <%= struct.name.pascalPluralName %>Dto();
+  ): Promise<<%= struct.name.pascalName %>Dto> {
+    const response = new <%= struct.name.pascalName %>Dto();
     ObjectUtil.copyMatchingFields(entity, response);
     return response;
   }
