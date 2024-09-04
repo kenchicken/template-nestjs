@@ -91,7 +91,6 @@ export class <%= struct.name.pascalName %>ControllerGenerated {
   @Post()
   <%_ if (authCodeJwtList.includes('create')) { -%>
   @UseGuards(AuthCodeJwtGuard)
-  @ApiBearerAuth()
   <%_ } else if (authNoneList.includes('create')) { -%>
   <%_ } else { -%>
   @UseGuards(AuthGuard('jwt'))
@@ -110,7 +109,6 @@ export class <%= struct.name.pascalName %>ControllerGenerated {
   @Get()
   <%_ if (authCodeJwtList.includes('search')) { -%>
   @UseGuards(AuthCodeJwtGuard)
-  @ApiBearerAuth()
   <%_ } else if (authNoneList.includes('search')) { -%>
   <%_ } else { -%>
   @UseGuards(AuthGuard('jwt'))
@@ -149,7 +147,6 @@ export class <%= struct.name.pascalName %>ControllerGenerated {
   @Get(':id')
   <%_ if (authCodeJwtList.includes('find')) { -%>
   @UseGuards(AuthCodeJwtGuard)
-  @ApiBearerAuth()
   <%_ } else if (authNoneList.includes('find')) { -%>
   <%_ } else { -%>
   @UseGuards(AuthGuard('jwt'))
@@ -167,7 +164,6 @@ export class <%= struct.name.pascalName %>ControllerGenerated {
   @Put(':id')
   <%_ if (authCodeJwtList.includes('update')) { -%>
   @UseGuards(AuthCodeJwtGuard)
-  @ApiBearerAuth()
   <%_ } else if (authNoneList.includes('update')) { -%>
   <%_ } else { -%>
   @UseGuards(AuthGuard('jwt'))
@@ -186,7 +182,6 @@ export class <%= struct.name.pascalName %>ControllerGenerated {
   @Patch(':id')
   <%_ if (authCodeJwtList.includes('patch')) { -%>
   @UseGuards(AuthCodeJwtGuard)
-  @ApiBearerAuth()
   <%_ } else if (authNoneList.includes('patch')) { -%>
   <%_ } else { -%>
   @UseGuards(AuthGuard('jwt'))
@@ -205,7 +200,6 @@ export class <%= struct.name.pascalName %>ControllerGenerated {
   @Delete(':id')
   <%_ if (authCodeJwtList.includes('remove')) { -%>
   @UseGuards(AuthCodeJwtGuard)
-  @ApiBearerAuth()
   <%_ } else if (authNoneList.includes('remove')) { -%>
   <%_ } else { -%>
   @UseGuards(AuthGuard('jwt'))
