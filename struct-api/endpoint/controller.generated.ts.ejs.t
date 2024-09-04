@@ -116,7 +116,6 @@ export class <%= struct.name.pascalName %>ControllerGenerated {
   <%_ } -%>
   @ApiOkResponse({
     type: Model<%= struct.name.pascalPluralName %>,
-    isArray: true,
   })
   <%_ struct.fields.forEach(function (field, key) { -%>
   <%_ if (!field.relatedType) { -%>
