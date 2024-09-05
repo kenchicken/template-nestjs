@@ -87,7 +87,7 @@ export class <%= struct.name.pascalName %>RepositoryGenerated
   }
 
   <%_ if (hasRelation) { -%>
-  async getAll(condition: Search<%= struct.name.pascalName %>Condition): Promise<<%= struct.name.pascalName %>Entity[]> {
+  async getAll(condition: Search<%= struct.name.pascalName %>Condition, options?: <%= struct.name.pascalName %>RelationOptions): Promise<<%= struct.name.pascalName %>Entity[]> {
   <%_ } else { -%>
   async getAll(condition: Search<%= struct.name.pascalName %>Condition): Promise<<%= struct.name.pascalName %>Entity[]> {
   <%_ } -%>
