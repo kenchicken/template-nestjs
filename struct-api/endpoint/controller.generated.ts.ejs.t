@@ -131,9 +131,9 @@ export class <%= struct.name.pascalName %>ControllerGenerated {
   <%_ if (field.dataType === 'bool') { -%>
   @ApiQuery({ name: '<%= field.name.lowerCamelName %>', required: false, type: Boolean })
   <%_ } -%>
+  <%_ } -%>
   <%_ if (field.relatedType === 'ManyToOne') { -%>
   @ApiQuery({ name: '<%= field.name.lowerCamelName %>', required: false, type: Number })
-  <%_ } -%>
   <%_ } -%>
   <%_ }) -%>
   @ApiQuery({ name: 'limit', required: false, type: Number })
