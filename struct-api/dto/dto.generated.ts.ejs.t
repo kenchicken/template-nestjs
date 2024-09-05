@@ -1,5 +1,5 @@
 ---
-to: "<%= struct.generateEnable ? `${rootDirectory}/api/src/app/dto/model-${struct.name.lowerKebabName}.generated.ts` : null %>"
+to: "<%= struct.generateEnable ? `${rootDirectory}/api/src/app/dto/generated/model-${struct.name.lowerKebabName}.generated.ts` : null %>"
 force: true
 ---
 <%_ let hasOneToMany = false; -%>

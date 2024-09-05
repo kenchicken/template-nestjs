@@ -1,5 +1,5 @@
 ---
-to: "<%= struct.generateEnable ? `${rootDirectory}/api/src/app/dto/search-${struct.name.lowerKebabName}.condition.generated.ts` : null %>"
+to: "<%= struct.generateEnable ? `${rootDirectory}/api/src/app/dto/generated/search-${struct.name.lowerKebabName}.condition.generated.ts` : null %>"
 force: true
 ---
 export default class Search<%= struct.name.pascalName %>ConditionGenerated {
