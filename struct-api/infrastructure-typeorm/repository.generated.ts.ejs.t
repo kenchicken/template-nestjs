@@ -123,7 +123,6 @@ export class <%= struct.name.pascalName %>RepositoryGenerated
     return await this.<%= struct.name.lowerCamelName %>Repository.find({
       where: {
       <%_ struct.fields.forEach(function (field, key) { -%>
-        <%_ if (!field.relatedType) { -%>
         <%_ if (field.dataType === 'string') { -%>
         <%= field.name.lowerCamelName %>: condition.<%= field.name.lowerCamelName %>,
         <%_ } -%>
@@ -138,7 +137,6 @@ export class <%= struct.name.pascalName %>RepositoryGenerated
         <%_ } -%>
         <%_ if (field.relatedType === 'ManyToOne') { -%>
         <%= field.relatedStructName.lowerCamelName %>: { id: condition.<%= field.name.lowerCamelName %> },
-        <%_ } -%>
         <%_ } -%>
       <%_ }) -%>
       },
