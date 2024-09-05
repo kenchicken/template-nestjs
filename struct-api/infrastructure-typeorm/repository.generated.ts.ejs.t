@@ -20,7 +20,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import <%= struct.name.pascalName %>Entity from 'src/app/entity/<%= struct.name.lowerKebabName %>.entity';
 import { <%= struct.name.pascalName %>RepositoryInterfaceGenerated, <%= struct.name.pascalName %>RelationOptions } from 'src/app/repository/<%= struct.name.lowerKebabName %>.repository.interface.generated';
-import { Search<%= struct.name.pascalName %>Condition } from 'src/app/repository/condition/generated/search-<%= struct.name.lowerKebabName %>.condition';
+import Search<%= struct.name.pascalName %>Condition from 'src/app/dto/search-<%= struct.name.lowerKebabName %>.condition';
 import ObjectUtil from '../../util/object-util';
 
 export class <%= struct.name.pascalName %>RepositoryGenerated
