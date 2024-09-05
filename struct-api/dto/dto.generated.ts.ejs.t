@@ -31,7 +31,7 @@ force: true
 <%_ }) -%>
 import { ApiProperty } from '@nestjs/swagger';
 <%_ importStructs.forEach(function (structName, key) { -%>
-import Model<%= structName.pascalName %> from './model-<%= structName.lowerKebabName %>';
+import Model<%= structName.pascalName %> from '../model-<%= structName.lowerKebabName %>';
 <%_ }) -%>
 
 export default class Model<%= struct.name.pascalName %>Generated {
