@@ -1,5 +1,5 @@
 ---
-to: "<%= struct.generateEnable ? `${rootDirectory}/api/src/app/dto/model-${struct.name.lowerKebabName}.ts` : null %>"
+to: "<%= struct.generateEnable ? `${rootDirectory}/api/src/app/dto/search-${struct.name.lowerKebabName}.condition.ts` : null %>"
 force: true
 ---
 import Model<%= struct.name.pascalName %>Generated from 'src/app/dto/model-<%= struct.name.lowerKebabName %>.generated';
