@@ -136,6 +136,9 @@ export class <%= struct.name.pascalName %>RepositoryGenerated
         <%_ if (field.dataType === 'bool') { -%>
         <%= field.name.lowerCamelName %>: condition.<%= field.name.lowerCamelName %>,
         <%_ } -%>
+        <%_ if (field.relatedType === 'ManyToOne') { -%>
+        <%= field.relatedStructName.lowerCamelName %>: { id: condition.<%= field.name.lowerCamelName %> },
+        <%_ } -%>
         <%_ } -%>
       <%_ }) -%>
       },
