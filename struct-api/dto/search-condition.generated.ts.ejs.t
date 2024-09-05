@@ -2,7 +2,7 @@
 to: "<%= struct.generateEnable ? `${rootDirectory}/api/src/app/dto/search-${struct.name.lowerKebabName}.condition.generated.ts` : null %>"
 force: true
 ---
-export class Search<%= struct.name.pascalName %>ConditionGenerated {
+export default class Search<%= struct.name.pascalName %>ConditionGenerated {
 <%_ struct.fields.forEach(function (field, key) { -%>
 <%_ if (!field.relatedType) { -%>
 <%_ if (field.dataType === 'string') { -%>
