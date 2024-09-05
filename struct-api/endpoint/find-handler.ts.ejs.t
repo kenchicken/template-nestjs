@@ -29,7 +29,7 @@ import <%= struct.name.pascalName %>Entity from 'src/app/entity/<%= struct.name.
 <%_ } -%>
 <%_ }) -%>
 <%_ importStructs.forEach(function (structName, key) { -%>
-import Model<%= structName.pascalName %> from 'src/app/dto/<%= structName.lowerKebabName %>';
+import Model<%= structName.pascalName %> from 'src/app/dto/model-<%= structName.lowerKebabName %>';
 <%_ }) -%>
 
 import ObjectUtil from 'src/app/util/object-util';
