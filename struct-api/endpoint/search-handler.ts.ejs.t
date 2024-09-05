@@ -3,7 +3,7 @@ to: "<%=  !struct.excludeGenerateAPI.search ? `${rootDirectory}/api/src/app/endp
 force: true
 ---
 import { Inject, Injectable } from '@nestjs/common';
-import { Search<%= struct.name.pascalName %>Condition } from 'src/app/repository/condition/generated/search-<%= struct.name.lowerKebabName %>.condition';
+import Search<%= struct.name.pascalName %>Condition from 'src/app/dto/search-<%= struct.name.lowerKebabName %>.condition';
 import Model<%= struct.name.pascalPluralName %> from 'src/app/dto/model-<%= struct.name.lowerKebabPluralName %>';
 import Model<%= struct.name.pascalName %> from 'src/app/dto/model-<%= struct.name.lowerKebabName %>';
 import { <%= struct.name.pascalName %>RepositoryInterfaceGenerated } from 'src/app/repository/<%= struct.name.lowerKebabName %>.repository.interface.generated';
