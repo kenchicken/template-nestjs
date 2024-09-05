@@ -7,7 +7,7 @@ import Search<%= struct.name.pascalName %>Condition from 'src/app/dto/search-<%=
 
 export abstract class <%= struct.name.pascalName %>RepositoryInterfaceGenerated {
   // 汎用検索系メソッド
-  abstract getAll(condition: Search<%= struct.name.pascalName %>Condition): Promise<<%= struct.name.pascalName %>Entity[]>;
+  abstract getAll(condition: Search<%= struct.name.pascalName %>Condition, option?: <%= struct.name.pascalName %>RelationOptions): Promise<<%= struct.name.pascalName %>Entity[]>;
   abstract count(condition: Search<%= struct.name.pascalName %>Condition): Promise<number>;
   // CRUD系メソッド
   abstract get(id: number, option?: <%= struct.name.pascalName %>RelationOptions): Promise<<%= struct.name.pascalName %>Entity>;
