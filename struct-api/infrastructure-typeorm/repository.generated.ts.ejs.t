@@ -52,10 +52,10 @@ export class <%= struct.name.pascalName %>RepositoryGenerated
         relations = {
         <%_ struct.fields.forEach(function (field, key) { -%>
           <%_ if (field.relatedType === 'OneToMany') { -%>
-          <%= field.name.lowerCamelName %>: true,
+          <%= field.structName.lowerCamelName %>: true,
           <%_ } -%>
           <%_ if (field.relatedType === 'ManyToOne') { -%>
-          <%= field.name.lowerCamelName %>: true,
+          <%= field.relatedStructName.lowerCamelName %>: true,
           <%_ } -%>
         <%_ }) -%>
         }
@@ -63,10 +63,10 @@ export class <%= struct.name.pascalName %>RepositoryGenerated
         relations = {
         <%_ struct.fields.forEach(function (field, key) { -%>
           <%_ if (field.relatedType === 'OneToMany') { -%>
-          <%= field.name.lowerCamelName %>: options.<%= field.name.lowerCamelName %>,
+          <%= field.structName.lowerCamelName %>: options.<%= field.name.lowerCamelName %>,
           <%_ } -%>
           <%_ if (field.relatedType === 'ManyToOne') { -%>
-          <%= field.name.lowerCamelName %>: options.<%= field.name.lowerCamelName %>,
+          <%= field.relatedStructName.lowerCamelName %>: options.<%= field.name.lowerCamelName %>,
           <%_ } -%>
         <%_ }) -%>
         };
@@ -86,8 +86,40 @@ export class <%= struct.name.pascalName %>RepositoryGenerated
     return this.<%= struct.name.lowerCamelName %>Repository.findOneBy({ id });
   }
 
+  <%_ if (hasRelation) { -%>
   async getAll(condition: Search<%= struct.name.pascalName %>Condition): Promise<<%= struct.name.pascalName %>Entity[]> {
+  <%_ } else { -%>
+  async getAll(condition: Search<%= struct.name.pascalName %>Condition): Promise<<%= struct.name.pascalName %>Entity[]> {
+  <%_ } -%>
     const order = ObjectUtil.convertOrdersToMap(condition);
+    <%_ if (hasRelation) { -%>
+    let relations = {};
+    if (options) {
+      if (options.all) {
+        relations = {
+        <%_ struct.fields.forEach(function (field, key) { -%>
+          <%_ if (field.relatedType === 'OneToMany') { -%>
+          <%= field.structName.lowerCamelName %>: true,
+          <%_ } -%>
+          <%_ if (field.relatedType === 'ManyToOne') { -%>
+          <%= field.relatedStructName.lowerCamelName %>: true,
+          <%_ } -%>
+        <%_ }) -%>
+        }
+      } else {
+        relations = {
+        <%_ struct.fields.forEach(function (field, key) { -%>
+          <%_ if (field.relatedType === 'OneToMany') { -%>
+          <%= field.structName.lowerCamelName %>: options.<%= field.name.lowerCamelName %>,
+          <%_ } -%>
+          <%_ if (field.relatedType === 'ManyToOne') { -%>
+          <%= field.relatedStructName.lowerCamelName %>: options.<%= field.name.lowerCamelName %>,
+          <%_ } -%>
+        <%_ }) -%>
+        };
+      }
+    }
+    <%_ } -%>
     return await this.<%= struct.name.lowerCamelName %>Repository.find({
       where: {
       <%_ struct.fields.forEach(function (field, key) { -%>
@@ -110,6 +142,9 @@ export class <%= struct.name.pascalName %>RepositoryGenerated
       take: condition.limit,
       skip: condition.offset,
       order: order,
+    <%_ if (hasRelation) { -%>
+      relations: relations,
+    <%_ } -%>
     });
   }
 
