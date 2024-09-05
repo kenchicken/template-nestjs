@@ -58,7 +58,7 @@ export class <%= struct.name.pascalName %>RepositoryGenerated
           <%= field.relatedStructName.lowerCamelName %>: true,
           <%_ } -%>
         <%_ }) -%>
-        }
+        };
       } else {
         relations = {
         <%_ struct.fields.forEach(function (field, key) { -%>
@@ -105,7 +105,7 @@ export class <%= struct.name.pascalName %>RepositoryGenerated
           <%= field.relatedStructName.lowerCamelName %>: true,
           <%_ } -%>
         <%_ }) -%>
-        }
+        };
       } else {
         relations = {
         <%_ struct.fields.forEach(function (field, key) { -%>
