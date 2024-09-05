@@ -4,7 +4,6 @@ force: true
 ---
 export default class Search<%= struct.name.pascalName %>ConditionGenerated {
 <%_ struct.fields.forEach(function (field, key) { -%>
-<%_ if (!field.relatedType) { -%>
 <%_ if (field.dataType === 'string') { -%>
   <%= field.name.lowerCamelName %>?: string;
 <%_ } -%>
@@ -16,7 +15,6 @@ export default class Search<%= struct.name.pascalName %>ConditionGenerated {
 <%_ } -%>
 <%_ if (field.dataType === 'bool') { -%>
   <%= field.name.lowerCamelName %>?: boolean;
-<%_ } -%>
 <%_ } -%>
 <%_ }) -%>
   limit?: number;
