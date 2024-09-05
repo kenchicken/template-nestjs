@@ -3,7 +3,7 @@ to: "<%= !struct.excludeGenerateAPI.get ? `${rootDirectory}/api/src/app/endpoint
 force: true
 ---
 import { Inject, Injectable } from '@nestjs/common';
-import Model<%= struct.name.pascalName %> from 'src/app/endpoint/<%= struct.name.lowerKebabName %>/dto/generated/model-<%= struct.name.lowerKebabName %>';
+import Model<%= struct.name.pascalName %> from 'src/app/dto/model-<%= struct.name.lowerKebabName %>';
 import { <%= struct.name.pascalName %>RepositoryInterfaceGenerated } from 'src/app/repository/<%= struct.name.lowerKebabName %>.repository.interface.generated';
 import <%= struct.name.pascalName %>Entity from 'src/app/entity/<%= struct.name.lowerKebabName %>.entity';
 <%_ let hasOneToMany = false; -%>
@@ -29,7 +29,7 @@ import <%= struct.name.pascalName %>Entity from 'src/app/entity/<%= struct.name.
 <%_ } -%>
 <%_ }) -%>
 <%_ importStructs.forEach(function (structName, key) { -%>
-import <%= structName.pascalName %>Dto from 'src/app/dto/<%= structName.lowerKebabName %>.dto';
+import Model<%= structName.pascalName %> from 'src/app/dto/<%= structName.lowerKebabName %>';
 <%_ }) -%>
 
 import ObjectUtil from 'src/app/util/object-util';
@@ -56,18 +56,18 @@ export class Find<%= struct.name.pascalName %>Handler {
     response.<%= field.name.lowerCamelName %> = [];
     if (entity.<%= field.name.lowerCamelName %>) {
       for (const childEntity of entity.<%= field.name.lowerCamelName %>) {
-        const childDto = new <%= field.structName.pascalName %>Dto();
-        ObjectUtil.copyMatchingFields(childEntity, childDto);
-        response.<%= field.name.lowerCamelName %>.push(childDto);
+        const childModel = new Model<%= field.structName.pascalName %>();
+        ObjectUtil.copyMatchingFields(childEntity, childModel);
+        response.<%= field.name.lowerCamelName %>.push(childModel);
       }
     }
     <%_ } -%>
     <%_ if (field.relatedType === 'OneToOne' && field.dbTags.indexOf('->;') === -1) { -%>
     <%_ } -%>
     <%_ if (field.relatedType === 'ManyToOne' && field.dbTags.indexOf('->;') === -1) { -%>
-    const <%= field.relatedStructName.lowerCamelName %>Dto = new <%= field.relatedStructName.pascalName %>Dto();
-    ObjectUtil.copyMatchingFields(entity.<%= field.relatedStructName.lowerCamelName %>, <%= field.relatedStructName.lowerCamelName %>Dto);
-    response.<%= field.relatedStructName.lowerCamelName %> = <%= field.relatedStructName.lowerCamelName %>Dto;
+    const <%= field.relatedStructName.lowerCamelName %>Model = new Model<%= field.relatedStructName.pascalName %>();
+    ObjectUtil.copyMatchingFields(entity.<%= field.relatedStructName.lowerCamelName %>, <%= field.relatedStructName.lowerCamelName %>Model);
+    response.<%= field.relatedStructName.lowerCamelName %> = <%= field.relatedStructName.lowerCamelName %>Model;
       <%_ } -%>
     <%_ }) -%>
     return response;

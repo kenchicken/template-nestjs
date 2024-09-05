@@ -4,10 +4,10 @@ force: true
 ---
 import { Inject, Injectable } from '@nestjs/common';
 import { Search<%= struct.name.pascalName %>Condition } from 'src/app/repository/condition/generated/search-<%= struct.name.lowerKebabName %>.condition';
-import Model<%= struct.name.pascalPluralName %> from 'src/app/endpoint/<%= struct.name.lowerKebabName %>/dto/generated/model-<%= struct.name.lowerKebabPluralName %>';
+import Model<%= struct.name.pascalPluralName %> from 'src/app/dto/model-<%= struct.name.lowerKebabPluralName %>';
+import Model<%= struct.name.pascalName %> from 'src/app/dto/model-<%= struct.name.lowerKebabName %>';
 import { <%= struct.name.pascalName %>RepositoryInterfaceGenerated } from 'src/app/repository/<%= struct.name.lowerKebabName %>.repository.interface.generated';
 import <%= struct.name.pascalName %>Entity from 'src/app/entity/<%= struct.name.lowerKebabName %>.entity';
-import <%= struct.name.pascalName %>Dto from 'src/app/dto/<%= struct.name.lowerKebabName %>.dto';
 import ObjectUtil from 'src/app/util/object-util';
 
 @Injectable()
@@ -31,8 +31,8 @@ export class Search<%= struct.name.pascalName %>Handler {
 
   private async convertEntityToResponse(
     entity: <%= struct.name.pascalName %>Entity,
-  ): Promise<<%= struct.name.pascalName %>Dto> {
-    const response = new <%= struct.name.pascalName %>Dto();
+  ): Promise<Model<%= struct.name.pascalName %>> {
+    const response = new Model<%= struct.name.pascalName %>();
     ObjectUtil.copyMatchingFields(entity, response);
     return response;
   }

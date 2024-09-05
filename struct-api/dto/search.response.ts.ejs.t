@@ -1,18 +1,18 @@
 ---
-to: "<%= struct.generateEnable ? `${rootDirectory}/api/src/app/endpoint/${struct.name.lowerKebabName}/dto/generated/model-${struct.name.lowerKebabPluralName}.ts` : null %>"
+to: "<%= struct.generateEnable ? `${rootDirectory}/api/src/app/dto/model-${struct.name.lowerKebabPluralName}.ts` : null %>"
 force: true
 ---
 import { ApiProperty } from '@nestjs/swagger';
-import <%= struct.name.pascalName %>Dto from 'src/app/dto/<%= struct.name.lowerKebabName %>.dto';
+import Model<%= struct.name.pascalName %> from 'src/app/dto/model-<%= struct.name.lowerKebabName %>';
 
 export default class Model<%= struct.name.pascalPluralName %> {
   @ApiProperty({
     required: false,
     nullable: true,
     isArray: true,
-    type: <%= struct.name.pascalName %>Dto,
+    type: Model<%= struct.name.pascalName %>,
   })
-  <%= struct.name.lowerCamelPluralName %>: <%= struct.name.pascalName %>Dto[];
+  <%= struct.name.lowerCamelPluralName %>: Model<%= struct.name.pascalName %>[];
 
   @ApiProperty({
     required: false,

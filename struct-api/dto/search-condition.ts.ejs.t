@@ -4,6 +4,5 @@ force: true
 ---
 import Model<%= struct.name.pascalName %>Generated from 'src/app/dto/model-<%= struct.name.lowerKebabName %>.generated';
 
-export default class Model<%= struct.name.pascalName %> extends Model<%= struct.name.pascalName %>Generated {
-  loginUserID?: number;
+export default class Search<%= struct.name.pascalName %>Condition extends Search<%= struct.name.pascalName %>ConditionGenerated {
 }
