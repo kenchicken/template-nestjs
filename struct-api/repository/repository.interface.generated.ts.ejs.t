@@ -48,7 +48,7 @@ export interface <%= struct.name.pascalName %>RelationOptions {
   <%= field.name.lowerCamelName %>?: boolean;
   <%_ } -%>
   <%_ if (field.relatedType === 'ManyToOne' && field.dbTags.indexOf('->;') === -1) { -%>
-  <%= field.name.lowerCamelName %>?: boolean;
+  <%= field.relatedStructName.lowerCamelName %>?: boolean;
   <%_ } -%>
 <%_ }) -%>
 }

@@ -55,7 +55,7 @@ export class <%= struct.name.pascalName %>RepositoryGenerated
           <%= field.name.lowerCamelName %>: true,
           <%_ } -%>
           <%_ if (field.relatedType === 'ManyToOne' && field.dbTags.indexOf('->;') === -1) { -%>
-          <%= field.name.lowerCamelName %>: true,
+          <%= field.relatedStructName.lowerCamelName %>: true,
           <%_ } -%>
         <%_ }) -%>
         };
@@ -66,7 +66,7 @@ export class <%= struct.name.pascalName %>RepositoryGenerated
           <%= field.name.lowerCamelName %>: options.<%= field.name.lowerCamelName %>,
           <%_ } -%>
           <%_ if (field.relatedType === 'ManyToOne' && field.dbTags.indexOf('->;') === -1) { -%>
-          <%= field.name.lowerCamelName %>: options.<%= field.name.lowerCamelName %>,
+          <%= field.relatedStructName.lowerCamelName %>: options.<%= field.relatedStructName.lowerCamelName %>,
           <%_ } -%>
         <%_ }) -%>
         };
