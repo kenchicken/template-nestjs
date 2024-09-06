@@ -52,10 +52,10 @@ export class <%= struct.name.pascalName %>RepositoryGenerated
         relations = {
         <%_ struct.fields.forEach(function (field, key) { -%>
           <%_ if (field.relatedType === 'OneToMany' && field.dbTags.indexOf('->;') === -1) { -%>
-          <%= field.structName.lowerCamelName %>: true,
+          <%= field.name.lowerCamelName %>: true,
           <%_ } -%>
           <%_ if (field.relatedType === 'ManyToOne' && field.dbTags.indexOf('->;') === -1) { -%>
-          <%= field.relatedStructName.lowerCamelName %>: true,
+          <%= field.name.lowerCamelName %>: true,
           <%_ } -%>
         <%_ }) -%>
         };
@@ -63,10 +63,10 @@ export class <%= struct.name.pascalName %>RepositoryGenerated
         relations = {
         <%_ struct.fields.forEach(function (field, key) { -%>
           <%_ if (field.relatedType === 'OneToMany' && field.dbTags.indexOf('->;') === -1) { -%>
-          <%= field.structName.lowerCamelName %>: options.<%= field.structName.lowerCamelName %>,
+          <%= field.name.lowerCamelName %>: options.<%= field.structName.lowerCamelName %>,
           <%_ } -%>
           <%_ if (field.relatedType === 'ManyToOne' && field.dbTags.indexOf('->;') === -1) { -%>
-          <%= field.relatedStructName.lowerCamelName %>: options.<%= field.relatedStructName.lowerCamelName %>,
+          <%= field.name.lowerCamelName %>: options.<%= field.relatedStructName.lowerCamelName %>,
           <%_ } -%>
         <%_ }) -%>
         };
@@ -99,10 +99,10 @@ export class <%= struct.name.pascalName %>RepositoryGenerated
         relations = {
         <%_ struct.fields.forEach(function (field, key) { -%>
           <%_ if (field.relatedType === 'OneToMany' && field.dbTags.indexOf('->;') === -1) { -%>
-          <%= field.structName.lowerCamelName %>: true,
+          <%= field.name.lowerCamelName %>: true,
           <%_ } -%>
           <%_ if (field.relatedType === 'ManyToOne' && field.dbTags.indexOf('->;') === -1) { -%>
-          <%= field.relatedStructName.lowerCamelName %>: true,
+          <%= field.name.lowerCamelName %>: true,
           <%_ } -%>
         <%_ }) -%>
         };
@@ -110,10 +110,10 @@ export class <%= struct.name.pascalName %>RepositoryGenerated
         relations = {
         <%_ struct.fields.forEach(function (field, key) { -%>
           <%_ if (field.relatedType === 'OneToMany' && field.dbTags.indexOf('->;') === -1) { -%>
-          <%= field.structName.lowerCamelName %>: options.<%= field.structName.lowerCamelName %>,
+          <%= field.name.lowerCamelName %>: options.<%= field.structName.lowerCamelName %>,
           <%_ } -%>
           <%_ if (field.relatedType === 'ManyToOne' && field.dbTags.indexOf('->;') === -1) { -%>
-          <%= field.relatedStructName.lowerCamelName %>: options.<%= field.relatedStructName.lowerCamelName %>,
+          <%= field.name.lowerCamelName %>: options.<%= field.relatedStructName.lowerCamelName %>,
           <%_ } -%>
         <%_ }) -%>
         };
