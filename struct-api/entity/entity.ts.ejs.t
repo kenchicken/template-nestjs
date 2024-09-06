@@ -144,9 +144,10 @@ class <%= struct.name.pascalName %>Entity {
 
     <%_ } -%>
 <%_ }) -%>
-  @column({ name: 'created_at', comment: 'Created At', nullable: false })
+  @Column({ name: 'created_at', comment: 'Created At', nullable: false })
   createdAt?: Date;
-  @column({ name: 'updated_at', comment: 'Updated At', nullable: false })
+
+  @Column({ name: 'updated_at', comment: 'Updated At', nullable: false })
   updatedAt?: Date;
 }
 
