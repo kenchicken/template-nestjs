@@ -68,6 +68,7 @@ export class Find<%= struct.name.pascalName %>Handler {
     const <%= field.relatedStructName.lowerCamelName %>Model = new Model<%= field.relatedStructName.pascalName %>();
     ObjectUtil.copyMatchingFields(entity.<%= field.relatedStructName.lowerCamelName %>, <%= field.relatedStructName.lowerCamelName %>Model);
     response.<%= field.relatedStructName.lowerCamelName %> = <%= field.relatedStructName.lowerCamelName %>Model;
+    response.<%= field.relatedStructName.lowerCamelName %>ID = <%= field.relatedStructName.lowerCamelName %>Model.id;
       <%_ } -%>
     <%_ }) -%>
     return response;
