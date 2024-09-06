@@ -32,8 +32,6 @@ export class <%= struct.name.pascalName %>RepositoryGenerated
   ) {}
 
   async create(entity: <%= struct.name.pascalName %>Entity): Promise<<%= struct.name.pascalName %>Entity> {
-    entity.createdAt = new Date();
-    entity.updatedAt = new Date();
     return await this.<%= struct.name.lowerCamelName %>Repository.save(entity);
   }
 
@@ -84,7 +82,6 @@ export class <%= struct.name.pascalName %>RepositoryGenerated
   }
 
   async update(id: number, entity: <%= struct.name.pascalName %>Entity): Promise<<%= struct.name.pascalName %>Entity> {
-    entity.updatedAt = new Date();
     await this.<%= struct.name.lowerCamelName %>Repository.save(entity);
     return this.<%= struct.name.lowerCamelName %>Repository.findOneBy({ id });
   }
