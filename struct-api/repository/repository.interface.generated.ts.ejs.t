@@ -44,10 +44,10 @@ export abstract class <%= struct.name.pascalName %>RepositoryInterfaceGenerated 
 export interface <%= struct.name.pascalName %>RelationOptions {
   all?: boolean;
 <%_ struct.fields.forEach(function (field, key) { -%>
-  <%_ if (field.relatedType === 'OneToMany') { -%>
+  <%_ if (field.relatedType === 'OneToMany' && field.dbTags.indexOf('->;') === -1) { -%>
   <%= field.structName.lowerCamelName %>?: boolean;
   <%_ } -%>
-  <%_ if (field.relatedType === 'ManyToOne') { -%>
+  <%_ if (field.relatedType === 'ManyToOne' && field.dbTags.indexOf('->;') === -1) { -%>
   <%= field.relatedStructName.lowerCamelName %>?: boolean;
   <%_ } -%>
 <%_ }) -%>
