@@ -36,6 +36,9 @@ export class <%= struct.name.pascalName %>RepositoryGenerated
   }
 
   async delete(id: number): Promise<void> {
+    if (!id) {
+      return null;
+    }
     const <%= struct.name.lowerCamelName %> = await this.<%= struct.name.lowerCamelName %>Repository.findOneBy({ id });
     await this.<%= struct.name.lowerCamelName %>Repository.remove(<%= struct.name.lowerCamelName %>);
   }
@@ -45,6 +48,9 @@ export class <%= struct.name.pascalName %>RepositoryGenerated
   <%_ } else { -%>
   async get(id: number): Promise<<%= struct.name.pascalName %>Entity> {
   <%_ } -%>
+    if (!id) {
+      return null;
+    }
     <%_ if (hasRelation) { -%>
     let relations = {};
     if (options) {
@@ -82,6 +88,9 @@ export class <%= struct.name.pascalName %>RepositoryGenerated
   }
 
   async update(id: number, entity: <%= struct.name.pascalName %>Entity): Promise<<%= struct.name.pascalName %>Entity> {
+    if (!id) {
+      return null;
+    }
     await this.<%= struct.name.lowerCamelName %>Repository.save(entity);
   <%_ if (hasRelation) { -%>
     return this.get(id, { all: true });
