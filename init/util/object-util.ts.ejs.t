@@ -9,6 +9,9 @@ force: true
  */
 export default class ObjectUtil {
   static copyMatchingFields(source: any, target: any) {
+    if (!source) {
+      return;
+    }
     Object.getOwnPropertyNames(source).forEach((key) => {
       const value = source[key];
       if (
@@ -22,6 +25,8 @@ export default class ObjectUtil {
           'undefined',
         ].includes(typeof value)
       ) {
+        target[key] = value;
+      } else if (['Date'].includes(value.constructor.name)) {
         target[key] = value;
       }
     });
@@ -41,6 +46,8 @@ export default class ObjectUtil {
           typeof value,
         )
       ) {
+        target[key] = value;
+      } else if (['Date'].includes(value.constructor.name)) {
         target[key] = value;
       }
     });
