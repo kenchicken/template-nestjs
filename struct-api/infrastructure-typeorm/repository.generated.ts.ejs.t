@@ -83,7 +83,11 @@ export class <%= struct.name.pascalName %>RepositoryGenerated
 
   async update(id: number, entity: <%= struct.name.pascalName %>Entity): Promise<<%= struct.name.pascalName %>Entity> {
     await this.<%= struct.name.lowerCamelName %>Repository.save(entity);
+  <%_ if (hasRelation) { -%>
     return this.get(id, { all: true });
+  <%_ } else { -%>
+    return this.get(id);
+  <%_ } -%>
   }
 
   <%_ if (hasRelation) { -%>
