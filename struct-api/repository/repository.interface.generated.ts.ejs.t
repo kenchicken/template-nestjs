@@ -4,31 +4,6 @@ force: true
 ---
 import <%= struct.name.pascalName %>Entity from 'src/app/entity/<%= struct.name.lowerKebabName %>.entity';
 import Search<%= struct.name.pascalName %>Condition from 'src/app/dto/search-<%= struct.name.lowerKebabName %>.condition';
-<%_ let hasOneToMany = false; -%>
-<%_ let hasManyToOne = false; -%>
-<%_ let importStructs = []; -%>
-<%_ let importStructNames = []; -%>
-<%_ struct.fields.forEach(function (field, key) { -%>
-<%_ if (field.relatedType === 'OneToMany' && field.dbTags.indexOf('->;') === -1) { -%>
-  <%_ hasOneToMany = true; -%>
-  <%_ if (!importStructNames.includes(field.structName.pascalName)) { -%>
-    <%_ importStructs.push(field.structName); -%>
-    <%_ importStructNames.push(field.structName.pascalName); -%>
-  <%_ } -%>
-<%_ } -%>
-<%_ if (field.relatedType === 'OneToOne' && field.dbTags.indexOf('->;') === -1) { -%>
-<%_ } -%>
-<%_ if (field.relatedType === 'ManyToOne' && field.dbTags.indexOf('->;') === -1) { -%>
-  <%_ hasManyToOne = true; -%>
-  <%_ if (!importStructNames.includes(field.relatedStructName.pascalName)) { -%>
-    <%_ importStructs.push(field.relatedStructName); -%>
-    <%_ importStructNames.push(field.relatedStructName.pascalName); -%>
-  <%_ } -%>
-<%_ } -%>
-<%_ }) -%>
-<%_ importStructs.forEach(function (structName, key) { -%>
-import Model<%= structName.pascalName %> from 'src/app/dto/model-<%= structName.lowerKebabName %>';
-<%_ }) -%>
 
 export abstract class <%= struct.name.pascalName %>RepositoryInterfaceGenerated {
   // 汎用検索系メソッド
