@@ -51,7 +51,7 @@ export class Patch<%= struct.name.pascalName %>Handler {
   async exec(id: number, request: Model<%= struct.name.pascalName %>): Promise<Model<%= struct.name.pascalName %>> {
     const orgEntity = await this.<%= struct.name.lowerCamelName %>Repository.get(id);
     const entity = await this.mergeRequestToEntity(request, orgEntity);
-    const result = await this.<%= struct.name.lowerCamelName %>Repository.update(entity);
+    const result = await this.<%= struct.name.lowerCamelName %>Repository.update(orgEntity.id, entity);
     return await this.convertEntityToResponse(result);
   }
 
