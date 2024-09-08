@@ -47,7 +47,7 @@ export default class ObjectUtil {
         )
       ) {
         target[key] = value;
-      } else if (['Date'].includes(value.constructor.name)) {
+      } else if (value !== null && ['Date'].includes(value.constructor.name)) {
         target[key] = value;
       }
     });
