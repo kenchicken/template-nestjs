@@ -99,9 +99,17 @@ export class <%= struct.name.pascalName %>ControllerGenerated {
   @ApiCreatedResponse({
     type: Model<%= struct.name.pascalName %>,
   })
-  create<%= struct.name.pascalName %>(@Body() request: Model<%= struct.name.pascalName %>, @Request() req) {
-    request.loginUserID = req.user?.userID;
-    return this.create<%= struct.name.pascalName %>Handler.exec(request);
+  async create<%= struct.name.pascalName %>(@Body() request: Model<%= struct.name.pascalName %>, @Request() req) {
+    try {
+      request.loginUserID = req.user?.userID;
+      return await this.create<%= struct.name.pascalName %>Handler.exec(request);
+    } catch (error) {
+      console.error(error);
+      console.error(
+        `Failed to create <%= struct.name.lowerCamelName %>. request: ${JSON.stringify(request)}`,
+      );
+      throw error;
+    }
   }
 
   <%_ } -%>
@@ -139,9 +147,17 @@ export class <%= struct.name.pascalName %>ControllerGenerated {
   @ApiQuery({ name: 'limit', required: false, type: Number })
   @ApiQuery({ name: 'offset', required: false, type: Number })
   @ApiQuery({ name: 'orderBy', required: false, type: String })
-  search<%= struct.name.pascalName %>(@Query() request: Search<%= struct.name.pascalName %>Condition, @Request() req) {
-    request.loginUserID = req.user?.userID;
-    return this.search<%= struct.name.pascalName %>Handler.exec(request);
+  async search<%= struct.name.pascalName %>(@Query() request: Search<%= struct.name.pascalName %>Condition, @Request() req) {
+    try {
+      request.loginUserID = req.user?.userID;
+      return await this.search<%= struct.name.pascalName %>Handler.exec(request);
+    } catch (error) {
+      console.error(error);
+      console.error(
+        `Failed to search <%= struct.name.lowerCamelName %>. request: ${JSON.stringify(request)}`,
+      );
+      throw error;
+    }
   }
 
   <%_ } -%>
@@ -157,8 +173,16 @@ export class <%= struct.name.pascalName %>ControllerGenerated {
   @ApiOkResponse({
     type: Model<%= struct.name.pascalName %>,
   })
-  get<%= struct.name.pascalName %>(@Param('id') id: number, @Request() req) {
-    return this.find<%= struct.name.pascalName %>Handler.exec(id, req.user?.userID);
+  async get<%= struct.name.pascalName %>(@Param('id') id: number, @Request() req) {
+    try {
+      return await this.find<%= struct.name.pascalName %>Handler.exec(id, req.user?.userID);
+    } catch (error) {
+      console.error(error);
+      console.error(
+        `Failed to get <%= struct.name.lowerCamelName %>. id: ${id}`,
+      );
+      throw error;
+    }
   }
 
   <%_ } -%>
@@ -174,9 +198,17 @@ export class <%= struct.name.pascalName %>ControllerGenerated {
   @ApiOkResponse({
     type: Model<%= struct.name.pascalName %>,
   })
-  update<%= struct.name.pascalName %>(@Param('id') id: number, @Body() request: Model<%= struct.name.pascalName %>, @Request() req) {
-    request.loginUserID = req.user?.userID;
-    return this.update<%= struct.name.pascalName %>Handler.exec(id, request);
+  async update<%= struct.name.pascalName %>(@Param('id') id: number, @Body() request: Model<%= struct.name.pascalName %>, @Request() req) {
+    try {
+      request.loginUserID = req.user?.userID;
+      return await this.update<%= struct.name.pascalName %>Handler.exec(id, request);
+    } catch (error) {
+      console.error(error);
+      console.error(
+        `Failed to update <%= struct.name.lowerCamelName %>. id: ${id}, request: ${JSON.stringify(request)}`,
+      );
+      throw error;
+    }
   }
 
   <%_ } -%>
@@ -192,9 +224,17 @@ export class <%= struct.name.pascalName %>ControllerGenerated {
   @ApiOkResponse({
     type: Model<%= struct.name.pascalName %>,
   })
-  patch<%= struct.name.pascalName %>(@Param('id') id: number, @Body() request: Model<%= struct.name.pascalName %>, @Request() req) {
-    request.loginUserID = req.user?.userID;
-    return this.patch<%= struct.name.pascalName %>Handler.exec(id, request);
+  async patch<%= struct.name.pascalName %>(@Param('id') id: number, @Body() request: Model<%= struct.name.pascalName %>, @Request() req) {
+    try {
+      request.loginUserID = req.user?.userID;
+      return await this.patch<%= struct.name.pascalName %>Handler.exec(id, request);
+    } catch (error) {
+      console.error(error);
+      console.error(
+        `Failed to patch <%= struct.name.lowerCamelName %>. id: ${id}, request: ${JSON.stringify(request)}`,
+      );
+      throw error;
+    }
   }
 
 <%_ } -%>
@@ -207,8 +247,16 @@ export class <%= struct.name.pascalName %>ControllerGenerated {
   @UseGuards(AuthGuard('jwt'))
   @ApiBearerAuth()
   <%_ } -%>
-  delete<%= struct.name.pascalName %>(@Param('id') id: number, @Request() req) {
-    return this.delete<%= struct.name.pascalName %>Handler.exec(id, req.user?.userID);
+  async delete<%= struct.name.pascalName %>(@Param('id') id: number, @Request() req) {
+    try {
+      return await this.delete<%= struct.name.pascalName %>Handler.exec(id, req.user?.userID);
+    } catch (error) {
+      console.error(error);
+      console.error(
+        `Failed to delete <%= struct.name.lowerCamelName %>. id: ${id}`,
+      );
+      throw error;
+    }
   }
   <%_ } -%>
 }
