@@ -32,6 +32,8 @@ export class <%= struct.name.pascalName %>RepositoryGenerated
   ) {}
 
   async create(entity: <%= struct.name.pascalName %>Entity): Promise<<%= struct.name.pascalName %>Entity> {
+    entity.createdAt = new Date();
+    entity.updatedAt = new Date();
     return await this.<%= struct.name.lowerCamelName %>Repository.save(entity);
   }
 
@@ -91,6 +93,7 @@ export class <%= struct.name.pascalName %>RepositoryGenerated
     if (!id) {
       return null;
     }
+    entity.updatedAt = new Date();
     await this.<%= struct.name.lowerCamelName %>Repository.save(entity);
   <%_ if (hasRelation) { -%>
     return this.get(id, { all: true });
