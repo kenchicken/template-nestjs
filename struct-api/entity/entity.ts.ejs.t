@@ -42,7 +42,7 @@ import { OneToOne } from 'typeorm';
 <%_ if (hasOneToOne || hasManyToOne || hasOneToMany) { -%>
 import { JoinColumn } from 'typeorm';
 <%_ } -%>
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn } from 'typeorm';
 <%_ importStructs.forEach(function (structName, key) { -%>
 import <%= structName.pascalName %>Entity from './<%= structName.lowerKebabName %>.entity';
 <%_ }) -%>
@@ -144,10 +144,10 @@ class <%= struct.name.pascalName %>Entity {
 
     <%_ } -%>
 <%_ }) -%>
-  @Column({ name: 'created_at', comment: 'Created At', nullable: false })
+  @CreateDateColumn({ name: 'created_at', comment: 'Created At', nullable: false, type: 'timestamp' })
   createdAt?: Date;
 
-  @Column({ name: 'updated_at', comment: 'Updated At', nullable: false })
+  @UpdateDateColumn({ name: 'updated_at', comment: 'Updated At', nullable: false, type: 'timestamp' })
   updatedAt?: Date;
 }
 
