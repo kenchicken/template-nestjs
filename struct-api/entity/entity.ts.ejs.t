@@ -42,7 +42,7 @@ import { OneToOne } from 'typeorm';
 <%_ if (hasOneToOne || hasManyToOne || hasOneToMany) { -%>
 import { JoinColumn } from 'typeorm';
 <%_ } -%>
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm';
 <%_ importStructs.forEach(function (structName, key) { -%>
 import <%= structName.pascalName %>Entity from './<%= structName.lowerKebabName %>.entity';
 <%_ }) -%>
