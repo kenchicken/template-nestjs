@@ -42,6 +42,15 @@ export class <%= struct.name.pascalName %>RepositoryGenerated
       return null;
     }
     const <%= struct.name.lowerCamelName %> = await this.<%= struct.name.lowerCamelName %>Repository.findOneBy({ id });
+    <%_ struct.fields.forEach(function (field, key) { -%>
+      <%_ if (field.relatedType === 'OneToMany' && field.dbTags.indexOf('->;') === -1) { -%>
+    <%= struct.name.lowerCamelName %>.<%= field.name.lowerCamelName %> = [];
+      <%_ } -%>
+      <%_ if (field.relatedType === 'ManyToOne' && field.dbTags.indexOf('->;') === -1) { -%>
+    <%= struct.name.lowerCamelName %>.<%= field.name.lowerCamelName %> = null;
+      <%_ } -%>
+    <%_ }) -%>
+    await this.<%= struct.name.lowerCamelName %>Repository.save(<%= struct.name.lowerCamelName %>);
     await this.<%= struct.name.lowerCamelName %>Repository.remove(<%= struct.name.lowerCamelName %>);
   }
 
