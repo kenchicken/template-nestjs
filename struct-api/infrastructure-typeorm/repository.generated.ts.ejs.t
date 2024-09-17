@@ -23,6 +23,16 @@ import { <%= struct.name.pascalName %>RepositoryInterfaceGenerated, <%= struct.n
 import Search<%= struct.name.pascalName %>Condition from 'src/app/dto/search-<%= struct.name.lowerKebabName %>.condition';
 import ObjectUtil from '../../util/object-util';
 
+<%_ let hasCascadeRelation = false; -%>
+<%_ struct.fields.forEach(function (field, key) { -%>
+<%_ if (field.relatedType === 'OneToMany' && field.dbTags.indexOf('->;') === -1) { -%>
+<%_ hasCascadeRelation = true; -%>
+<%_ } -%>
+<%_ if (field.relatedType === 'OneToOne' && field.dbTags.indexOf('->;') === -1) { -%>
+<%_ hasCascadeRelation = true; -%>
+<%_ } -%>
+<%_ }) -%>
+
 export class <%= struct.name.pascalName %>RepositoryGenerated
   implements <%= struct.name.pascalName %>RepositoryInterfaceGenerated
 {
@@ -46,11 +56,11 @@ export class <%= struct.name.pascalName %>RepositoryGenerated
       <%_ if (field.relatedType === 'OneToMany' && field.dbTags.indexOf('->;') === -1) { -%>
     <%= struct.name.lowerCamelName %>.<%= field.name.lowerCamelName %> = [];
       <%_ } -%>
-      <%_ if (field.relatedType === 'ManyToOne' && field.dbTags.indexOf('->;') === -1) { -%>
+      <%_ if (field.relatedType === 'OneToOne' && field.dbTags.indexOf('->;') === -1) { -%>
     <%= struct.name.lowerCamelName %>.<%= field.name.lowerCamelName %> = null;
       <%_ } -%>
     <%_ }) -%>
-    <%_ if (hasRelation) { -%>
+    <%_ if (hasCascadeRelation) { -%>
     await this.<%= struct.name.lowerCamelName %>Repository.save(<%= struct.name.lowerCamelName %>);
     <%_ } -%>
     await this.<%= struct.name.lowerCamelName %>Repository.remove(<%= struct.name.lowerCamelName %>);
