@@ -22,7 +22,6 @@ import <%= struct.name.pascalName %>Entity from 'src/app/entity/<%= struct.name.
 import { <%= struct.name.pascalName %>RepositoryInterfaceGenerated, <%= struct.name.pascalName %>RelationOptions } from 'src/app/repository/<%= struct.name.lowerKebabName %>.repository.interface.generated';
 import Search<%= struct.name.pascalName %>Condition from 'src/app/dto/search-<%= struct.name.lowerKebabName %>.condition';
 import ObjectUtil from '../../util/object-util';
-
 <%_ let hasCascadeRelation = false; -%>
 <%_ struct.fields.forEach(function (field, key) { -%>
 <%_ if (field.relatedType === 'OneToMany' && field.dbTags.indexOf('->;') === -1) { -%>
