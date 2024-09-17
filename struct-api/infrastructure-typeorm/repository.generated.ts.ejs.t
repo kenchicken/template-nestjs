@@ -50,7 +50,9 @@ export class <%= struct.name.pascalName %>RepositoryGenerated
     <%= struct.name.lowerCamelName %>.<%= field.name.lowerCamelName %> = null;
       <%_ } -%>
     <%_ }) -%>
+    <%_ if (hasRelation) { -%>
     await this.<%= struct.name.lowerCamelName %>Repository.save(<%= struct.name.lowerCamelName %>);
+    <%_ } -%>
     await this.<%= struct.name.lowerCamelName %>Repository.remove(<%= struct.name.lowerCamelName %>);
   }
 
