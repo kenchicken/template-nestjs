@@ -209,4 +209,11 @@ export class <%= struct.name.pascalName %>RepositoryGenerated
       },
     });
   }
+
+  async clear(): Promise<void> {
+    if (process.env.NODE_ENV !== 'test') {
+      throw new Error('clear method is only for test');
+    }
+    await this.<%= struct.name.lowerCamelName %>Repository.clear();
+  }
 }

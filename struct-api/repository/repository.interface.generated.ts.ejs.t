@@ -14,6 +14,7 @@ export abstract class <%= struct.name.pascalName %>RepositoryInterfaceGenerated 
   abstract create(<%= struct.name.pascalName %>: <%= struct.name.pascalName %>Entity): Promise<<%= struct.name.pascalName %>Entity>;
   abstract update(id: number, item: <%= struct.name.pascalName %>Entity): Promise<<%= struct.name.pascalName %>Entity>;
   abstract delete(id: number): Promise<void>;
+  abstract clear(): Promise<void>;
 }
 
 export interface <%= struct.name.pascalName %>RelationOptions {
