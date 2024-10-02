@@ -21,7 +21,8 @@ import { addTransactionalDataSource } from 'typeorm-transactional';
         username: configService.get('DATABASE_USER'),
         password: configService.get('DATABASE_PASSWORD'),
         database: configService.get('DATABASE_NAME'),
-        logging: true,
+        logging: !(process.env.NODE_ENV && process.env.NODE_ENV === 'test'),
+        synchronize: process.env.NODE_ENV && process.env.NODE_ENV === 'test',
         entities: [
           // add entity after here
         ],
