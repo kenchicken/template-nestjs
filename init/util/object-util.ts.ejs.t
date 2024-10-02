@@ -58,7 +58,7 @@ export default class ObjectUtil {
    * orderBy = 'id,-email'
    * return { id: 'ASC', email: 'DESC' }
    */
-  static convertOrdersToMap(condition: any) {
+  static convertOrdersToMap(condition: any): { [key: string]: 'ASC' | 'DESC' } {
     if (!condition.orderBy) {
       return {};
     }
