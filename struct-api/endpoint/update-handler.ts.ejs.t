@@ -56,7 +56,7 @@ export class Update<%= struct.name.pascalName %>Handler {
   }
 
   private async convertRequestToEntity(
-  request: Model<%= struct.name.pascalName %>,
+    request: Model<%= struct.name.pascalName %>,
   ): Promise<<%= struct.name.pascalName %>Entity> {
     const entity = new <%= struct.name.pascalName %>Entity();
     ObjectUtil.copyMatchingFields(request, entity);
