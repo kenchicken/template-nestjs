@@ -54,4 +54,37 @@ export class Update<%= struct.name.pascalName %>Handler {
     const result = await this.<%= struct.name.lowerCamelName %>Repository.create(entity);
     return await convertEntityToResponse(result);
   }
+
+  private async convertRequestToEntity(
+  request: Model<%= struct.name.pascalName %>,
+  ): Promise<<%= struct.name.pascalName %>Entity> {
+    const entity = new <%= struct.name.pascalName %>Entity();
+    ObjectUtil.copyMatchingFields(request, entity);
+    <%_ struct.fields.forEach(function (field, key) { -%>
+    <%_ if (field.relatedType === 'OneToMany' && field.dbTags.indexOf('->;') === -1) { -%>
+      entity.<%= field.name.lowerCamelName %> = [];
+      if (request.<%= field.name.lowerCamelName %>) {
+      for (const dto of request.<%= field.name.lowerCamelName %>) {
+      const childEntity = new <%= field.structName.pascalName %>Entity();
+      ObjectUtil.copyMatchingFields(dto, childEntity);
+      childEntity.<%= struct.name.lowerCamelName %> = entity;
+      // TODO 更にリレーションがある場合にはここに追記する
+      entity.<%= field.name.lowerCamelName %>.push(childEntity);
+      }
+    }
+    <%_ } -%>
+    <%_ if (field.relatedType === 'OneToOne' && field.dbTags.indexOf('->;') === -1) { -%>
+    <%_ } -%>
+    <%_ if (field.relatedType === 'ManyToOne' && field.dbTags.indexOf('->;') === -1) { -%>
+      const <%= field.relatedStructName.lowerCamelName %>: <%= field.relatedStructName.pascalName %>Entity = await this.<%= field.relatedStructName.lowerCamelName %>Repository.get(
+      request.<%= field.name.lowerCamelName %>,
+      );
+      if (!<%= field.relatedStructName.lowerCamelName %>) {
+      throw new Error('<%= field.name.lowerCamelName %> not found');
+      }
+      entity.<%= field.relatedStructName.lowerCamelName %> = <%= field.relatedStructName.lowerCamelName %>;
+    <%_ } -%>
+    <%_ }) -%>
+    return entity;
+  }
 }
