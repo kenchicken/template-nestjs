@@ -35,6 +35,7 @@ import Model<%= structName.pascalName %> from 'src/app/dto/model-<%= structName.
 <%_ }) -%>
 import ObjectUtil from 'src/app/util/object-util';
 import { Transactional } from 'typeorm-transactional';
+import { convertEntityToResponse } from '../dto-converter';
 
 @Injectable()
 export class Update<%= struct.name.pascalName %>Handler {
@@ -51,66 +52,6 @@ export class Update<%= struct.name.pascalName %>Handler {
   async exec(id: number, request: Model<%= struct.name.pascalName %>): Promise<Model<%= struct.name.pascalName %>> {
     const entity = await this.convertRequestToEntity(request);
     const result = await this.<%= struct.name.lowerCamelName %>Repository.create(entity);
-    return await this.convertEntityToResponse(result);
-  }
-
-  private async convertRequestToEntity(
-    request: Model<%= struct.name.pascalName %>,
-  ): Promise<<%= struct.name.pascalName %>Entity> {
-    const entity = new <%= struct.name.pascalName %>Entity();
-    ObjectUtil.copyMatchingFields(request, entity);
-    <%_ struct.fields.forEach(function (field, key) { -%>
-      <%_ if (field.relatedType === 'OneToMany' && field.dbTags.indexOf('->;') === -1) { -%>
-    entity.<%= field.name.lowerCamelName %> = [];
-    if (request.<%= field.name.lowerCamelName %>) {
-      for (const dto of request.<%= field.name.lowerCamelName %>) {
-        const childEntity = new <%= field.structName.pascalName %>Entity();
-        ObjectUtil.copyMatchingFields(dto, childEntity);
-        childEntity.<%= struct.name.lowerCamelName %> = entity;
-        // TODO 更にリレーションがある場合にはここに追記する
-        entity.<%= field.name.lowerCamelName %>.push(childEntity);
-      }
-    }
-      <%_ } -%>
-      <%_ if (field.relatedType === 'OneToOne' && field.dbTags.indexOf('->;') === -1) { -%>
-      <%_ } -%>
-      <%_ if (field.relatedType === 'ManyToOne' && field.dbTags.indexOf('->;') === -1) { -%>
-    const <%= field.relatedStructName.lowerCamelName %>: <%= field.relatedStructName.pascalName %>Entity = await this.<%= field.relatedStructName.lowerCamelName %>Repository.get(
-      request.<%= field.name.lowerCamelName %>,
-    );
-    if (!<%= field.relatedStructName.lowerCamelName %>) {
-      throw new Error('<%= field.name.lowerCamelName %> not found');
-    }
-    entity.<%= field.relatedStructName.lowerCamelName %> = <%= field.relatedStructName.lowerCamelName %>;
-      <%_ } -%>
-    <%_ }) -%>
-    return entity;
-  }
-
-  private async convertEntityToResponse(
-    entity: <%= struct.name.pascalName %>Entity,
-  ): Promise<Model<%= struct.name.pascalName %>> {
-    const response = new Model<%= struct.name.pascalName %>();
-    ObjectUtil.copyMatchingFields(entity, response);
-    <%_ struct.fields.forEach(function (field, key) { -%>
-      <%_ if (field.relatedType === 'OneToMany' && field.dbTags.indexOf('->;') === -1) { -%>
-    response.<%= field.name.lowerCamelName %> = [];
-    if (entity.<%= field.name.lowerCamelName %>) {
-      for (const childEntity of entity.<%= field.name.lowerCamelName %>) {
-        const childModel = new Model<%= field.structName.pascalName %>();
-        ObjectUtil.copyMatchingFields(childEntity, childModel);
-        response.<%= field.name.lowerCamelName %>.push(childModel);
-      }
-    }
-      <%_ } -%>
-      <%_ if (field.relatedType === 'OneToOne' && field.dbTags.indexOf('->;') === -1) { -%>
-      <%_ } -%>
-      <%_ if (field.relatedType === 'ManyToOne' && field.dbTags.indexOf('->;') === -1) { -%>
-    const <%= field.relatedStructName.lowerCamelName %>Model = new Model<%= field.relatedStructName.pascalName %>();
-    ObjectUtil.copyMatchingFields(entity.<%= field.relatedStructName.lowerCamelName %>, <%= field.relatedStructName.lowerCamelName %>Model);
-    response.<%= field.relatedStructName.lowerCamelName %> = <%= field.relatedStructName.lowerCamelName %>Model;
-      <%_ } -%>
-      <%_ }) -%>
-    return response;
+    return await convertEntityToResponse(result);
   }
 }

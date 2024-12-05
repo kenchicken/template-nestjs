@@ -31,8 +31,8 @@ import <%= struct.name.pascalName %>Entity from 'src/app/entity/<%= struct.name.
 <%_ importStructs.forEach(function (structName, key) { -%>
 import Model<%= structName.pascalName %> from 'src/app/dto/model-<%= structName.lowerKebabName %>';
 <%_ }) -%>
-
 import ObjectUtil from 'src/app/util/object-util';
+import { convertEntityToResponse } from '../dto-converter';
 
 @Injectable()
 export class Find<%= struct.name.pascalName %>Handler {
@@ -43,34 +43,6 @@ export class Find<%= struct.name.pascalName %>Handler {
 
   async exec(id: number, loginUserID?: number): Promise<Model<%= struct.name.pascalName %>> {
     const result = await this.<%= struct.name.lowerCamelName %>Repository.get(id, { all: true });
-    return await this.convertEntityToResponse(result);
-  }
-
-  private async convertEntityToResponse(
-    entity: <%= struct.name.pascalName %>Entity,
-  ): Promise<Model<%= struct.name.pascalName %>> {
-    const response = new Model<%= struct.name.pascalName %>();
-    ObjectUtil.copyMatchingFields(entity, response);
-    <%_ struct.fields.forEach(function (field, key) { -%>
-      <%_ if (field.relatedType === 'OneToMany' && field.dbTags.indexOf('->;') === -1) { -%>
-    response.<%= field.name.lowerCamelName %> = [];
-    if (entity.<%= field.name.lowerCamelName %>) {
-      for (const childEntity of entity.<%= field.name.lowerCamelName %>) {
-        const childModel = new Model<%= field.structName.pascalName %>();
-        ObjectUtil.copyMatchingFields(childEntity, childModel);
-        response.<%= field.name.lowerCamelName %>.push(childModel);
-      }
-    }
-    <%_ } -%>
-    <%_ if (field.relatedType === 'OneToOne' && field.dbTags.indexOf('->;') === -1) { -%>
-    <%_ } -%>
-    <%_ if (field.relatedType === 'ManyToOne' && field.dbTags.indexOf('->;') === -1) { -%>
-    const <%= field.relatedStructName.lowerCamelName %>Model = new Model<%= field.relatedStructName.pascalName %>();
-    ObjectUtil.copyMatchingFields(entity.<%= field.relatedStructName.lowerCamelName %>, <%= field.relatedStructName.lowerCamelName %>Model);
-    response.<%= field.relatedStructName.lowerCamelName %> = <%= field.relatedStructName.lowerCamelName %>Model;
-    response.<%= field.relatedStructName.lowerCamelName %>ID = <%= field.relatedStructName.lowerCamelName %>Model.id;
-      <%_ } -%>
-    <%_ }) -%>
-    return response;
+    return await convertEntityToResponse(result);
   }
 }

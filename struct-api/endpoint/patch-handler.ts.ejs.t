@@ -35,6 +35,7 @@ import Model<%= structName.pascalName %> from 'src/app/dto/model-<%= structName.
 <%_ }) -%>
 import ObjectUtil from 'src/app/util/object-util';
 import { Transactional } from 'typeorm-transactional';
+import { convertEntityToResponse } from '../dto-converter';
 
 @Injectable()
 export class Patch<%= struct.name.pascalName %>Handler {
@@ -52,7 +53,7 @@ export class Patch<%= struct.name.pascalName %>Handler {
     const orgEntity = await this.<%= struct.name.lowerCamelName %>Repository.get(id);
     const entity = await this.mergeRequestToEntity(request, orgEntity);
     const result = await this.<%= struct.name.lowerCamelName %>Repository.update(orgEntity.id, entity);
-    return await this.convertEntityToResponse(result);
+    return await convertEntityToResponse(result);
   }
 
   private async mergeRequestToEntity(
@@ -86,32 +87,5 @@ export class Patch<%= struct.name.pascalName %>Handler {
       <%_ } -%>
     <%_ }) -%>
     return entity;
-  }
-
-  private async convertEntityToResponse(
-    entity: <%= struct.name.pascalName %>Entity,
-  ): Promise<Model<%= struct.name.pascalName %>> {
-    const response = new Model<%= struct.name.pascalName %>();
-    ObjectUtil.copyMatchingFields(entity, response);
-    <%_ struct.fields.forEach(function (field, key) { -%>
-      <%_ if (field.relatedType === 'OneToMany' && field.dbTags.indexOf('->;') === -1) { -%>
-    response.<%= field.name.lowerCamelName %> = [];
-    if (entity.<%= field.name.lowerCamelName %>) {
-      for (const childEntity of entity.<%= field.name.lowerCamelName %>) {
-        const childModel = new Model<%= field.structName.pascalName %>();
-        ObjectUtil.copyMatchingFields(childEntity, childModel);
-        response.<%= field.name.lowerCamelName %>.push(childModel);
-      }
-    }
-      <%_ } -%>
-      <%_ if (field.relatedType === 'OneToOne' && field.dbTags.indexOf('->;') === -1) { -%>
-      <%_ } -%>
-      <%_ if (field.relatedType === 'ManyToOne' && field.dbTags.indexOf('->;') === -1) { -%>
-    const <%= field.relatedStructName.lowerCamelName %>Model = new Model<%= field.relatedStructName.pascalName %>();
-    ObjectUtil.copyMatchingFields(entity.<%= field.relatedStructName.lowerCamelName %>, <%= field.relatedStructName.lowerCamelName %>Model);
-    response.<%= field.relatedStructName.lowerCamelName %> = <%= field.relatedStructName.lowerCamelName %>Model;
-      <%_ } -%>
-      <%_ }) -%>
-    return response;
   }
 }

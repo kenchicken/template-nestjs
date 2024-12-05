@@ -35,6 +35,7 @@ import Model<%= structName.pascalName %> from 'src/app/dto/model-<%= structName.
 <%_ }) -%>
 import ObjectUtil from 'src/app/util/object-util';
 import { Transactional } from 'typeorm-transactional';
+import { convertEntityToResponse } from '../dto-converter';
 
 @Injectable()
 export class Create<%= struct.name.pascalName %>Handler {
@@ -51,7 +52,7 @@ export class Create<%= struct.name.pascalName %>Handler {
   async exec(request: Model<%= struct.name.pascalName %>): Promise<Model<%= struct.name.pascalName %>> {
     const entity = await this.convertRequestToEntity(request);
     const result = await this.<%= struct.name.lowerCamelName %>Repository.create(entity);
-    return await this.convertEntityToResponse(result);
+    return await convertEntityToResponse(result);
   }
 
   private async convertRequestToEntity(
