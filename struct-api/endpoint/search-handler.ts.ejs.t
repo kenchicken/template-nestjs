@@ -34,6 +34,7 @@ import ObjectUtil from 'src/app/util/object-util';
 <%_ importStructs.forEach(function (structName, key) { -%>
 import Model<%= structName.pascalName %> from 'src/app/dto/model-<%= structName.lowerKebabName %>';
 <%_ }) -%>
+import { convertEntityToResponse } from '../dto-converter';
 
 @Injectable()
 export class Search<%= struct.name.pascalName %>Handler {
