@@ -50,7 +50,7 @@ import <%= structName.pascalName %>Entity from './<%= structName.lowerKebabName 
 @Entity('<%= struct.name.lowerSnakePluralName %>')
 class <%= struct.name.pascalName %>Entity {
 <%_ struct.fields.forEach(function (field, key) { -%>
-  <%_ const notSelect = field.dbTags.indexOf('select:false') ? ', select: false' : '' -%>
+  <%_ const notSelect = field.dbTags.indexOf('select:false') > 0 ? ', select: false' : '' -%>
   <%_ if (field.name.lowerCamelName === 'id') { -%>
     <%_ if (field.dataType === 'string') { -%>
   @PrimaryGeneratedColumn()
@@ -68,7 +68,7 @@ class <%= struct.name.pascalName %>Entity {
   <%_ if (field.validateTags && field.validateTags.includes('required')) { -%>
   @Column({ name: '<%= field.name.lowerSnakeName %>', comment: '<%= field.screenLabel %>', nullable: false<%= notSelect %> })
   <%_ } else { -%>
-  @Column({ name: '<%= field.name.lowerSnakeName %>', comment: '<%= field.screenLabel %>', nullable: true })
+  @Column({ name: '<%= field.name.lowerSnakeName %>', comment: '<%= field.screenLabel %>', nullable: true<%= notSelect %> })
   <%_ } -%>
   <%= field.name.lowerCamelName %>?: string;
 
