@@ -1,5 +1,5 @@
 ---
-to: "<%= !struct.excludeGenerateAPI.get ? `${rootDirectory}/api/src/app/endpoint/${struct.name.lowerKebabName}/service/dto-converters.ts` : null %>"
+to: "<%= !struct.excludeGenerateAPI.get ? `${rootDirectory}/api/src/app/endpoint/${struct.name.lowerKebabName}/service/dto-converter.ts` : null %>"
 force: true
 ---
 import ObjectUtil from 'src/app/util/object-util';
