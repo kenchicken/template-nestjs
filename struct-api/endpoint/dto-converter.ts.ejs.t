@@ -33,7 +33,7 @@ import Model<%= structName.pascalName %> from 'src/app/dto/model-<%= structName.
 
 export const convertEntityToResponse = async (
   entity: <%= struct.name.pascalName %>Entity,
-): Promise<Model<%= struct.name.pascalName %>> {
+): Promise<Model<%= struct.name.pascalName %>> => {
   const response = new Model<%= struct.name.pascalName %>();
   ObjectUtil.copyMatchingFields(entity, response);
   <%_ struct.fields.forEach(function (field, key) { -%>
@@ -57,5 +57,4 @@ export const convertEntityToResponse = async (
   <%_ } -%>
   <%_ }) -%>
   return response;
-  }
-}
+};
