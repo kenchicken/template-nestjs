@@ -37,24 +37,24 @@ export const convertEntityToResponse = async (
   const response = new Model<%= struct.name.pascalName %>();
   ObjectUtil.copyMatchingFields(entity, response);
   <%_ struct.fields.forEach(function (field, key) { -%>
-  <%_ if (field.relatedType === 'OneToMany' && field.dbTags.indexOf('->;') === -1) { -%>
-    response.<%= field.name.lowerCamelName %> = [];
-    if (entity.<%= field.name.lowerCamelName %>) {
+    <%_ if (field.relatedType === 'OneToMany' && field.dbTags.indexOf('->;') === -1) { -%>
+  response.<%= field.name.lowerCamelName %> = [];
+  if (entity.<%= field.name.lowerCamelName %>) {
     for (const childEntity of entity.<%= field.name.lowerCamelName %>) {
-    const childModel = new Model<%= field.structName.pascalName %>();
-    ObjectUtil.copyMatchingFields(childEntity, childModel);
-    response.<%= field.name.lowerCamelName %>.push(childModel);
+      const childModel = new Model<%= field.structName.pascalName %>();
+      ObjectUtil.copyMatchingFields(childEntity, childModel);
+      response.<%= field.name.lowerCamelName %>.push(childModel);
     }
-    }
-  <%_ } -%>
-  <%_ if (field.relatedType === 'OneToOne' && field.dbTags.indexOf('->;') === -1) { -%>
-  <%_ } -%>
-  <%_ if (field.relatedType === 'ManyToOne' && field.dbTags.indexOf('->;') === -1) { -%>
-    const <%= field.relatedStructName.lowerCamelName %>Model = new Model<%= field.relatedStructName.pascalName %>();
-    ObjectUtil.copyMatchingFields(entity.<%= field.relatedStructName.lowerCamelName %>, <%= field.relatedStructName.lowerCamelName %>Model);
-    response.<%= field.relatedStructName.lowerCamelName %> = <%= field.relatedStructName.lowerCamelName %>Model;
-    response.<%= field.relatedStructName.lowerCamelName %>ID = <%= field.relatedStructName.lowerCamelName %>Model.id;
-  <%_ } -%>
+  }
+    <%_ } -%>
+    <%_ if (field.relatedType === 'OneToOne' && field.dbTags.indexOf('->;') === -1) { -%>
+    <%_ } -%>
+    <%_ if (field.relatedType === 'ManyToOne' && field.dbTags.indexOf('->;') === -1) { -%>
+  const <%= field.relatedStructName.lowerCamelName %>Model = new Model<%= field.relatedStructName.pascalName %>();
+  ObjectUtil.copyMatchingFields(entity.<%= field.relatedStructName.lowerCamelName %>, <%= field.relatedStructName.lowerCamelName %>Model);
+  response.<%= field.relatedStructName.lowerCamelName %> = <%= field.relatedStructName.lowerCamelName %>Model;
+  response.<%= field.relatedStructName.lowerCamelName %>ID = <%= field.relatedStructName.lowerCamelName %>Model.id;
+    <%_ } -%>
   <%_ }) -%>
   return response;
 };
