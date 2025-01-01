@@ -5,10 +5,7 @@ force: true
 import { Inject, Injectable } from '@nestjs/common';
 import Search<%= struct.name.pascalName %>Condition from 'src/app/dto/search-<%= struct.name.lowerKebabName %>.condition';
 import Model<%= struct.name.pascalPluralName %> from 'src/app/dto/model-<%= struct.name.lowerKebabPluralName %>';
-import Model<%= struct.name.pascalName %> from 'src/app/dto/model-<%= struct.name.lowerKebabName %>';
 import { <%= struct.name.pascalName %>RepositoryInterfaceGenerated } from 'src/app/repository/<%= struct.name.lowerKebabName %>.repository.interface.generated';
-import <%= struct.name.pascalName %>Entity from 'src/app/entity/<%= struct.name.lowerKebabName %>.entity';
-import ObjectUtil from 'src/app/util/object-util';
 <%_ let hasOneToMany = false; -%>
 <%_ let hasManyToOne = false; -%>
 <%_ let importStructs = []; -%>
@@ -34,6 +31,11 @@ import ObjectUtil from 'src/app/util/object-util';
 <%_ importStructs.forEach(function (structName, key) { -%>
 import Model<%= structName.pascalName %> from 'src/app/dto/model-<%= structName.lowerKebabName %>';
 <%_ }) -%>
+<%_ if (hasOneToMany || hasManyToOne) { -%>
+import Model<%= struct.name.pascalName %> from 'src/app/dto/model-<%= struct.name.lowerKebabName %>';
+import <%= struct.name.pascalName %>Entity from 'src/app/entity/<%= struct.name.lowerKebabName %>.entity';
+import ObjectUtil from 'src/app/util/object-util';
+<%_ } -%>
 import { convertEntityToResponse } from '../dto-converter';
 
 @Injectable()
