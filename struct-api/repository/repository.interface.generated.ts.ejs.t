@@ -21,10 +21,10 @@ export interface <%= struct.name.pascalName %>RelationOptions {
   all?: boolean;
 <%_ struct.fields.forEach(function (field, key) { -%>
   <%_ if (field.relatedType === 'OneToMany') { -%>
-  <%= field.name.lowerCamelName %>?: boolean;
+  <%= field.name.lowerCamelName %>?: boolean | any;
   <%_ } -%>
   <%_ if (field.relatedType === 'ManyToOne') { -%>
-  <%= field.relatedStructName.lowerCamelName %>?: boolean;
+  <%= field.relatedStructName.lowerCamelName %>?: boolean | any;
   <%_ } -%>
 <%_ }) -%>
 }
