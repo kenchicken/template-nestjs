@@ -5,7 +5,7 @@ force: true
 services:
 
   postgres:
-    image: postgres:14.2-alpine
+    image: postgres:15.10-alpine
     container_name: <%= projectName %>-postgres
     ports:
       - "5432:5432"
@@ -22,7 +22,7 @@ services:
     user: root
 
   postgres-testing:
-    image: postgres:14.2-alpine
+    image: postgres:15.10-alpine
     container_name: anyteam-postgres-testing
     ports:
       - "15432:5432"
