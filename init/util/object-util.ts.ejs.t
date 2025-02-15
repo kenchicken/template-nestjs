@@ -15,7 +15,7 @@ export default class ObjectUtil {
     Object.getOwnPropertyNames(source).forEach((key) => {
       const value = source[key];
       if (
-        value === null ||
+        !value ||
         [
           'string',
           'number',
@@ -26,7 +26,7 @@ export default class ObjectUtil {
         ].includes(typeof value)
       ) {
         target[key] = value;
-      } else if (['Date'].includes(value.constructor.name)) {
+      } else if (!!value && ['Date'].includes(value.constructor.name)) {
         target[key] = value;
       }
     });
@@ -41,13 +41,13 @@ export default class ObjectUtil {
     Object.getOwnPropertyNames(source).forEach((key) => {
       const value = source[key];
       if (
-        value !== null &&
+        !!value &&
         ['string', 'number', 'boolean', 'symbol', 'bigint'].includes(
           typeof value,
         )
       ) {
         target[key] = value;
-      } else if (value !== null && ['Date'].includes(value.constructor.name)) {
+      } else if (!!value && ['Date'].includes(value.constructor.name)) {
         target[key] = value;
       }
     });
