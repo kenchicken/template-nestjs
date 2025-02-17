@@ -39,7 +39,7 @@ export const convertEntityToResponse = async (
   <%_ struct.fields.forEach(function (field, key) { -%>
     <%_ if (field.relatedType === 'OneToMany' && field.dbTags.indexOf('->;') === -1) { -%>
   response.<%= field.name.lowerCamelName %> = [];
-  if (entity.<%= field.name.lowerCamelName %>) {
+  if (entity?.<%= field.name.lowerCamelName %>) {
     for (const childEntity of entity.<%= field.name.lowerCamelName %>) {
       const childModel = new Model<%= field.structName.pascalName %>();
       ObjectUtil.copyMatchingFields(childEntity, childModel);
