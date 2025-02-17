@@ -70,4 +70,25 @@ export default class ObjectUtil {
     }
     return order;
   }
+
+  /**
+   * Convert orderBy string to FindOptionsOrder object.
+   * orderBy = 'id,-email'
+   * return { id: 'ASC', email: 'DESC' }
+   */
+  static convertOrdersWithEntityToMap(
+    condition: any,
+    entity: string,
+  ): { [key: string]: 'ASC' | 'DESC' } {
+    if (!condition.orderBy) {
+      return {};
+    }
+    const orders = condition.orderBy.split(',');
+    const order = {};
+    for (const o of orders) {
+      const key = `${entity}.${o.replace(/^-/, '')}`;
+      order[key] = o.startsWith('-') ? 'DESC' : 'ASC';
+    }
+    return order;
+  }
 }
